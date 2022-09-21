@@ -1,17 +1,26 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
+@import "tab1.page.scss";
+<ion-app>
+  <ion-header>
+    <title>Login Page</title>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
-</ion-content>
+  <ion-content class="ion-padding">
+    <h1>Login</h1>
+    <form>
+      <!--Email address-->
+      <input type="text" name="email" id="email" placeholder="Email Address" required/>
+      <br><br>
+
+     <!--Password-->
+      <input type="password" name="password" id="password" placeholder="Password" required/>
+
+      <h3>Or</h3>
+
+      <!--Button-->
+      <button type="submit" class="fb-button" value="submit">FACEBOOK</button>
+      <button type="submit" class="gg-button" value="submit">GOOGLE</button>
+      <br><br>
+      <button type="submit" class="cont-button" value="submit">CONTINUE</button>
+    </form>
+  </ion-content>
+</ion-app>
