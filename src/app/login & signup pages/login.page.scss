@@ -70,21 +70,21 @@ div {
 .fa-facebook {
     background: #3B5998;
     color: white;
-  }
+}
 
-  .fa {
+.fa {
     padding: 20px;
     font-size: 30px;
-    width: 30%;
+    width: 100%;
     text-align: center;
     text-decoration: none;
-    margin: 5px 2px;
+    margin: 40px auto;
     border-radius: 40px;
     box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
-    margin: auto;
-    padding:15px 0;
-  }
+    margin: 20px;
+    padding:15px 0;;
+}
   
-  .fa:hover {
+.fa:hover {
     box-shadow: none;
-  }
+}
