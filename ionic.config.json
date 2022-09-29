@@ -1,5 +1,7 @@
 {
   "name": "PingApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

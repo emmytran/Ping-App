@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from "@angular/forms";
-import { DbService } from './../services/db.services'
+import { DbService } from '../service/db.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
 
