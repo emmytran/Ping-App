@@ -1,11 +1,16 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>allow-location</ion-title>
-  </ion-toolbar>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </ion-header>
 
-<ion-content>
-  <h1>Allow Location</h1>
-  <p>In order to use the app's function, we need your permission to access your location</p>
-  <ion-button [routerLink]="['/profile']">Allow</ion-button>
+<ion-content class="ion-padding">
+  <div>
+    <h1>Allow Location</h1>
+    <p>In order to use the app's function, we need your permission to access your location</p>
+    <br>
+    
+
+    <button type="submit" class="button" value="submit" [routerLink]="['/profile']">ALLOW</button>
+    <p><a href="skip">Skip</a></p>
+</div>
 </ion-content>
