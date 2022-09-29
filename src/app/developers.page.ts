@@ -1,4 +1,4 @@
-import { DatabaseService, Dev } from './../../services/database.service';
+import { DatabaseService } from './../services/db.service'
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
