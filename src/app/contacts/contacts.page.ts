@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { DbService } from '../service/db.service';
+import { DbService } from './../services/db.service'
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-contacts',
