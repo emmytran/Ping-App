@@ -1,0 +1,41 @@
+<ion-app>
+  <ion-header>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Login Page</title>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <div>
+      <h1>PING</h1>
+      <img src="assets/Ping-Logo.png" class="brand-logo"/>
+      <p>Sign Up</p>
+      
+      <form>
+        <!--Email address-->
+        <input type="text" name="email" id="email" placeholder="Email Address" required/>
+        <br>
+
+        <!--Password-->
+        <input type="password" name="password" id="password" placeholder="Password" required/>
+        <br>
+
+        <!--Phone Number-->
+        <input type="text" name="phonenumber" id="phonenumber" placeholder="Phone Number" required/>
+
+
+        <!--Sign Up with Facebook and Google-->
+        <p>Or Sign Up with</p>
+        <ul id="menu">
+          <li><a href="#" class="fa fa-facebook"></a></li>
+          <li><a href="#" class="fa fa-google"></a></li>
+        </ul>
+
+        <!--Continue button-->
+        <button type="submit" class="button" value="submit" [routerLink]="['/allow-location']">CONTINUE</button>
+      </form>
+      
+        <p>Go back to <a [routerLink]="['/login']">Login Page</a></p>
+    </div>
+  </ion-content>
+</ion-app>

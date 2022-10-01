@@ -1,9 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from "@angular/forms";
-import { DbService } from '../service/db.service';
+import { DbService } from './../services/db.services';
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+@NgModule({
+  imports: [ 
+    ReactiveFormsModule,
+    FormsModule
+  ]
+})
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -17,7 +24,7 @@ export class HomePage  implements OnInit{
     public formBuilder: FormBuilder,
     private toast: ToastController,
     private router: Router
-  ) {}
+  ) { }
  // constructor(public formBuilder: FormBuilder) { }
   ngOnInit() {
     this.db.dbStatef().subscribe((res) => {
