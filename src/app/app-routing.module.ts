@@ -5,6 +5,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'home' , pathMatch: 'full'},
   {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.homePageModule)},
   {
+<<<<<<< HEAD
     path: 'Contacts/:id',
     loadChildren: () => import('./Contacts/Contacts.module').then(m => ContactPageModule)
   },
@@ -12,6 +13,31 @@ const routes: Routes = [
     path: 'contacts',
     loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
   }
+=======
+    path: '',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'allow-location',
+    loadChildren: () => import('./allow-location/allow-location.module').then( m => m.AllowLocationPageModule)
+  },
+  {
+    path: 'main',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+>>>>>>> 59322c6a4d512f95464b5e98f04eeefdf8879e53
 
 ];
 @NgModule({
