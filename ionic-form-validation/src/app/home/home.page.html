@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Check Ionic App Name, Version Code & Number 
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <strong>App Name:</strong> {{ ionAppName }} <br>
+    <strong>Pacakge name:</strong> {{ ionPackageName }} <br>
+    <strong>Version number:</strong> {{ ionVersionNumber }} <br>
+    <strong>Version code:</strong> {{ ionVersionCode }}
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ionic SQLite CRUD Example</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+ <ion-list lines = "full"> 
+  <form [formGroup] = "mainForm" (ngSubmit) = "storeData()">
+    <ion-item>
+      <ion-label position = "floating">Person Name</ion-label>
+      <ion-input formControlName = "Person" type = "text" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position = "floating">Phone number</ion-label>
+      <ion-input formControlName = "phone number" type = "Integer" require>
+      </ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type = "submit" color = "primary" shape = "full" expand = "block">
+          Add Person
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+ </ion-list>
+ <ion-list>
+  <ion-list-header>
+    Phone Number
+  </ion-list-header>
+  <ion-item lines = "insert" * ngFor = "let data of Data">
+    <ion-label>
+      <h5>{{data.person_name}}</h5>
+      <p>{{data.phone_num}}</p>
+    </ion-label>
+    <div class = "item-note" item-end>
+      <ion-icon name = "create" style = "zoom: 2.0" [routerLink] = "['/Contacts/',data.id]"></ion-icon>
+      <ion-icon name = "trash" style = "zoom:2.0" (click) = "deleteContacts(data.id)"></ion-icon>
+    </div>
+  </ion-item>
+ </ion-list>
+</ion-content>
