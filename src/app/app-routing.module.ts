@@ -5,15 +5,6 @@ const routes: Routes = [
   {path: '', redirectTo: 'home' , pathMatch: 'full'},
   {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.homePageModule)},
   {
-<<<<<<< HEAD
-    path: 'Contacts/:id',
-    loadChildren: () => import('./Contacts/Contacts.module').then(m => ContactPageModule)
-  },
-  {
-    path: 'contacts',
-    loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
-  }
-=======
     path: '',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
@@ -37,7 +28,6 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
->>>>>>> 59322c6a4d512f95464b5e98f04eeefdf8879e53
 
 ];
 @NgModule({
