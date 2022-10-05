@@ -1,0 +1,48 @@
+<ion-content>
+  <h1>Trusted List</h1>
+  <div class="card">
+    <div class="list">
+      <ion-card id="open-modal">
+        <ion-card-content>
+          <ion-avatar>
+            <img alt="Silhouette of a person's head" src="assets/images/person.png" />
+          </ion-avatar>
+          <ion-title>First Last</ion-title>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button color="dark" (click)="modal.dismiss()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+      <ion-content>
+        <div class="photo">
+          <img src="assets/images/person.png" alt="">
+        </div>
+        <form>
+         <input type="text" name="first" placeholder="First Name" required/>
+         <br><br>
+         <input type="text" name="last" placeholder="Last Name" required/>
+         <br><br>
+         <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number" required/>
+         <span>Save</span>
+         <span>Delete</span>
+        </form>
+      </ion-content>
+    </ng-template>
+ </ion-modal>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/add-contacts']">
+      <ion-icon name="person-add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

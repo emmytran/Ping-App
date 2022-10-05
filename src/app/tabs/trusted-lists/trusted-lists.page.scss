@@ -1,0 +1,139 @@
+
+ion-content {
+    --background: white;
+    position: relative;
+  
+    .card {
+      height: 81%;
+      width: 100%;
+      background: #f0f6f6;
+      position: absolute;
+      bottom: 0;
+      border-radius: 30px 30px 0 0;
+    }
+  
+    h1 {
+      font-size: 30;
+      font-weight: bold;
+      color: #5B8783;
+      padding-left: 33px;
+      transform: translateY(65px);
+    }
+  
+  
+    ion-fab {
+      padding-right: 29px;
+      padding-bottom: 27px;
+  
+      ion-fab-button {
+        --background: #fff;
+        --box-shadow: 0px 4px 4px #94bbbc;
+  
+        ion-icon{
+          color: black;
+        }
+      }
+    }
+  
+   .list {
+    padding: 16px;
+  
+    ion-card {
+      display: flex;
+      justify-self: center;
+      border-radius: 30px;
+      box-shadow: 0px 4px 4px #94bbbc;
+  
+      ion-title {
+        font-size: 20px;
+        font-weight: 500;
+        color: #5B8783;
+        transform: translate(108px, -30px);
+      }
+  
+      img {
+        transform: translateY(13px);
+      }
+  
+      ion-title {
+        transform: translate(70px, -32px);
+      }
+  
+    }
+  
+   }
+  
+  
+  }
+  
+  ion-modal {
+    --height: 57%;
+    --width: 93%;
+    --border-radius: 30px;
+    --box-shadow: 0 4px 4px #94bbbc;
+    margin-top: -48px;
+  }
+  
+  ion-modal::part(backdrop) {
+    background: rgba(209, 213, 219);
+    opacity: 1;
+  }
+  
+  ion-modal ion-toolbar {
+    --color: white;
+  
+    ion-icon{
+      font-size: 30px;
+      color: #5B8783;
+    }
+  
+  
+  }
+  
+    .photo {
+     display: flex;
+     justify-content: center;
+  
+     img{
+      width: 120px;
+      border-radius: 50%;
+      top: 200px;
+  
+     }
+    }
+  
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 32px;
+  
+    input {
+      background-color: #fbfbfb;
+      border:none;
+      outline:none;
+      width: 300px;
+      height: 49px;
+      color: #7AA7AD;
+      border-radius: 30px;
+      padding-left: 14px;
+      padding-right: 14px;
+      font-weight: 600;
+      font-size: 15px;
+      box-shadow: inset -1px 4px 4px #94BBBC, 0 -1px 1px #FFF, 0 1px 0 #FFF;
+    }
+  
+    ::placeholder {
+      color:#7AA7AD;
+    }
+  
+  
+  span{
+    color: #5B8783;
+    font-size: 15px;
+    font-weight: normal;
+    padding-top: 27px;
+  }
+  
+  }
