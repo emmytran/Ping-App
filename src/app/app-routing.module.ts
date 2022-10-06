@@ -43,6 +43,22 @@ const routes: Routes = [
     path: 'add-now',
     loadChildren: () => import('./pages/add-now/add-now.module').then( m => m.AddNowPageModule)
   },
+  {
+    path: 'location',
+    loadChildren: () => import('./pages/location/location.module').then( m => m.LocationPageModule)
+  },
+  {
+    path: 'sync',
+    loadChildren: () => import('./pages/sync/sync.module').then( m => m.SyncPageModule)
+  },
+  {
+    path: 'alert',
+    loadChildren: () => import('./pages/alert/alert.module').then( m => m.AlertPageModule)
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
+  },
 
 ];
 @NgModule({

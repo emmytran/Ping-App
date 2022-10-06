@@ -13,7 +13,7 @@ ion-content {
     }
   
     h1 {
-      font-size: 30;
+      font-size: 30px;
       font-weight: bold;
       color: #5B8783;
       padding-left: 33px;
@@ -127,13 +127,19 @@ ion-content {
     ::placeholder {
       color:#7AA7AD;
     }
-  
-  
-  span{
-    color: #5B8783;
-    font-size: 15px;
-    font-weight: normal;
-    padding-top: 27px;
   }
   
+
+  .btns {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+  
+    .save {
+      height: 47px;
+      width: 130px;
+      --border-radius: 30px;
+      --background: #94BBBC;
+      --box-shadow: 0px 4px 4px #5B8783;
+    }
   }
