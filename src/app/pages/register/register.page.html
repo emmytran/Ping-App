@@ -1,0 +1,30 @@
+<ion-content>
+  <div class="top">
+    <h1>Ping App</h1>
+    <img src="assets/images/iconapp1.png">
+  </div>
+  <span>Sign Up</span>
+  <form>
+   <input type="email" name="eml" placeholder="Email Adress" required/>
+   <br><br>
+   <input type="password" name="pwd" placeholder="Password" required/>
+   <br><br>
+   <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number" required/>
+  </form>
+  <span class="or">Or</span>
+
+ <div class="socials">
+  <ion-button class="btn-fb">
+    <ion-icon name="logo-facebook"></ion-icon>
+  </ion-button>
+  <ion-button class="btn-go">
+    <ion-icon name="logo-google"></ion-icon>
+  </ion-button>
+ </div>
+ <div class="bottom">
+  <ion-button class="btn-continue" [routerLink]="['/add-now']">CONTINUE</ion-button>
+ </div>
+ <span class="last">
+  <a href="#" [routerLink]="['/login']">Cancel</a>
+ </span>
+</ion-content>

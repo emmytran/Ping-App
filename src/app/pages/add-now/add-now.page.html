@@ -1,0 +1,33 @@
+<ion-icon name="chevron-back-outline" [routerLink]="['/signup']" ></ion-icon>
+
+
+<ion-content>
+  <h1>Add Contacts</h1>
+  <div class="card">
+
+
+
+    <form>
+        <img src="assets/images/person.png" />
+        <br><br>
+
+      <input type="text" name="first" placeholder="First Name" required/>
+      <br><br>
+      <input type="text" name="last" placeholder="Last Name" required/>
+      <br><br>
+      <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number" required/>
+    </form>
+
+    <div class="btns">
+      <ion-button class="add">
+        Add
+      </ion-button>
+      <ion-button class="next">
+        Next
+      </ion-button>
+     </div>
+     <span class="last">
+      <a href="#" [routerLink]="['/home/main']">Skip</a>
+     </span>
+  </div>
+</ion-content>

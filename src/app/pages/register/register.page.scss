@@ -1,0 +1,131 @@
+ion-content {
+    --background: #F0F6F6;
+  
+    .top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      img {
+        width: 134px ;
+        height: 134px;
+        position: absolute;
+        top: 180px;
+      }
+      h1{
+        top: 100px;
+        font-size: 35px;
+        font-weight: bold;
+        color: #7AA7AD;
+        //transform: translate(121px, 102px);
+        transform: translateY(102px);
+  
+      }
+     }
+     span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #5B8783;
+      transform: translateY(285px);
+     }
+  
+  
+   form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 307px;
+    color: #F0F6F6;
+  
+    input {
+      border:none;
+      outline:none;
+      width: 324px;
+      height: 49px;
+      color: #7AA7AD;
+      border-radius: 30px;
+      padding-left: 14px;
+      padding-right: 14px;
+      font-weight: 600;
+      box-shadow: inset -1px 4px 4px #94BBBC, 0 -1px 1px #FFF, 0 1px 0 #FFF;
+    }
+  
+    ::placeholder {
+      color:#7AA7AD;
+    }
+  
+   }
+  
+   .or {
+    transform: translateY(25px);
+   }
+  
+   .socials{
+    display: flex;
+    justify-content: center;
+    padding: 47px;
+  
+  
+    .btn-fb {
+      width: 125px;
+      height: 49px;
+      --background: #4267B2;
+      --border-radius: 30px;
+      --box-shadow: 0px 4px 4px #38558F;
+      transform: translateX(-15px);
+  
+      ion-icon{
+        font-size: 24px;
+      }
+    }
+    .btn-go {
+      width: 125px;
+      height: 49px;
+      --background: #fff;
+      --border-radius: 30px;
+      --box-shadow: 0px 4px 4px #b9b9b9;
+      transform: translateX(15px);
+  
+      ion-icon {
+        color: #fd684f;
+        font-size: 24px;
+      }
+    }
+  }
+  
+  .bottom {
+    display: flex;
+    justify-content: center;
+  
+    ion-button {
+      display: flex;
+      justify-content: center;
+      width: 324px;
+      height: 49px;
+      --background: #94BBBC;
+      --box-shadow: 0px 4px 4px #5b8783;
+      --ripple-color: #F0F6F6;
+      font-size: 15px;
+      font-weight: 600;
+      --border-radius: 30px;
+     // transform: translateY(-20px);
+  }
+  }
+  .last {
+    transform: translateY(20px);
+    font-weight: normal;
+  
+    a {
+      padding-left: 3px;
+      text-decoration: none;
+      color: #5b8783;
+      font-weight: 600;
+    }
+  }
+  
+  
+  }

@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import '@capacitor-community/sqlite';
 @Injectable({
   providedIn: 'root'
 })
@@ -69,7 +68,7 @@ export class DbService {
   //Add function
   addContacts(person_name, phone_num) {
     let data = [person_name, phone_num];
-    return this.storage.executeSql('INSERT INTO contactsTable (person_name, phone_name) VALUES(?,?)', data)
+    return this.storage.executeSql('INSERT INTO songtable (person_name, phone_name) VALUES(?,?)', data)
     .then(res =>{
       this.getContacts();
     });
