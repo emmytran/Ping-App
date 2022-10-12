@@ -80,24 +80,24 @@ private _PLAT    : Platform)
 */
 ionViewDidLoad() : void
 {
-this._PLAT
-.ready()
-.then(() =>
-{
-setTimeout(() =>
-{
-this._DB
-.dataExistsCheck('technologies')
-.then((data) =>
-{
-  this.loadRecords();      
-})
-.catch((error) =>
-{
-  console.dir(error);
-});
-}, 1500);
-});
+  this._PLAT
+  .ready()
+  .then(() =>
+  {
+    setTimeout(() =>
+  {
+  this._DB
+    .dataExistsCheck('technologies')
+    .then((data) =>
+    {
+      this.loadRecords();      
+    })
+    .catch((error) =>
+    {
+      console.dir(error);
+    });
+    }, 1500);
+  });
 }
 
 /**
