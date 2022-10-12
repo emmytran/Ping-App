@@ -1,102 +1,208 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { Contacts } from './contacts';
+//import { Contacts } from './contacts';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+//import { BehaviorSubject, Observable } from 'rxjs';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-@Injectable({
-  providedIn: 'root'
-})
-export class DbService {
-  private storage: SQLiteObject;
-  contactsList = new BehaviorSubject([]);
-  private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  constructor(
-    private platform: Platform,
-    private sqlite: SQLite,
-    private httpClient: HttpClient,
-    private sqlPorter: SQLitePorter,
-  ) { 
-    this.platform.ready().then(() => {
-      this.sqlite.create({
-        name: 'position_db.db',
-        location: 'default'
-      })
-      .then((db: SQLiteObject) => {
-          this.storage = db;
-          this.getFakeData();
-      });
+import { PromiseType } from 'protractor/built/plugins';
+
+@Injectable()
+export class Database {
+  /**
+   * @name _DB
+   * @type {object}
+   * @private
+   * @description   Define an object for handling interfacing with teh SQLite plugin
+  */
+ private _DB : SQLiteObject;
+
+ /**
+  * @name _DB_NAME
+    * @type {object}
+    * @private
+    * @description     Defines the name of the SQLite database to be created
+  */
+ private _DB_NAME  : string = "ionic.db";
+
+ constructor(public http: HttpClient,
+  private _PLAT: Platform,
+  private _SQL: SQLite,
+  private _PORTER: SQLitePorter) {}
+
+  /**
+   * @public
+   * @method init
+   * @descritption
+   * @return {none}
+   */
+  init () : void
+  {
+    //Define teh application SQLite database
+    this._SQL.create({
+      name: this._DB_NAME,
+      location: 'default'
+    })
+    .then((db: SQLiteObject) =>
+    {
+      //Associate teh database handler object with the _DB private property
+      this._DB = db;
+    })
+    .catch((e) =>
+    {
+      console.log(e);
     });
   }
-  dbState() {
-    return this.isDbReady.asObservable();
-  }
-  fetchContacts(): Observable<Contacts[]>{
-    return this.contactsList.asObservable();
-  }
-  //Generate Fake data
-  getFakeData() {
-    this.httpClient.get(
-      'assets/dump.sql',
-      {responseType: 'text'}
-    ).subscribe(data => {
-      this.sqlPorter.importSqlToDb(this.storage, data)
-        .then(_ => {
-          this.getContacts();
-          this.isDbReady.next(true);
-        })
-        .catch(error => console.error(error));
+/**
+ * @public
+ * @method dataExistsCheck
+ * @param tablename {string}  Name of table we want to check for data
+ * @description   Check that data exists within teh specified SQLite table
+ * @return {Promise}
+ */
+dataExistsCheck(Contacts: string)
+{
+  return new Promise((resolve, reject) => {
+    this._DB.executeSql('SELECT count(*) AS numRows FROM' + Contacts)
+    .then((data: any) => {
+      var numRows = data.rows.item(0).numRows;
+      resolve(numRows);
+    })
+    .catch((e) => {
+      reject (e);
     });
-  } 
-  //Get  a list of the contact
-  getContacts(){
-    return this.storage.executeSql('SELECT * FROM contactsTable', []).then(res =>{
-      let item: Contacts[] = [];
-      if(res.rows.length > 0 ){
-        for (var i =0; i < res.rows.length; i++){
-          item.push({
-            id: res.rows.item(i).id,
-            person_name: res.rows.item(i).person_name,
-            phone_num: res.rows.item(i).phone_num
+  });
+}
+
+/**
+ * @public
+ * @method  retrieveAllRecords
+ * @description   Retrieve all stored records from the technologies SQLite Contacts
+ * @return {Promise}
+ */
+
+retrieveAllRecords() 
+{
+  return new Promise((resolve, reject) => 
+  {
+    this._DB.executeSql('SELECT id, name, email, phoneNum FROM technologies')
+    .then((data: any) => 
+    {
+      let items : any = [];
+      if(data.rows.length > 0)
+      {
+        var k;
+        //Iterate through returned records and push as nested objects into the item array
+        for(k =0; k < data.rows.length; k++)
+        {
+          items.push(
+            {
+            id:data.rows.item(k).id,
+              name:data.rows.item(k).name,
+              email:data.rows.item(k).email,
+              phoneNum:data.rows.length.item(k).phoneNum
           });
         }
       }
-      this.contactsList.next(item);
-    });
-  }
-  //Add function
-  addContacts(person_name, phone_num) {
-    let data = [person_name, phone_num];
-    return this.storage.executeSql('INSERT INTO songtable (person_name, phone_name) VALUES(?,?)', data)
-    .then(res =>{
-      this.getContacts();
-    });
-  }
-  //Get a single items
-  getContact(id):Promise<Contacts>{
-    return this.storage.executeSql('SELECT * FROM contactsTable WHERE id = ?', [id]).then (res =>{
-      return {
-        id: res.rows.item(0).id,
-        person_name: res.rows.item(0).person_name,
-        phone_num: res.rows.item(0).phone_name
-      }
-    });
-  }
-  //To make any Update
-  updateContacts(id, contact: Contacts)
-  {
-    let data = [contact.person_name, contact.phone_num];
-    return this.storage.executeSql('UPDATE contactsTable SET person_name = ?, phone_num = ? WHERE id = ${id}', data)
-    .then(data => {
-      this.getContacts();
+      resolve(items);
     })
-  }
-  //To Delete any Contacts
-  deleteContacts(id){
-    return this.storage.executeSql('DELETE FROM contactsTable WHERE id = ?', [id])
-    .then(res => {
-      this.getContacts
+    .catch((error:any) =>
+    {
+      reject(error);
     });
-  }
+  });
+}
+/**
+ * @public
+ * @method importSQL
+ * @param sqlite {string}   The SQL data to imported
+ * @description   Imports the supplied SQL data to the application database
+ * @return {Promise}
+ */
+importSQL(sql: any)
+{
+  return new Promise((resolve, reject) =>
+  {
+    this._PORTER.importSqlToDb(this._DB, sql)
+    .then((data) =>
+    {
+      resolve(data);
+    })
+    .catch((e) =>
+    {
+      reject(e);
+    });
+  });
+}
+
+/**
+ * @public
+ * @method exportAsSQL
+ * @description   Exports SQL data from the application database
+ * @return {Promise}
+ */
+exportAsSQL()
+{
+  return new Promise ((resolve, reject) => 
+  {
+    this._PORTER
+    .exportDbToSql(this._DB)
+    .then((data) => 
+    {
+      resolve(data);
+    })
+    .catch((e) => 
+    {
+      reject(e);
+    });
+  });
+}
+
+/**
+ * @public
+ * @method importJSON
+ * @param importJSON  {string}    The JSON data to be imported
+ * @description     Imports the supplied JSON data to the application database
+ * @return {Promise}
+ */
+importJSON(JSON:any)
+{
+  return new Promise((resolve, reject) => 
+  {
+    this._PORTER
+    .importJsonToDb(this._DB, JSON)
+    .then((data) =>
+    {
+      resolve(data);
+    })
+    .catch((e) => 
+    {
+      reject(e);
+    });
+  });
+}
+/**
+ * @public
+ * @method clear
+ * @description     Remove all tables/data from the application database
+ * @return {Promise}
+ */
+clear()
+{
+  return new Promise((resolve, reject) => 
+  {
+    this._PORTER
+    .wipeDb(this._DB)
+    .then((data) => 
+    {
+      resolve(data);
+    })
+    .catch((error) => 
+    {
+      reject(error);
+    });
+  });
+}
+
+
 }
