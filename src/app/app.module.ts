@@ -8,9 +8,11 @@ import { AppComponent } from './app.component';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
 import { SQLite } from '@ionic-native/sqlite/ngx'
 import { HttpClientModule } from '@angular/common/http'
+import { Database } from './services/db.service';
+import { HomePage } from './home/home.page';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomePage],
   entryComponents: [],
   imports: [
     BrowserModule, 
@@ -24,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http'
     { 
       provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy 
-    }
+    },
+    Database
   ],
   bootstrap: [AppComponent],
 })
