@@ -257,6 +257,7 @@ importAlert() : void
   let alert : any = this._ALERT.create({
     header : 'Import data',
     subHeader : 'Please select which import option you prefer',
+    message : "This is an alert!",
     buttons : [
       {
         text : 'JSON',
