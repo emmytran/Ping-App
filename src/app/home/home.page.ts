@@ -255,9 +255,9 @@ importJSON(jsonFile: any) : void
 importAlert() : void
 {
   let alert : any = this._ALERT.create({
-    title : 'Import data',
-    subTitle : 'Please select which import option you prefer',
-    button : [
+    header : 'Import data',
+    subHeader : 'Please select which import option you prefer',
+    buttons : [
       {
         text : 'JSON',
         handler : () =>
@@ -286,9 +286,10 @@ importAlert() : void
 exportAlert() : void
 {
   let alert : any = this._ALERT.create({
-    title : 'Export data',
-    subTitle : 'Please select which export option you prefer',
-    button : [
+    header : 'Export data',
+    subHeader : 'Please select which export option you prefer',
+    message : "This is an alert!",
+    buttons : [
       {
         text : 'SQL',
         handler : () =>
