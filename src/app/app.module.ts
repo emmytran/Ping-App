@@ -9,16 +9,17 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
 import { SQLite } from '@ionic-native/sqlite/ngx'
 import { HttpClientModule } from '@angular/common/http'
 import { Database } from './services/db.service';
-import { HomePage } from './home/home.page';
+import { HomePageModule } from './home/home.module';
 
 @NgModule({
-  declarations: [AppComponent, HomePage],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
-    HttpClientModule
+    HttpClientModule,
+    HomePageModule
   ],
   providers: [
     SQLite,
