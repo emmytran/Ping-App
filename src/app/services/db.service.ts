@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { PromiseType } from 'protractor/built/plugins';
+//import { PromiseType } from 'protractor/built/plugins';
 
 @Injectable()
 export class Database {
