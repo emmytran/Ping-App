@@ -3,10 +3,11 @@ import { Plugins } from '@capacitor/core';
 import '@capacitor-community/sqlite';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, from, of } from "rxjs";
-import { switchMap } from 'rxjs/operators';
+import { async, BehaviorSubject, from, of } from "rxjs";
+import { concatAll, switchMap } from 'rxjs/operators';
 
 import { JsonSQLite } from "@capacitor-community/sqlite";
+import { Contacts } from "./contacts";
 //import { info } from "console";
 const  { CapacitorSQLite, Device, Storage } = Plugins;
 
@@ -17,8 +18,13 @@ const DB_NAME_KEY =  'db_name';
   providedIn: 'root'
 })
 export class DatabaseService {
+  getDatabaseExport: any;
+  addNewContacts: any;
+  deleteContacts: any;
+  getProductList: any;
   dbReady = new BehaviorSubject(false);
   dbName = '';
+  getContactsList: any;
   
   constructor(private http: HttpClient, private alertCrtl: AlertController) { }
   
