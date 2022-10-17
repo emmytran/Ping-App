@@ -25,13 +25,13 @@
         </activity>
 
         <service
-            android:name=".java.MyFireBaseMeessagingService"
+            android:name=".java.MyFirebaseMessagingService"
             android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            <intent-filter>
-        <service>
-        
+        <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+    </intent-filter>
+</service>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -42,7 +42,7 @@
                 android:resource="@xml/file_paths"></meta-data>
 
         </provider>
-      <meta-data android:name="com.google.firebase.messaging.default_notification_icon" />
+
     </application>
 
     <!-- Permissions -->
