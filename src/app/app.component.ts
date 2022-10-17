@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LoadingController, Platform }  from  '@ionic/angular';
-import { readSync } from 'fs';
 import { DatabaseService } from './services/database.service';
 import { FcmService } from './services/fcm.service';
 
@@ -15,9 +14,7 @@ export class AppComponent {
     private databaseService: DatabaseService,
     private loadingCtrl: LoadingController,
     private fcmService: FcmService
-  ) {
-    this.initializeApp();
-  }
+  ) {this.initializeApp();}
 
   async initializeApp() {
     this.platform.ready().then(() => {
