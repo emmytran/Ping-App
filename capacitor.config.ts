@@ -5,6 +5,11 @@ const config: CapacitorConfig = {
   appName: 'PingApp',
   webDir: 'www',
   bundledWebRuntime: false,
+  plugins: {
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"],
+    },
+  },
   cordova: {
     preferences: {
       ScrollEnabled: 'false',
