@@ -5,7 +5,7 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed,
   Capacitor
-} from '@capacitor/core'
+} from '@capacitor/core';
 import { Router } from '@angular/router';
 
 const { PushNotifications } = Plugins;
