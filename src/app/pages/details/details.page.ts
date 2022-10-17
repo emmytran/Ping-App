@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { plugins } from 'cordova';
-import { Plugins } from 'protractor/built/plugins';
-//import { Plugin } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
 const { PushNotifications } = Plugins;
 
 @Component({
