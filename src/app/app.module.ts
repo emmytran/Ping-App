@@ -5,13 +5,19 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { environment } from 'src/environments/environment';
+
 //Plugin
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
 import { SQLite } from '@ionic-native/sqlite/ngx'
 import { HttpClientModule } from '@angular/common/http'
 import { DatabaseService } from './services/database.service';
-import { HomePage } from './home/home.page';
 import { HomePageModule } from './home/home.module';
+
+//Firbase Plugin
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +27,10 @@ import { HomePageModule } from './home/home.module';
     IonicModule.forRoot(), 
     AppRoutingModule, 
     HttpClientModule,
-    HomePageModule
+    HomePageModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [
     SQLite,

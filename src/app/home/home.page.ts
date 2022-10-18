@@ -1,11 +1,23 @@
-import { Component, NgProbeToken, OnInit } from '@angular/core';
+import { Component, ElementRef, NgProbeToken, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../services/database.service';
+//Push Notification
 import{
   ActionPerformed,
   PushNotificationSchema,
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
+//Geolocation
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, 
+         AngularFirestoreCollection
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
+import { Plugins } from '@capacitor/core';
+const { Geolocation } = Plugins;
+
+declare var google;
 
 @Component({
   selector: 'app-home',
@@ -17,6 +29,19 @@ export class HomePage implements OnInit{
   contacts = [];
   export = null;
   newContacts = 'New Contacts';
+  
+  //Firebase data
+  location: Observable<any>
+  locationCollection: AngularFirestoreCollection<any>;
+  //Map related
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
+  marker = [];
+  //Misc
+  isTracking = false;
+  watch: string;
+  user = null;
+
   ngOnInit() {
     console.log('Initializing HomePage');
 
@@ -51,8 +76,11 @@ export class HomePage implements OnInit{
     );
   }
 
-  constructor(private databaseService: DatabaseService) {
+  constructor(private databaseService: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  //Database setup  
     this.loadContacts();
+    //Geolocation setup
+  this.anonLogin();
   }
   loadContacts(){
     this.databaseService.getContactsList().subscribe(res => {
@@ -75,4 +103,5 @@ export class HomePage implements OnInit{
     await this.databaseService.deleteContacts(contacts.id);
     this.contacts = this.contacts.filter(c => c != contacts)
   }
+  
 }
