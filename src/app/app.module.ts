@@ -16,12 +16,8 @@ import { HomePageModule } from './home/home.module';
 
 //Firbase Plugin
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule, provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { AngularFireAuthModule, provideAuth,getAuth } from '@angular/fire/auth';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideFunctions,getFunctions } from '@angular/fire/functions';
-import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,12 +30,7 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
     HomePageModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    provideMessaging(() => getMessaging())
+    AngularFireAuthModule
   ],
   providers: [
     SQLite,
