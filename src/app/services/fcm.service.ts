@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Plugins, Capacitor } from '@capacitor/core';
 import { Router } from '@angular/router';
-import { PushNotification, 
-  PushNotificationToken, 
-  PushNotificationActionPerformed} from '@capacitor/core';
-
-const { PushNotifications } = Plugins;
+import{
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
 
 @Injectable({
   providedIn: 'root'
@@ -22,41 +23,31 @@ export class FcmService {
 
   private registerPush()
   {
-    PushNotifications.requestPermission().then((permission) => {
-      if(permission.grantes) {
+    PushNotifications.requestPermissions().then((result) => {
+      if(result.receive === "granted") {
         //Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
       }else {
         //No permission for push granted
       }
     });
-    PushNotifications.addContacts(
-      'registration',
-      (token: PushNotificationToken) => {
-        console.log('My token: ' + JSON.stringify(token));
-      }
-    );
-
-    PushNotifications.addContacts('registrationError', (error: any) => {
-      console.log('Error: '+ JSON.stringify(error));
+    PushNotifications.addListener('registration', (token: Token) => {
+      alert('Push registration success, token: ' + token.value);
     });
-
-    PushNotifications.addContacts(
-      'pushNotificationReveived',
-      async (notification: PushNotification) => {
-        console.log('Push received: ' + JSON.stringify(notification));
-      }
+    PushNotifications.addListener('registrationError', (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    });
+    PushNotifications.addListener(
+      'pushNotificationReceived',
+      (notification: PushNotificationSchema) => {
+        alert('Push  receive: ' + JSON.stringify(notification));
+      },
     );
-
-    PushNotifications.addContacts(
+    PushNotifications.addListener(
       'pushNotificationActionPerformed',
-      async (notification: PushNotificationActionPerformed) => {
-        const data = notification.notification.data;
-        console.log('Action performed: ' + JSON.stringify(notification.notification));
-        if (data.detailsId) {
-          this.router.navigateByUrl('home/${data.detailsId');
-        }
-      }
+      (notification: ActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      },
     );
   }
 }
