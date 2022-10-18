@@ -29,7 +29,7 @@ export class DatabaseService {
   constructor(private http: HttpClient, private alertCrtl: AlertController) { }
   
   async  init() : Promise<void> {
-   const infor= await Device.getinfo();
+   const infor= await Device.info();
    
    if (infor.platform === "android") {
     try {
