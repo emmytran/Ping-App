@@ -15,9 +15,9 @@ import { DatabaseService } from './services/database.service';
 import { HomePageModule } from './home/home.module';
 
 //Firbase Plugin
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule} from '@angular/fire/compat';
+import { AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule} from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [AppComponent],
