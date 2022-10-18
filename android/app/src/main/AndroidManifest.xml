@@ -9,6 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+    android:name="com.google.firebase.messaging.default_notification_color"
+    android:resource="@color/colorAccent" />
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
             android:name="com.Ping.app.MainActivity"
@@ -31,7 +33,6 @@
         <action android:name="com.google.firebase.MESSAGING_EVENT" />
     </intent-filter>
 </service>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -40,9 +41,6 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
-            <meta-data
-                android:name="com.google.firebase.messaging.default_notification_icon"
-                android:resource="@mipmap/push_icon_name" ></meta-data>
             <meta-data
                 android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyCZi86iBY-wxndiCZeWBCqees4Q1_ViCE"></meta-data>

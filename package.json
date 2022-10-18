@@ -26,6 +26,7 @@
     "@capacitor/geolocation": "^4.0.1",
     "@capacitor/push-notifications": "^4.1.0",
     "@ionic-native/core": "^5.36.0",
+    "@ionic-native/fcm": "^5.36.0",
     "@ionic-native/sqlite": "^5.36.0",
     "@ionic-native/sqlite-porter": "^5.36.0",
     "@ionic/angular": "^6.1.9",

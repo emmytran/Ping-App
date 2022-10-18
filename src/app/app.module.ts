@@ -19,6 +19,7 @@ import { AngularFireModule} from '@angular/fire/compat';
 import { AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule} from '@angular/fire/compat/auth';
 
+import { FCM } from '@ionic-native/fcm/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -33,6 +34,7 @@ import { AngularFireAuthModule} from '@angular/fire/compat/auth';
     AngularFireAuthModule
   ],
   providers: [
+    FCM,
     SQLite,
     SQLitePorter,
     { 
