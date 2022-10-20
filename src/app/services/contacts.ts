@@ -3,5 +3,3 @@ export class Contacts {
     person_name: string;
     phone_num: number;
 }
-
-
