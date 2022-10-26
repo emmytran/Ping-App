@@ -1,76 +1,203 @@
-import { Injectable, INJECTOR } from "@angular/core";
-import { Plugins } from '@capacitor/core';
-import '@capacitor-community/sqlite';
-import { AlertController } from '@ionic/angular';
-import { HttpClient } from "@angular/common/http";
-import { async, BehaviorSubject, from, of } from "rxjs";
-import { concatAll, switchMap } from 'rxjs/operators';
+import { Platform } from '@ionic/angular';
+import { Injectable } from '@angular/core';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { HttpClient } from '@angular/common/http';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { BehaviorSubject, Observable } from 'rxjs';  
+import { Contacts } from './contacts';
 
-import { JsonSQLite } from "@capacitor-community/sqlite";
-import { Contacts } from "./contacts";
-//import { info } from "console";
-const  { CapacitorSQLite, Device, Storage } = Plugins;
-
-const DB_SETUP_KEY = 'first_db_setup';
-const DB_NAME_KEY =  'db_name';
+export interface Dev {
+  id: number,
+  name: string,
+  email: any[],
+  phone: number
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DatabaseService {
-  getDatabaseExport: any;
-  addNewContacts: any;
-  deleteContacts: any;
-  getProductList: any;
-  dbReady = new BehaviorSubject(false);
-  dbName = '';
-  getContactsList: any;
-  
-  constructor(private http: HttpClient, private alertCrtl: AlertController) { }
-  
-  async  init() : Promise<void> {
-   const infor= await Device.info();
-   
-   if (infor.platform === "android") {
-    try {
-      const sqlite = CapacitorSQLite as any;
-      await sqlite.requestPermissons();
-      this.setupDatabase();
-    }catch (e) {
-      const alert = await this.alertCrtl.create({
-        header: 'No DB access',
-        subHeader: "This app can't work without Database access.",
-        buttons: ['Ok']
-      });
-      await alert.present();
-    }
-   }else {
-    this.setupDatabase();
-   }
-  }
+private storage: SQLiteObject;
+private database: SQLiteObject;
+public dbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  private async setupDatabase() {
-    const dbSetupDone = await Storage.get({key: DB_SETUP_KEY});
+contacts = new BehaviorSubject([]);
+names = new BehaviorSubject([]);
+phones = new BehaviorSubject([]);
+email = new BehaviorSubject([]);
+init: any;
 
-    if(!dbSetupDone.value) {
-      this.downloadDatabase();
-    }else{
-      this.dbName = (await Storage.get({key: DB_NAME_KEY})).value;
-      await CapacitorSQLite.open({database: this.dbName});
-      this.dbReady.next(true);
-    }
-  }
-  private downloadDatabase(update = false) {
-    this.http.get('').subscribe(async (jsonExport: JsonSQLite) => {
-      const jsonstring = JSON.stringify(jsonExport);
-      const isvalid = await CapacitorSQLite.isJsonValid({jsonstring});
-
-      if (!update) {
-        await CapacitorSQLite.createSyncTable();
-      }else {
-        await CapacitorSQLite.setSyncDate({syncdate: '' + new Date().getTime ()})
-      }
-      this.dbReady.next(true);
+constructor(private plt: Platform, private sqlitePorter: SQLitePorter, private sqlite: SQLite, private http: HttpClient) {
+  this.plt.ready().then(() => {
+    this.sqlite.create({
+      name: 'Contacts.db',
+      location: 'default'
+    })
+    .then((db: SQLiteObject) => {
+      this.database = db;
+      this.seedDatabase();
     });
-  }
+  });
+}
+dbState() {
+  return this.dbReady.asObservable();
+}
+seedDatabase() {
+  this.http.get('assets/seed.sql', {responseType: 'text'})
+  .subscribe(sql => {
+    this.sqlitePorter.importSqlToDb(this.database, sql)
+    .then(_ => {
+      this.loadName();
+      this.loadEmail();
+      this.loadPhoneNum();
+      this.dbReady.next(true);
+    })
+    .catch(e => console.error(e));
+  });
+}
+fetchContacts(): Observable<Contacts[]> 
+{
+  return this.contacts.asObservable();
+}
+getDatabaseState()
+{
+  return this.dbReady.asObservable();
+}
+getContact(): Observable<Dev[]> 
+{
+  return this.names.asObservable();
+}
+getPhoneNum(): Observable<any[]> 
+{
+  return this.phones.asObservable();
+}
+
+loadName() 
+{
+  return this.database.executeSql('SELECT * FROM contacts', []).then(data => {
+    let contacts: Contacts[] = [];
+
+    if(data.rows.length > 0)
+    {
+      for (var i=0; i< data.rows.length; i++)
+      {
+        let email = [];
+        if(data.rows.item(i).email != '')
+        {
+          email = JSON.parse(data.rows.item(i).email);
+        }
+        contacts.push({
+          id: data.rows.item(i).id,
+          person_name: data.rows.item(i).name,
+          email: data.rows.item(i).email,
+          phone_num: data.rows.item(i).phone
+        });
+      }
+    }
+    this.contacts.next(contacts);
+  });
+}
+
+addContacts(person_name, email, phone_num) 
+{
+  let data = [person_name, JSON.stringify(email), phone_num];
+  return this.database.executeSql('INSERT INTO contacts (name, email, phoneNum) VALUES (?,?,?)', data).then(data => {
+    this.loadName();
+  })
+}
+
+/*getName(id): Promise<Dev>
+{
+  return this.database.executeSql('SELECT FROM contacts WHERE id = ?', [id]).then(_=> {
+    let email = [];
+    if(data.rows.item(0).email != '') 
+    {
+      email = JSON.parse(data.rows.item(0).email);
+    }
+    return 
+    {
+      id: data.rows.item(0).id,
+      person_name: data.rows.item(0).person_name,
+      email: email,
+      phone_num: data.rows.item(0).phone_num
+    }
+  });
+}*/
+
+deleteContacts(id) 
+{
+  return this.database.executeSql('DELETE FROM contacts WHERE id = ?', [id]).then(_ => {
+    this.loadName();
+    this.loadEmail();
+    this.loadPhoneNum();
+  })
+}
+
+updateContacts(dev: Dev)
+{
+  let data = [dev.name, JSON.stringify(dev.email), dev.phone];
+  return this.database.executeSql('UPDATE contacts SET name = ?, email = ?, phone = ? WHERE id =${dev.id}',data).then(data => {
+    this.loadName();
+  })
+}
+
+loadEmail()
+{
+  let query = 'SELECT Email.name, Email.id, Name.name AS creator FROM email JOIN name ON name.id = email.creatorId';
+  return this.database.executeSql(query, []).then(data => {
+    let email = [];
+    if(data.rows.length > 0) 
+    {
+      for(var i =0; i < data.rows.length; i++)
+      {
+        email.push({
+          person_name: data.rows.item(i).person_name,
+          id: data.rows.item(i).id,
+          creator: data.rows.item(i).creator,
+        });
+      }
+    }
+    this.email.next(email);
+  })
+}
+
+loadPhoneNum()
+{
+  let query = 'SELECT PhoneNum.name, PhoneNum.id, Name.name AS creator FROM phone JOIN name ON name.id = phoneNum.creatorId';
+  return this.database.executeSql(query, []).then(data => {
+    let phoneNum = [];
+    if(data.rows.length > 0) 
+    {
+      for(var i =0; i < data.rows.length; i++)
+      {
+        phoneNum.push({
+          person_name: data.rows.item(i).person_name,
+          id: data.rows.item(i).id,
+          creator: data.rows.item(i).creator,
+        });
+      }
+    }
+    this.phones.next(phoneNum);
+  })
+}
+
+addEmail(name, creator)
+{
+  let data = [name, creator];
+  return this.database.executeSql('INSERT INTO product (name,creatorId) VALUES (?,?)', data).then(data => {
+    this.loadEmail();
+  })
+}
+
+addPhone(name, creator)
+{
+  let data = [name, creator];
+  return this.database.executeSql('INSERT INTO product (name,creatorId) VALUES (?,?)', data).then(data => {
+    this.loadPhoneNum();
+  })
+}
+
+
+
 }
