@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { TrustedListsPageRoutingModule } from './trusted-lists-routing.module';
 
 import { TrustedListsPage } from './trusted-lists.page';
+import { SMS } from '@awesome-cordova-plugins/sms/ngx';
+
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { TrustedListsPage } from './trusted-lists.page';
     IonicModule,
     TrustedListsPageRoutingModule
   ],
-  declarations: [TrustedListsPage]
+  declarations: [TrustedListsPage],
+  providers: [SMS]
 })
 export class TrustedListsPageModule {}

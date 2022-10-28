@@ -12,6 +12,49 @@
       </ion-card>
     </div>
   </div>
+<!-- HTML for testing purposes-->
+<!--
+  <ion-list>
+    <div class="ion-text-start">
+      <ion-button (click)="getPermissions()" >
+        Get Permission
+      </ion-button>
+      <ion-button (click)="getContacts()">
+        Fetch Contacts
+      </ion-button>
+      <ion-button (click)="addTrustList()">
+        Add Contact
+      </ion-button>
+      <ion-button (click)="removeTrustList()">
+        Remove Contact
+      </ion-button>
+      <ion-button (click)="logTrustList()">
+        Log Contact List 
+      </ion-button>
+      <ion-button (click)="sendSMS()">
+        Send SMS 
+      </ion-button>
+    </div>
+
+    <ion-item *ngFor="let contact of contacts | async" >
+      <ion-icon *ngIf="!contact.photoThumbnail" color="primary" slot="start" name="person"></ion-icon>
+      <ion-avatar *ngIf="contact.photoThumbnail"  slot="start">
+        <ion-img [src]="contact.photoThumbnail"></ion-img>
+      </ion-avatar>
+      <ion-label class="ion-text-wrap">
+        <ion-text color="dark">
+          <h3>{{contact.displayName}}</h3>
+        </ion-text>
+        <ion-text color="medium" *ngFor="let number of contact.phoneNumbers">
+          <p>{{number.label}}:{{number.number}}</p>
+        </ion-text>
+        <ion-text color="medium" *ngFor="let mails of contact.emails">
+          <p>{{mails.label}}: {{mails.address}}</p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+</ion-list>
+-->
 
   <ion-modal #modal trigger="open-modal">
     <ng-template>
