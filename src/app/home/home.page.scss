@@ -1,17 +1,22 @@
 ion-content{
-    --background: #f0f6f6;
-  
-    ion-tab-bar {
-      height: 90px;
-      position: relative;
-      border-top-left-radius: 30px;
-      border-top-right-radius: 30px;
-  
-      ion-tab-button {
-        font-size: 1.7rem;
-        --color-selected: #5b8783;
-  
-      }
+  --background: #f0f6f6;
+
+  ion-tab-bar {
+    height: 60px;
+    position: relative;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    //background-color: #fff;
+    --background: #fff;
+    --color: #aeaeae;
+    --border: none;
+
+
+    ion-tab-button {
+      font-size: 1.7rem;
+      --color-selected: #5b8783;
+
     }
-  
   }
+
+}

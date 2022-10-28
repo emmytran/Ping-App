@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TrustedListsPageRoutingModule } from './trusted-lists-routing.module';
 
 import { TrustedListsPage } from './trusted-lists.page';
+import { ContactCardModule } from 'src/app/components/contact-card/contact-card.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TrustedListsPageRoutingModule
+    TrustedListsPageRoutingModule,
+    ContactCardModule,
   ],
   declarations: [TrustedListsPage]
 })
