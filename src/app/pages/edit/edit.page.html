@@ -1,0 +1,27 @@
+
+
+<ion-content>
+  <ion-icon name="chevron-back-outline" [routerLink]="['/home/settings']" ></ion-icon>
+  <h1>Edit Profile</h1>
+  <div class="card">
+
+    <img src="assets/images/person.png" />
+
+    <form>
+      <input type="text" name="first" placeholder="First Name" required/>
+      <br><br>
+      <input type="text" name="last" placeholder="Last Name" required/>
+      <br><br>
+      <input type="email" name="eml" placeholder="Email Adress" required/>
+      <br><br>
+      <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number" required/>
+      <br><br>
+    </form>
+
+    <div class="btn">
+      <ion-button>
+        SAVE
+      </ion-button>
+     </div>
+  </div>
+</ion-content>
