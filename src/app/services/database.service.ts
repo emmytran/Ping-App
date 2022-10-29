@@ -1,4 +1,4 @@
-import { Platform } from '@ionic/angular';
+import { IonRadio, Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { HttpClient } from '@angular/common/http';
@@ -9,10 +9,11 @@ import { Contacts } from './contacts';
 export interface Dev {
   id: number,
   name: string,
-  email: any[],
-  phone: number
+  skills: any[],
+  phone: any[],
+  img: string,
+  email: any[]
 }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,11 +23,13 @@ private storage: SQLiteObject;
 private database: SQLiteObject;
 public dbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+
 contacts = new BehaviorSubject([]);
 names = new BehaviorSubject([]);
 phones = new BehaviorSubject([]);
-email = new BehaviorSubject([]);
+emails = new BehaviorSubject([]);
 init: any;
+developers = new BehaviorSubject([]);
 
 constructor(private plt: Platform, private sqlitePorter: SQLitePorter, private sqlite: SQLite, private http: HttpClient) {
   this.plt.ready().then(() => {
@@ -56,15 +59,12 @@ seedDatabase() {
     .catch(e => console.error(e));
   });
 }
-fetchContacts(): Observable<Contacts[]> 
-{
-  return this.contacts.asObservable();
-}
+
 getDatabaseState()
 {
   return this.dbReady.asObservable();
 }
-getContact(): Observable<Dev[]> 
+getContacts(): Observable<Dev[]> 
 {
   return this.names.asObservable();
 }
@@ -72,7 +72,13 @@ getPhoneNum(): Observable<any[]>
 {
   return this.phones.asObservable();
 }
-
+getEmail(): Observable<any[]>
+{
+  return this.emails.asObservable();
+}
+getDevs(): Observable<Dev[]> {
+  return this.developers.asObservable();
+}
 loadName() 
 {
   return this.database.executeSql('SELECT * FROM contacts', []).then(data => {
@@ -90,7 +96,7 @@ loadName()
         contacts.push({
           id: data.rows.item(i).id,
           person_name: data.rows.item(i).name,
-          email: data.rows.item(i).email,
+          email: email,
           phone_num: data.rows.item(i).phone
         });
       }
@@ -107,22 +113,23 @@ addContacts(person_name, email, phone_num)
   })
 }
 
-/*getName(id): Promise<Dev>
+/*getDeveloper(id): Promise<Dev>
 {
-  return this.database.executeSql('SELECT FROM contacts WHERE id = ?', [id]).then(_=> {
-    let email = [];
-    if(data.rows.item(0).email != '') 
-    {
-      email = JSON.parse(data.rows.item(0).email);
+  return this.database.executeSql('SELECT * FROM contacts WHERE id = ?', [id]).then(data => {
+    let emails = [];
+
+    if (data.rows.item(0).emails != ' ') {
+      emails = JSON.parse(data.rows.item(0).emails);
     }
-    return 
-    {
-      id: data.rows.item(0).id,
-      person_name: data.rows.item(0).person_name,
-      email: email,
-      phone_num: data.rows.item(0).phone_num
-    }
+  return
+  {
+    id: data.rows.item(0).id,
+    person_name: data.rows.item(0).name,
+    email: email,
+    phone_num: data.rows.item(0).phone
+  }
   });
+  
 }*/
 
 deleteContacts(id) 
@@ -158,7 +165,7 @@ loadEmail()
         });
       }
     }
-    this.email.next(email);
+    this.emails.next(email);
   })
 }
 
@@ -198,6 +205,23 @@ addPhone(name, creator)
   })
 }
 
+getDeveloper(id): Promise<Dev> 
+{
+  return this.database.executeSql('SELECT * FROM developer WHERE id = ?', [id]).then(data => {
+    let skills = [];
+    if (data.rows.item(0).skills != '') {
+      skills = JSON.parse(data.rows.item(0).skills);
+    }
 
+    return {
+      id: data.rows.item(0).id,
+      name: data.rows.item(0).name,
+      skills: skills,
+      phone: data.rows.item(0).phone,
+      img: data.rows.item(0).img,
+      email: data.rows.item(0).emails
+    }
+  });
+}
 
 }

@@ -25,7 +25,7 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       const loading = await this.loadingCtrl.create();
       await loading.present();
-      //this.databaseService.init();
+      this.databaseService.init();
       this.databaseService.dbReady.subscribe(isReady => {
         if(isReady) {
           loading.dismiss();

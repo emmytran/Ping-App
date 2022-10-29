@@ -24,4 +24,7 @@ public class MainActivity extends BridgeActivity
       }
     });
   }
+
+  private void init(Bundle savedInstanceState, ArrayList<Class<? extends Plugin>> classes) {
+  }
 }
