@@ -18,7 +18,7 @@ export class AppComponent {
     private fcmService: FcmService
   ) {this.initializeApp();}
 
-  async initializeApp() {
+   initializeApp() {
     this.platform.ready().then(() => {
       this.fcmService.initPush();
     });

@@ -37,10 +37,10 @@ constructor(private plt: Platform, private sqlitePorter: SQLitePorter, private s
       name: 'Contacts.db',
       location: 'default'
     })
-    .then((db: SQLiteObject) => {
+    /*.then((db: SQLiteObject) => {
       this.database = db;
       this.seedDatabase();
-    });
+    });*/
   });
 }
 dbState() {
