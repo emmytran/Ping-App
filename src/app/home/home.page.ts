@@ -52,6 +52,39 @@ export class HomePage implements OnInit{
   watch: string;
   user = null;
 
+  ngOnInit() {
+    console.log('Initializing HomePage');
+  
+    //Request permission to use push notifications
+    //Ios will prompt user and return if they are granted permisson or not
+    //Android will just grant permisson without prompting
+    PushNotifications.requestPermissions().then(result => {
+      if(result.receive === 'granted') {
+        //Register with Apple / Google to recieve push via APNS/FCM
+        PushNotifications.register();
+      }else {
+        //Show some error
+      }
+    });
+    PushNotifications.addListener('registration', (token: Token) => {
+      alert('Push registration success, token: ' + token.value);
+    });
+    PushNotifications.addListener('registrationError', (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    });
+    PushNotifications.addListener(
+      'pushNotificationReceived',
+      (notification: PushNotificationSchema) => {
+        alert('Push  receive: ' + JSON.stringify(notification));
+      },
+    );
+    PushNotifications.addListener(
+      'pushNotificationActionPerformed',
+      (notification: ActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      },
+    );
+  }
   constructor(private db: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     //Geolocation setup
   this.anonLogin();
@@ -155,37 +188,5 @@ updateMap(locations) {
   }
 }
 
-ngOnInit() {
-  console.log('Initializing HomePage');
 
-  //Request permission to use push notifications
-  //Ios will prompt user and return if they are granted permisson or not
-  //Android will just grant permisson without prompting
-  PushNotifications.requestPermissions().then(result => {
-    if(result.receive === 'granted') {
-      //Register with Apple / Google to recieve push via APNS/FCM
-      PushNotifications.register();
-    }else {
-      //Show some error
-    }
-  });
-  PushNotifications.addListener('registration', (token: Token) => {
-    alert('Push registration success, token: ' + token.value);
-  });
-  PushNotifications.addListener('registrationError', (error: any) => {
-    alert('Error on registration: ' + JSON.stringify(error));
-  });
-  PushNotifications.addListener(
-    'pushNotificationReceived',
-    (notification: PushNotificationSchema) => {
-      alert('Push  receive: ' + JSON.stringify(notification));
-    },
-  );
-  PushNotifications.addListener(
-    'pushNotificationActionPerformed',
-    (notification: ActionPerformed) => {
-      alert('Push action performed: ' + JSON.stringify(notification));
-    },
-  );
-}
 }

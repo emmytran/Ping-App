@@ -113,25 +113,6 @@ addContacts(person_name, email, phone_num)
   })
 }
 
-/*getDeveloper(id): Promise<Dev>
-{
-  return this.database.executeSql('SELECT * FROM contacts WHERE id = ?', [id]).then(data => {
-    let emails = [];
-
-    if (data.rows.item(0).emails != ' ') {
-      emails = JSON.parse(data.rows.item(0).emails);
-    }
-  return
-  {
-    id: data.rows.item(0).id,
-    person_name: data.rows.item(0).name,
-    email: email,
-    phone_num: data.rows.item(0).phone
-  }
-  });
-  
-}*/
-
 deleteContacts(id) 
 {
   return this.database.executeSql('DELETE FROM contacts WHERE id = ?', [id]).then(_ => {

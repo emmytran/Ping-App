@@ -12,7 +12,9 @@ dependencies {
     implementation project(':capacitor-community-sqlite')
     implementation project(':capacitor-geolocation')
     implementation project(':capacitor-push-notifications')
-
+    implementation platform('com.google.firebase:firebase-bom:30.3.1')
+    implementation "com.google.firebase:firebase-messaging"
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
 }
 
 
