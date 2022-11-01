@@ -59,7 +59,10 @@ const routes: Routes = [
     path: 'map',
     loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
   },
-
+  {
+    path: 'edit',
+    loadChildren: () => import('./pages/edit/edit.module').then( m => m.EditPageModule)
+  },
 ];
 @NgModule({
   imports: [
