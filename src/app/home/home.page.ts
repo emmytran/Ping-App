@@ -121,7 +121,7 @@ export class HomePage implements OnInit{
   }
   //Initialize a blank map
   loadMap() {
-    let latlng = new google.maps.LatLng(51.9036442, 7.6683267);
+    let latlng = new google.maps.LatLng(36.8040606,-119.7509865);
 
     let mapOptions = {
       center: latlng,

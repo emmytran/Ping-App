@@ -6,6 +6,9 @@ import { PushNotification,
   PushNotificationActionPerformed} from '@capacitor/push-notifications';
 
 const { PushNotifications } = Plugins;
+const isPushNotificationsAvailable = Capacitor.isPluginAvailable('PushNotifications');
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,10 @@ export class FcmService {
     if (Capacitor.platform !== 'web') {
       this.registerPush();
     }
+  }
+
+  PushNotifications() {
+    throw new Error('Method not implemented.');
   }
 
   private registerPush()

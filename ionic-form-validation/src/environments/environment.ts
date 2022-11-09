@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyA_V0Ff8tS5-czelEli_Gx0V3XiFFa2ip4",
+    authDomain: "ping-app-d043d.firebaseapp.com",
+    databaseURL: "https://ping-app-d043d-default-rtdb.firebaseio.com",
+    projectId: "ping-app-d043d",
+    storageBucket: "ping-app-d043d.appspot.com",
+    messagingSenderId: "576852490775",
+    appId: "1:576852490775:web:211678a8a6d43c8feb3a52",
+    measurementId: "G-DYJ9EJXM1V"
+  }
 };
 
 /*

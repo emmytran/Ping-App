@@ -3,7 +3,11 @@ import { LoadingController, Platform }  from  '@ionic/angular';
 import { DatabaseService } from './services/database.service';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { FcmService } from './services/fcm.service';
+import { registerWebPlugin } from '@capacitor/core';
+import { Plugins } from '@capacitor/core';
 
+const { PushNotifications } = Plugins;
+const { GoogleAnalytics } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -21,6 +25,7 @@ export class AppComponent {
    initializeApp() {
     this.platform.ready().then(() => {
       this.fcmService.initPush();
+        
     });
   }
 }

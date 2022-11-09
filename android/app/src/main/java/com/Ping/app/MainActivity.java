@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.getcapacitor.Plugin;
 import com.getcapacitor.BridgeActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
@@ -14,17 +15,15 @@ public class MainActivity extends BridgeActivity
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    registerPlugin(FirebaseAnalytics.class);
     // Initializes the Bridge
-    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+    //this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
       // Additional plugins you've installed go here
-      add(CapacitorSQLite.class);
+      //add(CapacitorSQLite.class);
+      //add(com.capactiorjs.plugins.pushnotitifcations.pushnotitifcationsPlugin.class);
     }
 
-      private void add(Class<CapacitorSQLite> capacitorSQLiteClass) {
-      }
-    });
+  private void registerPlugin(Class<FirebaseAnalytics> firebaseAnalyticsClass) {
   }
 
-  private void init(Bundle savedInstanceState, ArrayList<Class<? extends Plugin>> classes) {
-  }
 }
