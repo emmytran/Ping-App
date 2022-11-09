@@ -16,11 +16,11 @@
 <!--
   <ion-list>
     <div class="ion-text-start">
-      <ion-button (click)="getPermissions()" >
+      <ion-button (click)="getContactPermissions()" >
         Get Permission
       </ion-button>
-      <ion-button (click)="getContacts()">
-        Fetch Contacts
+      <ion-button (click)="checkContactsPermission()">
+        Sync Contacts
       </ion-button>
       <ion-button (click)="addTrustList()">
         Add Contact
@@ -31,8 +31,10 @@
       <ion-button (click)="logTrustList()">
         Log Contact List 
       </ion-button>
-      <ion-button (click)="sendSMS()">
+      <ion-button (click)="checkSMSPermission()">
         Send SMS 
+      </ion-button><ion-button (click)="getSMSPermission()">
+        Get SMS Permission
       </ion-button>
     </div>
 

@@ -7,7 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { TrustedListsPageRoutingModule } from './trusted-lists-routing.module';
 
 import { TrustedListsPage } from './trusted-lists.page';
+
 import { SMS } from '@awesome-cordova-plugins/sms/ngx';
+import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // Notice the '/' at the end
 
 
 @NgModule({
@@ -18,6 +20,6 @@ import { SMS } from '@awesome-cordova-plugins/sms/ngx';
     TrustedListsPageRoutingModule
   ],
   declarations: [TrustedListsPage],
-  providers: [SMS]
+providers: [SMS , AndroidPermissions ]
 })
 export class TrustedListsPageModule {}
