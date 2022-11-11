@@ -14,3 +14,14 @@
     Reset Badge Count
   </ion-button>
 </ion-content>
+
+<ion-content>
+  <ion-card *ngIf="contacts">
+    <ion-card-header>
+      <ion-card-title>{{ contact.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-content>
+      <h2>{{ contact.Ping }}</h2>
+    </ion-content>
+  </ion-card>
+</ion-content>

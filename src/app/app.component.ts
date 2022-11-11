@@ -7,7 +7,6 @@ import { registerWebPlugin } from '@capacitor/core';
 import { Plugins } from '@capacitor/core';
 
 const { PushNotifications } = Plugins;
-const { GoogleAnalytics } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -22,10 +21,17 @@ export class AppComponent {
     private fcmService: FcmService
   ) {this.initializeApp();}
 
-   initializeApp() {
-    this.platform.ready().then(() => {
+  async initializeApp() {
+    this.platform.ready().then(async () => {
       this.fcmService.initPush();
-        
+      const loading = await this.loadingCtrl.create();
+      await loading.present();
+      this.databaseService.init();
+      this.databaseService.dbReady.subscribe(isReady => {
+        if (isReady) {
+          loading.dismiss();
+        }
+      });
     });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, NgProbeToken, OnInit, ViewChild } from '@angular/core';
-import { DatabaseService, Dev } from '../services/database.service';
+import { DatabaseService} from '../services/database.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
@@ -30,7 +30,7 @@ declare var google;
 })
 
 export class HomePage implements OnInit{
-  contacts: Dev[] = [];
+  contacts = [];
   names: Observable<any[]>;
   contact = {};
   name = {};
@@ -52,42 +52,12 @@ export class HomePage implements OnInit{
   watch: string;
   user = null;
 
-  ngOnInit() {
-    console.log('Initializing HomePage');
-  
-    //Request permission to use push notifications
-    //Ios will prompt user and return if they are granted permisson or not
-    //Android will just grant permisson without prompting
-    PushNotifications.requestPermissions().then(result => {
-      if(result.receive === 'granted') {
-        //Register with Apple / Google to recieve push via APNS/FCM
-        PushNotifications.register();
-      }else {
-        //Show some error
-      }
-    });
-    PushNotifications.addListener('registration', (token: Token) => {
-      alert('Push registration success, token: ' + token.value);
-    });
-    PushNotifications.addListener('registrationError', (error: any) => {
-      alert('Error on registration: ' + JSON.stringify(error));
-    });
-    PushNotifications.addListener(
-      'pushNotificationReceived',
-      (notification: PushNotificationSchema) => {
-        alert('Push  receive: ' + JSON.stringify(notification));
-      },
-    );
-    PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
-      },
-    );
-  }
-  constructor(private db: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(private databaseService: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) 
+  {
+    //Database
+    this.loadContacts();
     //Geolocation setup
-  this.anonLogin();
+    this.anonLogin();
   }
    //Geolocation main setup
   ionViewWillEnter() {
@@ -187,6 +157,67 @@ updateMap(locations) {
     this.marker.push(marker);
   }
 }
+//Database Information
+loadContacts()
+{
+  this.databaseService.getContactsList().subscribe((res: any) => {
+    this.contact = res.values;
+  });
+}
+async createExport(mode) 
+{
+  const dataExport = await this.databaseService.getDatabaseExport(mode);
+  this.export = dataExport.export;
+}
+async addContacts() 
+{
+  await this.databaseService.addDummyContacts(this.newContacts);
+  this.newContacts = '';
+  this.loadContacts();
+}
+async deleteContacts(contact)
+{
+  await this.databaseService.deleteContacts(contact.id);
+  this.contacts = this.contacts.filter(c => c != contact);
 
+}
+//This is for push notiification
+ngOnInit() {
+  console.log('Initializing HomePage');
 
+  //Request permission to use push notifications
+  //Ios will prompt user and return if they are granted permisson or not
+  //Android will just grant permisson without prompting
+  PushNotifications.requestPermissions().then(result => {
+    if(result.receive === 'granted') {
+      //Register with Apple / Google to recieve push via APNS/FCM
+      PushNotifications.register();
+    }else {
+      //Show some error
+    }
+  });
+  PushNotifications.addListener('registration', (token: Token) => {
+    alert('Push registration success, token: ' + token.value);
+  });
+  PushNotifications.addListener('registrationError', (error: any) => {
+    alert('Error on registration: ' + JSON.stringify(error));
+  });
+  PushNotifications.addListener(
+    'pushNotificationReceived',
+    (notification: PushNotificationSchema) => {
+      alert('Push  receive: ' + JSON.stringify(notification));
+    },
+  );
+  PushNotifications.addListener(
+    'pushNotificationActionPerformed',
+    (notification: ActionPerformed) => {
+      alert('Push action performed: ' + JSON.stringify(notification));
+    },
+  );
+}
+
+}
+
+function deleteDatabase() {
+  throw new Error('Function not implemented.');
 }
