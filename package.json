@@ -27,6 +27,7 @@
     "@ionic-native/sqlite": "^5.36.0",
     "@ionic-native/sqlite-porter": "^5.36.0",
     "@ionic/angular": "^6.1.9",
+    "cropperjs": "^1.5.12",
     "ionicons": "^6.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
