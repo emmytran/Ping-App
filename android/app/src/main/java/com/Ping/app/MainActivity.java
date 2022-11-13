@@ -1,11 +1,10 @@
 package com.Ping.app;
-import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
 
 import android.os.Bundle;
 
-import com.getcapacitor.Plugin;
 import com.getcapacitor.BridgeActivity;
-import com.google.firebase.analytics.FirebaseAnalytics;
+import com.getcapacitor.Plugin;
+import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
 
 import java.util.ArrayList;
 

@@ -7,6 +7,7 @@ import { BehaviorSubject, from, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { JsonSQLite } from '@capacitor-community/sqlite';
+import { Contacts } from './contacts';
 const { CapacitorSQLite, Device, Storage } = Plugins;
 
 const DB_SETUP_KEY = 'first_db_setup';
@@ -24,7 +25,7 @@ export class DatabaseService {
   {}
     async init(): Promise<void> {
       const info = await Device.getInfo();
-  
+      
       if (info.platform === 'android') {
         try {
           const sqlite = CapacitorSQLite as any;
@@ -54,7 +55,8 @@ export class DatabaseService {
         this.dbReady.next(true);
       }
     }
-
+    // Potentially build this out to an update logic:
+  // Sync your data on every app start and update the device DB
     private downloadDatabase(update = false) {
       this.http.get('file:///C:/Users/Elvis/Desktop/CSCI%20150%20Text%20Book/database.html').subscribe(async (jsonExport: JsonSQLite) => {
         const jsonstring = JSON.stringify(jsonExport);
