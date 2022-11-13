@@ -24,3 +24,21 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+//.image-popover {
+//    --width: 80% !important;
+//    --top: 10vh !important;
+//    --left: 10vw !important;
+//}
+
+.popover-container {
+    --height: auto;
+    --width: auto;
+}
+
+.hidden-file-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    display: none;
+}
