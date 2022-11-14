@@ -1,9 +1,9 @@
 "use strict";
 (self["webpackChunkapp"] = self["webpackChunkapp"] || []).push([["common"],{
 
-/***/ 5479:
+/***/ 5652:
 /*!*********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/button-active-1542e4b9.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/button-active-9f97b694.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _index_8e692445_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-8e692445.js */ 1559);
 /* harmony import */ var _haptic_683b3b3c_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./haptic-683b3b3c.js */ 634);
-/* harmony import */ var _index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-f8d8aa5a.js */ 9286);
+/* harmony import */ var _index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-3f1a7d95.js */ 2172);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -78,7 +78,7 @@ const createButtonActiveGesture = (el, isButton) => {
     currentTouchedButton = undefined;
   };
 
-  return (0,_index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
+  return (0,_index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
     el,
     gestureName: 'buttonActiveDrag',
     threshold: 0,
@@ -129,9 +129,9 @@ const isRTL = hostEl => {
 
 /***/ }),
 
-/***/ 5777:
+/***/ 9013:
 /*!*********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/focus-visible-096cf6fd.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/focus-visible-5ad6825d.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -172,7 +172,7 @@ const startFocusVisible = rootEl => {
   };
 
   const onFocusin = ev => {
-    if (keyboardMode && ev.composedPath !== undefined) {
+    if (keyboardMode && ev.composedPath) {
       const toFocus = ev.composedPath().filter(el => {
         if (el.classList) {
           return el.classList.contains(ION_FOCUSABLE);
@@ -214,9 +214,9 @@ const startFocusVisible = rootEl => {
 
 /***/ }),
 
-/***/ 3701:
+/***/ 9553:
 /*!**************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-897f849d.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-82cc7646.js ***!
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -227,7 +227,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "d": () => (/* binding */ detachComponent)
 /* harmony export */ });
 /* harmony import */ var C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+/* harmony import */ var _helpers_2914b3be_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-2914b3be.js */ 4244);
 
 
 /*!
@@ -258,7 +258,7 @@ const attachComponent = /*#__PURE__*/function () {
     }
 
     container.appendChild(el);
-    yield new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
+    yield new Promise(resolve => (0,_helpers_2914b3be_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
     return el;
   });
 
@@ -319,7 +319,7 @@ const CoreDelegate = () => {
          */
 
         BaseComponent.appendChild(el);
-        yield new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
+        yield new Promise(resolve => (0,_helpers_2914b3be_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
       } else if (BaseComponent.children.length > 0) {
         // If there is no component, then we need to create a new parent
         // element to apply the css classes to.
@@ -598,9 +598,9 @@ const searchSharp = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/
 
 /***/ }),
 
-/***/ 3081:
+/***/ 7584:
 /*!*************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/index-5d0c8232.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/index-50cd649f.js ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -619,7 +619,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "s": () => (/* binding */ scrollToTop)
 /* harmony export */ });
 /* harmony import */ var C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+/* harmony import */ var _helpers_2914b3be_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers-2914b3be.js */ 4244);
 /* harmony import */ var _index_c4b11676_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-c4b11676.js */ 9273);
 
 
@@ -641,7 +641,7 @@ const ION_CONTENT_CLASS_SELECTOR = '.ion-content-scroll-host';
 
 const ION_CONTENT_SELECTOR = `${ION_CONTENT_ELEMENT_SELECTOR}, ${ION_CONTENT_CLASS_SELECTOR}`;
 
-const isIonContent = el => el.tagName === ION_CONTENT_TAG_NAME;
+const isIonContent = el => el && el.tagName === ION_CONTENT_TAG_NAME;
 /**
  * Waits for the element host fully initialize before
  * returning the inner scroll element.
@@ -657,7 +657,7 @@ const isIonContent = el => el.tagName === ION_CONTENT_TAG_NAME;
 const getScrollElement = /*#__PURE__*/function () {
   var _ref = (0,C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (el) {
     if (isIonContent(el)) {
-      yield new Promise(resolve => (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
+      yield new Promise(resolve => (0,_helpers_2914b3be_js__WEBPACK_IMPORTED_MODULE_1__.c)(el, resolve));
       return el.getScrollElement();
     }
 
@@ -1173,9 +1173,9 @@ const SPINNERS = spinners;
 
 /***/ }),
 
-/***/ 4114:
+/***/ 6014:
 /*!******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/swipe-back-5351da01.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm/swipe-back-867b0442.js ***!
   \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1183,10 +1183,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createSwipeBackGesture": () => (/* binding */ createSwipeBackGesture)
 /* harmony export */ });
-/* harmony import */ var _helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-3b390e48.js */ 9234);
+/* harmony import */ var _helpers_2914b3be_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-2914b3be.js */ 4244);
 /* harmony import */ var _dir_e8b767a8_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dir-e8b767a8.js */ 7481);
-/* harmony import */ var _index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-f8d8aa5a.js */ 9286);
-/* harmony import */ var _gesture_controller_17060b7c_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./gesture-controller-17060b7c.js */ 6379);
+/* harmony import */ var _index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index-3f1a7d95.js */ 2172);
+/* harmony import */ var _gesture_controller_17e82006_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./gesture-controller-17e82006.js */ 607);
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -1259,10 +1259,10 @@ const createSwipeBackGesture = (el, canStartHandler, onStartHandler, onMoveHandl
      */
 
 
-    onEndHandler(shouldComplete, stepValue <= 0 ? 0.01 : (0,_helpers_3b390e48_js__WEBPACK_IMPORTED_MODULE_0__.l)(0, stepValue, 0.9999), realDur);
+    onEndHandler(shouldComplete, stepValue <= 0 ? 0.01 : (0,_helpers_2914b3be_js__WEBPACK_IMPORTED_MODULE_0__.l)(0, stepValue, 0.9999), realDur);
   };
 
-  return (0,_index_f8d8aa5a_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
+  return (0,_index_3f1a7d95_js__WEBPACK_IMPORTED_MODULE_2__.createGesture)({
     el,
     gestureName: 'goback-swipe',
     gesturePriority: 40,

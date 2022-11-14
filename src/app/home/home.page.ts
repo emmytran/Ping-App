@@ -52,10 +52,15 @@ export class HomePage implements OnInit{
   watch: string;
   user = null;
 
-  constructor(private databaseService: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) 
+  constructor(
+    private databaseService: DatabaseService, 
+    private afAuth: AngularFireAuth, 
+    private afs: AngularFirestore,
+    private formsBuilder: FormBuilder,
+    private toast: ToastController,
+    private router: Router
+    ) 
   {
-    //Database
-    this.loadContacts();
     //Geolocation setup
     this.anonLogin();
   }
@@ -157,30 +162,7 @@ updateMap(locations) {
     this.marker.push(marker);
   }
 }
-//Database Information
-loadContacts()
-{
-  this.databaseService.getContactsList().subscribe((res: any) => {
-    this.contact = res.values;
-  });
-}
-async createExport(mode) 
-{
-  const dataExport = await this.databaseService.getDatabaseExport(mode);
-  this.export = dataExport.export;
-}
-async addContacts() 
-{
-  await this.databaseService.addDummyContacts(this.newContacts);
-  this.newContacts = '';
-  this.loadContacts();
-}
-async deleteContacts(contact)
-{
-  await this.databaseService.deleteContacts(contact.id);
-  this.contacts = this.contacts.filter(c => c != contact);
 
-}
 //This is for push notiification
 ngOnInit() {
   console.log('Initializing HomePage');
@@ -214,10 +196,38 @@ ngOnInit() {
       alert('Push action performed: ' + JSON.stringify(notification));
     },
   );
+
+  this.databaseService.dbState().subscribe((res) => {
+    if(res){
+      this.databaseService.fetchData().subscribe(item => {
+        this.Data = item
+      })
+    }
+  });
+  this.mainForm = this.formsBuilder.group({
+    person: [''],
+    phone: [''],
+    email: ['']
+  })
+}
+storeData() {
+this.databaseService.addContact(
+  this.mainForm.value.person,
+  this.mainForm.value.phone,
+  this.mainForm.value.email
+).then((res) => {
+  this.mainForm.reset();
+})
+}
+deleteContacts(id){
+this.databaseService.deleteContacts(id).then(async(res) => {
+  let toast = await this.toast.create({
+    message: 'Contact deleted',
+    duration: 2500
+  });
+  toast.present();
+})
+}
 }
 
-}
 
-function deleteDatabase() {
-  throw new Error('Function not implemented.');
-}

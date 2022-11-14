@@ -11,13 +11,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppRoutingModule": () => (/* binding */ AppRoutingModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ 4929);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/fire/auth-guard */ 3200);
 
 
 
+
+const redirectUnauthorizedToLogin = () => (0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.redirectUnauthorizedTo)(['']);
+const redirectLoggedInToHome = () => (0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.redirectLoggedInTo)(['home']);
 const routes = [
+    /* {
+       path: '',
+       loadChildren: () => import('./pages/login/login.module').then((m) => LoginPageModule),
+       ...canActivate(redirectUnauthorizedToLogin)
+     },*/
     {
         path: 'home',
         loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./home/home.module */ 3467)).then(m => m.HomePageModule)
@@ -29,11 +38,13 @@ const routes = [
     },
     {
         path: 'home/:id',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_details_details_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/details/details.module */ 557)).then(m => m.DetailsPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_details_details_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/details/details.module */ 557)).then(m => m.DetailsPageModule),
+        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.canActivate)(redirectLoggedInToHome)
     },
     {
         path: 'login',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_login_login_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/login/login.module */ 1053)).then(m => m.LoginPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_login_login_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/login/login.module */ 1053)).then(m => m.LoginPageModule),
+        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.canActivate)(redirectUnauthorizedToLogin)
     },
     {
         path: 'register',
@@ -88,15 +99,19 @@ const routes = [
         path: 'details',
         loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_details_details_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/details/details.module */ 557)).then(m => m.DetailsPageModule)
     },
+    {
+        path: 'developers/:id',
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_developers_developers_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/developers/developers.module */ 289)).then(m => m.DevelopersPageModule)
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
-AppRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_1__.NgModule)({
+AppRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.NgModule)({
         imports: [
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__.RouterModule.forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__.PreloadAllModules })
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule.forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_3__.PreloadAllModules })
         ],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__.RouterModule]
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule]
     })
 ], AppRoutingModule);
 
@@ -116,13 +131,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "AppComponent": () => (/* binding */ AppComponent)
 /* harmony export */ });
 /* harmony import */ var C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _app_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.component.html?ngResource */ 3383);
 /* harmony import */ var _app_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component.scss?ngResource */ 9259);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 3819);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 3819);
 /* harmony import */ var _services_database_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/database.service */ 4382);
 /* harmony import */ var _services_fcm_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/fcm.service */ 5019);
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @capacitor/core */ 5099);
 
 
 
@@ -131,6 +147,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const {
+  PushNotifications
+} = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__.Plugins;
 let AppComponent = class AppComponent {
   constructor(platform, databaseService, loadingCtrl, fcmService) {
     this.platform = platform;
@@ -144,19 +164,8 @@ let AppComponent = class AppComponent {
     var _this = this;
 
     return (0,C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      _this.platform.ready().then(() => {
-        _this.fcmService.initPush();
-      });
-
       _this.platform.ready().then( /*#__PURE__*/(0,C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-        const loading = yield _this.loadingCtrl.create();
-        yield loading.present(); //this.databaseService.init();
-
-        _this.databaseService.dbReady.subscribe(isReady => {
-          if (isReady) {
-            loading.dismiss();
-          }
-        });
+        _this.fcmService.initPush();
       }));
     })();
   }
@@ -164,16 +173,16 @@ let AppComponent = class AppComponent {
 };
 
 AppComponent.ctorParameters = () => [{
-  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.Platform
+  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.Platform
 }, {
   type: _services_database_service__WEBPACK_IMPORTED_MODULE_3__.DatabaseService
 }, {
-  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.LoadingController
+  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.LoadingController
 }, {
   type: _services_fcm_service__WEBPACK_IMPORTED_MODULE_4__.FcmService
 }];
 
-AppComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+AppComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
   selector: 'app-root',
   template: _app_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__,
   styles: [_app_component_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__]
@@ -196,21 +205,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic/angular */ 3819);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app-routing.module */ 158);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.component */ 5041);
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/environments/environment */ 2340);
-/* harmony import */ var _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/sqlite-porter/ngx */ 2820);
-/* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ 6646);
+/* harmony import */ var _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/sqlite-porter/ngx */ 2820);
+/* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ 6646);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _services_database_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/database.service */ 4382);
-/* harmony import */ var _home_home_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./home/home.module */ 3467);
-/* harmony import */ var _angular_fire_compat__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/fire/compat */ 1879);
-/* harmony import */ var _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/fire/compat/firestore */ 2393);
-/* harmony import */ var _angular_fire_compat_auth__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/fire/compat/auth */ 5873);
-/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ 9386);
-
+/* harmony import */ var _services_database_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/database.service */ 4382);
+/* harmony import */ var _home_home_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./home/home.module */ 3467);
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/fire/firestore */ 6466);
+/* harmony import */ var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/fire/storage */ 2111);
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ 9386);
+/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/fire/app */ 9150);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../environments/environment */ 2340);
 
 
 
@@ -225,7 +234,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //Firbase Plugin
+/*import { AngularFireModule} from '@angular/fire/compat';
+import { AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule} from '@angular/fire/compat/auth';
+import { AngularFireStorageModule} from '@angular/fire/compat/storage';*/
 
+
+
+//Updated Database Plugin
 
 
 
@@ -240,20 +256,25 @@ AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([
             _ionic_angular__WEBPACK_IMPORTED_MODULE_11__.IonicModule.forRoot(),
             _app_routing_module__WEBPACK_IMPORTED_MODULE_0__.AppRoutingModule,
             _angular_common_http__WEBPACK_IMPORTED_MODULE_12__.HttpClientModule,
-            _home_home_module__WEBPACK_IMPORTED_MODULE_6__.HomePageModule,
-            _angular_fire_compat__WEBPACK_IMPORTED_MODULE_13__.AngularFireModule.initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.firebase),
-            _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_14__.AngularFirestoreModule,
-            _angular_fire_compat_auth__WEBPACK_IMPORTED_MODULE_15__.AngularFireAuthModule
+            _home_home_module__WEBPACK_IMPORTED_MODULE_5__.HomePageModule,
+            /*AngularFireModule.initializeApp(environment.firebase),
+            AngularFirestoreModule, //Only require for database features
+            AngularFireStorageModule, //Require for storage features
+            AngularFireAuthModule, //Require for auth features*/
+            (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_13__.provideAuth)(() => (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_13__.getAuth)()),
+            (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__.getFirestore)()),
+            (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_15__.provideStorage)(() => (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_15__.getStorage)()),
+            (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_16__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_16__.initializeApp)(_environments_environment__WEBPACK_IMPORTED_MODULE_7__.environment.firebase))
         ],
         providers: [
-            _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__.FCM,
-            _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_4__.SQLite,
-            _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_3__.SQLitePorter,
+            _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__.FCM,
+            _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_3__.SQLite,
+            _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_2__.SQLitePorter,
             {
-                provide: _angular_router__WEBPACK_IMPORTED_MODULE_16__.RouteReuseStrategy,
+                provide: _angular_router__WEBPACK_IMPORTED_MODULE_17__.RouteReuseStrategy,
                 useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_11__.IonicRouteStrategy
             },
-            _services_database_service__WEBPACK_IMPORTED_MODULE_5__.DatabaseService
+            _services_database_service__WEBPACK_IMPORTED_MODULE_4__.DatabaseService
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent],
     })
@@ -356,6 +377,7 @@ HomePageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__.ReactiveFormsModule,
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule,
             _home_routing_module__WEBPACK_IMPORTED_MODULE_0__.HomePageRoutingModule
         ],
@@ -378,168 +400,242 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "HomePage": () => (/* binding */ HomePage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 4929);
-/* harmony import */ var _home_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.page.html?ngResource */ 3853);
-/* harmony import */ var _home_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.page.scss?ngResource */ 1020);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _services_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/database.service */ 4382);
-/* harmony import */ var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor/push-notifications */ 1704);
-/* harmony import */ var _angular_fire_compat_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/compat/auth */ 5873);
-/* harmony import */ var _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/fire/compat/firestore */ 2393);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 6942);
-/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @capacitor/core */ 5099);
+/* harmony import */ var C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var _home_page_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.page.html?ngResource */ 3853);
+/* harmony import */ var _home_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.page.scss?ngResource */ 1020);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _services_database_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/database.service */ 4382);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/angular */ 3819);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @capacitor/push-notifications */ 1704);
+/* harmony import */ var _angular_fire_compat_auth__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/fire/compat/auth */ 5873);
+/* harmony import */ var _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/fire/compat/firestore */ 2393);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 6942);
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @capacitor/core */ 5099);
 
 
 
 
 
-//Push Notification
-
-//Geolocation
 
 
 
+ //Push Notification
 
-const { Geolocation } = _capacitor_core__WEBPACK_IMPORTED_MODULE_4__.Plugins;
+ //Geolocation
+
+
+
+
+
+const {
+  Geolocation
+} = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__.Plugins;
 let HomePage = class HomePage {
-    constructor(db, afAuth, afs) {
-        this.db = db;
-        this.afAuth = afAuth;
-        this.afs = afs;
-        this.contacts = [];
-        this.contact = {};
-        this.name = {};
-        this.selectedView = 'devs';
-        this.export = null;
-        this.newContacts = 'New Contacts';
-        this.Data = [];
-        this.marker = [];
-        //Misc
-        this.isTracking = false;
-        this.user = null;
-        //Geolocation setup
-        this.anonLogin();
-    }
-    //Geolocation main setup
-    ionViewWillEnter() {
-        this.loadMap();
-    }
-    //Makesure an anonymous login and load data
-    anonLogin() {
-        this.afAuth.signInAnonymously().then(res => {
-            this.user = res.user;
-            this.locationsCollection = this.afs.collection('locations/${this.user.uid}/track', ref => ref.orderBy('timestamp'));
-            //Make sure we also get the Firebase item ID!
-            this.locations = this.locationsCollection.snapshotChanges().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(actions => actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, ...data };
-            })));
-            //Update Map maker on every change
-            this.locations.subscribe(locations => {
-                this.updateMap(locations);
-            });
-        });
-    }
-    //Initialize a blank map
-    loadMap() {
-        let latlng = new google.maps.LatLng(51.9036442, 7.6683267);
-        let mapOptions = {
-            center: latlng,
-            zoom: 5,
-            mapTypdId: google.maps.MapTypeId.ROADMAP
-        };
-        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    }
-    // Use Capacitor to track our geolocation
-    startTracking() {
-        this.isTracking = true;
-        this.watch = Geolocation.watchPosition({}, (position, err) => {
-            if (position) {
-                this.addNewLocation(position.coords.latitude, position.coords.longitude, position.timestamp);
-            }
-        });
-    }
-    // Unsubscribe from the geolocation watch using the initial ID
-    stopTracking() {
-        Geolocation.clearWatch({ id: this.watch }).then(() => {
-            this.isTracking = false;
-        });
-    }
-    // Save a new location to Firebase and center the map
-    addNewLocation(lat, lng, timestamp) {
-        this.locationsCollection.add({
-            lat,
-            lng,
-            timestamp
-        });
-        let position = new google.maps.LatLng(lat, lng);
-        this.map.setCenter(position);
-        this.map.setZoom(5);
-    }
-    // Delete a location from Firebase
-    deleteLocation(pos) {
-        this.locationsCollection.doc(pos.id).delete();
-    }
-    // Redraw all markers on the map
-    updateMap(locations) {
-        // Remove all current marker
-        this.marker.map(marker => marker.setMap(null));
-        this.marker = [];
-        for (let loc of locations) {
-            let latLng = new google.maps.LatLng(loc.lat, loc.lng);
-            let marker = new google.maps.Marker({
-                map: this.map,
-                animation: google.maps.Animation.DROP,
-                position: latLng
-            });
-            this.marker.push(marker);
-        }
-    }
-    ngOnInit() {
-        console.log('Initializing HomePage');
-        //Request permission to use push notifications
-        //Ios will prompt user and return if they are granted permisson or not
-        //Android will just grant permisson without prompting
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.requestPermissions().then(result => {
-            if (result.receive === 'granted') {
-                //Register with Apple / Google to recieve push via APNS/FCM
-                _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.register();
-            }
-            else {
-                //Show some error
-            }
-        });
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.addListener('registration', (token) => {
-            alert('Push registration success, token: ' + token.value);
-        });
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.addListener('registrationError', (error) => {
-            alert('Error on registration: ' + JSON.stringify(error));
-        });
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.addListener('pushNotificationReceived', (notification) => {
-            alert('Push  receive: ' + JSON.stringify(notification));
-        });
-        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_3__.PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
-            alert('Push action performed: ' + JSON.stringify(notification));
-        });
-    }
-};
-HomePage.ctorParameters = () => [
-    { type: _services_database_service__WEBPACK_IMPORTED_MODULE_2__.DatabaseService },
-    { type: _angular_fire_compat_auth__WEBPACK_IMPORTED_MODULE_6__.AngularFireAuth },
-    { type: _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_7__.AngularFirestore }
-];
-HomePage.propDecorators = {
-    mapElement: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.ViewChild, args: ['map',] }]
-};
-HomePage = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
-        selector: 'app-home',
-        template: _home_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
-        styles: [_home_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
-    })
-], HomePage);
+  constructor(databaseService, afAuth, afs, formsBuilder, toast, router) {
+    this.databaseService = databaseService;
+    this.afAuth = afAuth;
+    this.afs = afs;
+    this.formsBuilder = formsBuilder;
+    this.toast = toast;
+    this.router = router;
+    this.contacts = [];
+    this.contact = {};
+    this.name = {};
+    this.selectedView = 'devs';
+    this.export = null;
+    this.newContacts = 'New Contacts';
+    this.Data = [];
+    this.marker = []; //Misc
 
+    this.isTracking = false;
+    this.user = null; //Geolocation setup
+
+    this.anonLogin();
+  } //Geolocation main setup
+
+
+  ionViewWillEnter() {
+    this.loadMap();
+  } //Makesure an anonymous login and load data
+
+
+  anonLogin() {
+    this.afAuth.signInAnonymously().then(res => {
+      this.user = res.user;
+      this.locationsCollection = this.afs.collection('locations/${this.user.uid}/track', ref => ref.orderBy('timestamp')); //Make sure we also get the Firebase item ID!
+
+      this.locations = this.locationsCollection.snapshotChanges().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.map)(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return {
+          id,
+          ...data
+        };
+      }))); //Update Map maker on every change
+
+      this.locations.subscribe(locations => {
+        this.updateMap(locations);
+      });
+    });
+  } //Initialize a blank map
+
+
+  loadMap() {
+    let latlng = new google.maps.LatLng(36.8040606, -119.7509865);
+    let mapOptions = {
+      center: latlng,
+      zoom: 5,
+      mapTypdId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+  } // Use Capacitor to track our geolocation
+
+
+  startTracking() {
+    this.isTracking = true;
+    this.watch = Geolocation.watchPosition({}, (position, err) => {
+      if (position) {
+        this.addNewLocation(position.coords.latitude, position.coords.longitude, position.timestamp);
+      }
+    });
+  } // Unsubscribe from the geolocation watch using the initial ID
+
+
+  stopTracking() {
+    Geolocation.clearWatch({
+      id: this.watch
+    }).then(() => {
+      this.isTracking = false;
+    });
+  } // Save a new location to Firebase and center the map
+
+
+  addNewLocation(lat, lng, timestamp) {
+    this.locationsCollection.add({
+      lat,
+      lng,
+      timestamp
+    });
+    let position = new google.maps.LatLng(lat, lng);
+    this.map.setCenter(position);
+    this.map.setZoom(5);
+  } // Delete a location from Firebase
+
+
+  deleteLocation(pos) {
+    this.locationsCollection.doc(pos.id).delete();
+  } // Redraw all markers on the map
+
+
+  updateMap(locations) {
+    // Remove all current marker
+    this.marker.map(marker => marker.setMap(null));
+    this.marker = [];
+
+    for (let loc of locations) {
+      let latLng = new google.maps.LatLng(loc.lat, loc.lng);
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: latLng
+      });
+      this.marker.push(marker);
+    }
+  } //This is for push notiification
+
+
+  ngOnInit() {
+    console.log('Initializing HomePage'); //Request permission to use push notifications
+    //Ios will prompt user and return if they are granted permisson or not
+    //Android will just grant permisson without prompting
+
+    _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        //Register with Apple / Google to recieve push via APNS/FCM
+        _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.register();
+      } else {//Show some error
+      }
+    });
+    _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.addListener('registration', token => {
+      alert('Push registration success, token: ' + token.value);
+    });
+    _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.addListener('registrationError', error => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    });
+    _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.addListener('pushNotificationReceived', notification => {
+      alert('Push  receive: ' + JSON.stringify(notification));
+    });
+    _capacitor_push_notifications__WEBPACK_IMPORTED_MODULE_4__.PushNotifications.addListener('pushNotificationActionPerformed', notification => {
+      alert('Push action performed: ' + JSON.stringify(notification));
+    });
+    this.databaseService.dbState().subscribe(res => {
+      if (res) {
+        this.databaseService.fetchData().subscribe(item => {
+          this.Data = item;
+        });
+      }
+    });
+    this.mainForm = this.formsBuilder.group({
+      person: [''],
+      phone: [''],
+      email: ['']
+    });
+  }
+
+  storeData() {
+    this.databaseService.addContact(this.mainForm.value.person, this.mainForm.value.phone, this.mainForm.value.email).then(res => {
+      this.mainForm.reset();
+    });
+  }
+
+  deleteContacts(id) {
+    var _this = this;
+
+    this.databaseService.deleteContacts(id).then( /*#__PURE__*/function () {
+      var _ref = (0,C_Users_Elvis_ping_app_Ping_App_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (res) {
+        let toast = yield _this.toast.create({
+          message: 'Contact deleted',
+          duration: 2500
+        });
+        toast.present();
+      });
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  }
+
+};
+
+HomePage.ctorParameters = () => [{
+  type: _services_database_service__WEBPACK_IMPORTED_MODULE_3__.DatabaseService
+}, {
+  type: _angular_fire_compat_auth__WEBPACK_IMPORTED_MODULE_7__.AngularFireAuth
+}, {
+  type: _angular_fire_compat_firestore__WEBPACK_IMPORTED_MODULE_8__.AngularFirestore
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder
+}, {
+  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_10__.ToastController
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router
+}];
+
+HomePage.propDecorators = {
+  mapElement: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_12__.ViewChild,
+    args: ['map']
+  }]
+};
+HomePage = (0,tslib__WEBPACK_IMPORTED_MODULE_13__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
+  selector: 'app-home',
+  template: _home_page_html_ngResource__WEBPACK_IMPORTED_MODULE_1__,
+  styles: [_home_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__]
+})], HomePage);
 
 
 /***/ }),
@@ -556,12 +652,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "DatabaseService": () => (/* binding */ DatabaseService)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 4929);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ 3819);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic-native/sqlite-porter/ngx */ 2820);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ 3819);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ 6646);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 4505);
+/* harmony import */ var _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic-native/sqlite-porter/ngx */ 2820);
+/* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ 6646);
 
 
 
@@ -570,161 +666,97 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let DatabaseService = class DatabaseService {
-    constructor(plt, sqlitePorter, sqlite, http) {
-        this.plt = plt;
-        this.sqlitePorter = sqlitePorter;
+    constructor(platform, sqlite, httpClient, sqlPorter) {
+        this.platform = platform;
         this.sqlite = sqlite;
-        this.http = http;
-        this.dbReady = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(false);
-        this.contacts = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject([]);
-        this.names = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject([]);
-        this.phones = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject([]);
-        this.email = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject([]);
-        this.plt.ready().then(() => {
+        this.httpClient = httpClient;
+        this.sqlPorter = sqlPorter;
+        this.contactsList = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject([]);
+        this.isDbReady = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject(false);
+        this.platform.ready().then(() => {
             this.sqlite.create({
-                name: 'Contacts.db',
+                name: 'ping_db.db',
                 location: 'default'
             })
                 .then((db) => {
-                this.database = db;
-                this.seedDatabase();
+                this.storage = db;
+                this.getFakeData();
             });
         });
     }
     dbState() {
-        return this.dbReady.asObservable();
+        return this.isDbReady.asObservable();
     }
-    seedDatabase() {
-        this.http.get('assets/seed.sql', { responseType: 'text' })
-            .subscribe(sql => {
-            this.sqlitePorter.importSqlToDb(this.database, sql)
+    fetchData() {
+        return this.contactsList.asObservable();
+    }
+    //Render Dummy data
+    getFakeData() {
+        this.httpClient.get('assets/dump.sql', { responseType: 'text' }).subscribe(data => {
+            this.sqlPorter.importSqlToDb(this.storage, data)
                 .then(_ => {
-                this.loadName();
-                this.loadEmail();
-                this.loadPhoneNum();
-                this.dbReady.next(true);
+                this.getContacts();
+                this.isDbReady.next(true);
             })
-                .catch(e => console.error(e));
+                .catch(error => console.error(error));
         });
     }
-    fetchContacts() {
-        return this.contacts.asObservable();
-    }
-    getDatabaseState() {
-        return this.dbReady.asObservable();
-    }
-    getContact() {
-        return this.names.asObservable();
-    }
-    getPhoneNum() {
-        return this.phones.asObservable();
-    }
-    loadName() {
-        return this.database.executeSql('SELECT * FROM contacts', []).then(data => {
-            let contacts = [];
-            if (data.rows.length > 0) {
-                for (var i = 0; i < data.rows.length; i++) {
-                    let email = [];
-                    if (data.rows.item(i).email != '') {
-                        email = JSON.parse(data.rows.item(i).email);
-                    }
-                    contacts.push({
-                        id: data.rows.item(i).id,
-                        person_name: data.rows.item(i).name,
-                        email: data.rows.item(i).email,
-                        phone_num: data.rows.item(i).phone
+    getContacts() {
+        return this.storage.executeSql('SELECT * FROM contactData', []).then(res => {
+            let items = [];
+            if (res.rows.length > 0) {
+                for (var i = 0; i < res.rows.length; i++) {
+                    items.push({
+                        id: res.rows.item(i).id,
+                        person_name: res.ros.item(i).person_name,
+                        phone_num: res.row.item(i).phone_num,
+                        email: res.row.item(i).email
                     });
                 }
             }
-            this.contacts.next(contacts);
+            this.contactsList.next(items);
         });
     }
-    addContacts(person_name, email, phone_num) {
-        let data = [person_name, JSON.stringify(email), phone_num];
-        return this.database.executeSql('INSERT INTO contacts (name, email, phoneNum) VALUES (?,?,?)', data).then(data => {
-            this.loadName();
+    //Add
+    addContact(person_name, phone_num, email) {
+        let data = [person_name, phone_num, email];
+        return this.storage.executeSql('INSERT INTO contactData (person_name, phone_num, email) VALUES (?,?)', data)
+            .then(res => {
+            this.getContacts;
         });
     }
-    /*getName(id): Promise<Dev>
-    {
-      return this.database.executeSql('SELECT FROM contacts WHERE id = ?', [id]).then(_=> {
-        let email = [];
-        if(data.rows.item(0).email != '')
-        {
-          email = JSON.parse(data.rows.item(0).email);
-        }
-        return
-        {
-          id: data.rows.item(0).id,
-          person_name: data.rows.item(0).person_name,
-          email: email,
-          phone_num: data.rows.item(0).phone_num
-        }
-      });
-    }*/
+    //Grabing on contact 
+    getContact(id) {
+        return this.storage.executeSql('SELECT * FROM contactData WHERE id = ?', [id]).then(res => {
+            return {
+                id: res.rows.item(0).id,
+                person_name: res.rows.item(0).person_name,
+                phone_num: res.rows.item(0).phone_num,
+                email: res.rows.item(0).email
+            };
+        });
+    }
+    //Update
+    updateContacts(id, contact) {
+        let data = [contact.person_name, contact.phone_num, contact.email];
+        return this.storage.executeSql('UPDATE contactData SET person_name = ?, phone_num = ?, email = ? WHERE id = ${id}', data)
+            .then(data => {
+            this.getContacts();
+        });
+    }
+    //Delete 
     deleteContacts(id) {
-        return this.database.executeSql('DELETE FROM contacts WHERE id = ?', [id]).then(_ => {
-            this.loadName();
-            this.loadEmail();
-            this.loadPhoneNum();
-        });
-    }
-    updateContacts(dev) {
-        let data = [dev.name, JSON.stringify(dev.email), dev.phone];
-        return this.database.executeSql('UPDATE contacts SET name = ?, email = ?, phone = ? WHERE id =${dev.id}', data).then(data => {
-            this.loadName();
-        });
-    }
-    loadEmail() {
-        let query = 'SELECT Email.name, Email.id, Name.name AS creator FROM email JOIN name ON name.id = email.creatorId';
-        return this.database.executeSql(query, []).then(data => {
-            let email = [];
-            if (data.rows.length > 0) {
-                for (var i = 0; i < data.rows.length; i++) {
-                    email.push({
-                        person_name: data.rows.item(i).person_name,
-                        id: data.rows.item(i).id,
-                        creator: data.rows.item(i).creator,
-                    });
-                }
-            }
-            this.email.next(email);
-        });
-    }
-    loadPhoneNum() {
-        let query = 'SELECT PhoneNum.name, PhoneNum.id, Name.name AS creator FROM phone JOIN name ON name.id = phoneNum.creatorId';
-        return this.database.executeSql(query, []).then(data => {
-            let phoneNum = [];
-            if (data.rows.length > 0) {
-                for (var i = 0; i < data.rows.length; i++) {
-                    phoneNum.push({
-                        person_name: data.rows.item(i).person_name,
-                        id: data.rows.item(i).id,
-                        creator: data.rows.item(i).creator,
-                    });
-                }
-            }
-            this.phones.next(phoneNum);
-        });
-    }
-    addEmail(name, creator) {
-        let data = [name, creator];
-        return this.database.executeSql('INSERT INTO product (name,creatorId) VALUES (?,?)', data).then(data => {
-            this.loadEmail();
-        });
-    }
-    addPhone(name, creator) {
-        let data = [name, creator];
-        return this.database.executeSql('INSERT INTO product (name,creatorId) VALUES (?,?)', data).then(data => {
-            this.loadPhoneNum();
+        return this.storage.executeSql('DELETE FORM contactData WHERE id = ?', [id])
+            .then(_ => {
+            this.getContacts();
         });
     }
 };
 DatabaseService.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__.Platform },
-    { type: _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_0__.SQLitePorter },
     { type: _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_1__.SQLite },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient },
+    { type: _ionic_native_sqlite_porter_ngx__WEBPACK_IMPORTED_MODULE_0__.SQLitePorter }
 ];
 DatabaseService = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Injectable)({
@@ -760,6 +792,7 @@ __webpack_require__.r(__webpack_exports__);
 const {
   PushNotifications
 } = _capacitor_core__WEBPACK_IMPORTED_MODULE_1__.Plugins;
+const isPushNotificationsAvailable = _capacitor_core__WEBPACK_IMPORTED_MODULE_1__.Capacitor.isPluginAvailable('PushNotifications');
 let FcmService = class FcmService {
   constructor(router) {
     this.router = router;
@@ -769,6 +802,10 @@ let FcmService = class FcmService {
     if (_capacitor_core__WEBPACK_IMPORTED_MODULE_1__.Capacitor.platform !== 'web') {
       this.registerPush();
     }
+  }
+
+  PushNotifications() {
+    throw new Error('Method not implemented.');
   }
 
   registerPush() {
@@ -843,12 +880,14 @@ const environment = {
     production: false,
     firebase: {
         projectId: 'ping-app-d043d',
-        appId: '1:576852490775:web:5f8c19a6b6795a6eeb3a52',
+        appId: '1:576852490775:web:0b3c336683d046dbeb3a52',
+        databaseURL: 'https://ping-app-d043d-default-rtdb.firebaseio.com',
         storageBucket: 'ping-app-d043d.appspot.com',
-        apiKey: 'AIzaSyA8KbQp7QgPbNnzAPbZfLvNc_WrnNjm3rM',
+        locationId: 'us-west1',
+        apiKey: 'AIzaSyA_V0Ff8tS5-czelEli_Gx0V3XiFFa2ip4',
         authDomain: 'ping-app-d043d.firebaseapp.com',
         messagingSenderId: '576852490775',
-        measurementId: 'G-SJB1QFCQ5T',
+        measurementId: 'G-EEWK35FL4D',
     }
 };
 /*
@@ -955,12 +994,12 @@ var map = {
 	],
 	"./ion-datetime-button.entry.js": [
 		7950,
-		"default-node_modules_ionic_core_dist_esm_parse-71f28cd7_js-node_modules_ionic_core_dist_esm_t-0c999b",
+		"default-node_modules_ionic_core_dist_esm_parse-250f021a_js-node_modules_ionic_core_dist_esm_t-7df007",
 		"node_modules_ionic_core_dist_esm_ion-datetime-button_entry_js"
 	],
 	"./ion-datetime_3.entry.js": [
 		9689,
-		"default-node_modules_ionic_core_dist_esm_parse-71f28cd7_js-node_modules_ionic_core_dist_esm_t-0c999b",
+		"default-node_modules_ionic_core_dist_esm_parse-250f021a_js-node_modules_ionic_core_dist_esm_t-7df007",
 		"common",
 		"node_modules_ionic_core_dist_esm_ion-datetime_3_entry_js"
 	],
@@ -1153,7 +1192,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /***/ ((module) => {
 
 "use strict";
-module.exports = "ion-content {\n  --background: #f0f6f6;\n}\nion-content ion-tab-bar {\n  height: 90px;\n  position: relative;\n  border-top-left-radius: 30px;\n  border-top-right-radius: 30px;\n}\nion-content ion-tab-bar ion-tab-button {\n  font-size: 1.7rem;\n  --color-selected: #5b8783;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kscUJBQUE7QUFDSjtBQUNJO0VBQ0UsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSw2QkFBQTtBQUNOO0FBQ007RUFDRSxpQkFBQTtFQUNBLHlCQUFBO0FBQ1IiLCJmaWxlIjoiaG9tZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudHtcclxuICAgIC0tYmFja2dyb3VuZDogI2YwZjZmNjtcclxuICBcclxuICAgIGlvbi10YWItYmFyIHtcclxuICAgICAgaGVpZ2h0OiA5MHB4O1xyXG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICAgIGJvcmRlci10b3AtbGVmdC1yYWRpdXM6IDMwcHg7XHJcbiAgICAgIGJvcmRlci10b3AtcmlnaHQtcmFkaXVzOiAzMHB4O1xyXG4gIFxyXG4gICAgICBpb24tdGFiLWJ1dHRvbiB7XHJcbiAgICAgICAgZm9udC1zaXplOiAxLjdyZW07XHJcbiAgICAgICAgLS1jb2xvci1zZWxlY3RlZDogIzViODc4MztcclxuICBcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIFxyXG4gIH0iXX0= */";
+module.exports = "ion-content {\n  --background: #f0f6f6;\n}\nion-content ion-tab-bar {\n  height: 90px;\n  position: relative;\n  border-top-left-radius: 30px;\n  border-top-right-radius: 30px;\n}\nion-content ion-tab-bar ion-tab-button {\n  font-size: 1.7rem;\n  --color-selected: #5b8783;\n}\nion-content #map {\n  width: 100%;\n  height: 80% px;\n}\n/*#container {\n  text-align: center;\n\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#container strong {\n  font-size: 20px;\n  line-height: 26px;\n}\n\n#container p {\n  font-size: 16px;\n  line-height: 22px;\n\n  color: #8c8c8c;\n\n  margin: 0;\n}\n\n#container a {\n  text-decoration: none;\n}\n\n#map {\n  width: 100%;\n  height: 80%px;\n}*/\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kscUJBQUE7QUFDSjtBQUNJO0VBQ0UsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSw2QkFBQTtBQUNOO0FBQ007RUFDRSxpQkFBQTtFQUNBLHlCQUFBO0FBQ1I7QUFHSTtFQUNFLFdBQUE7RUFDQSxjQUFBO0FBRE47QUFJRTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztFQUFBIiwiZmlsZSI6ImhvbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNvbnRlbnR7XHJcbiAgICAtLWJhY2tncm91bmQ6ICNmMGY2ZjY7XHJcbiAgXHJcbiAgICBpb24tdGFiLWJhciB7XHJcbiAgICAgIGhlaWdodDogOTBweDtcclxuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgICBib3JkZXItdG9wLWxlZnQtcmFkaXVzOiAzMHB4O1xyXG4gICAgICBib3JkZXItdG9wLXJpZ2h0LXJhZGl1czogMzBweDtcclxuICBcclxuICAgICAgaW9uLXRhYi1idXR0b24ge1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMS43cmVtO1xyXG4gICAgICAgIC0tY29sb3Itc2VsZWN0ZWQ6ICM1Yjg3ODM7XHJcbiAgXHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgICNtYXAge1xyXG4gICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgaGVpZ2h0OiA4MCVweDtcclxuICAgIH1cclxuICB9XHJcbiAgLyojY29udGFpbmVyIHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIGxlZnQ6IDA7XHJcbiAgICByaWdodDogMDtcclxuICAgIHRvcDogNTAlO1xyXG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKC01MCUpO1xyXG4gIH1cclxuICBcclxuICAjY29udGFpbmVyIHN0cm9uZyB7XHJcbiAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICBsaW5lLWhlaWdodDogMjZweDtcclxuICB9XHJcbiAgXHJcbiAgI2NvbnRhaW5lciBwIHtcclxuICAgIGZvbnQtc2l6ZTogMTZweDtcclxuICAgIGxpbmUtaGVpZ2h0OiAyMnB4O1xyXG4gIFxyXG4gICAgY29sb3I6ICM4YzhjOGM7XHJcbiAgXHJcbiAgICBtYXJnaW46IDA7XHJcbiAgfVxyXG4gIFxyXG4gICNjb250YWluZXIgYSB7XHJcbiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgfVxyXG5cclxuICAjbWFwIHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiA4MCVweDtcclxuICB9Ki8iXX0= */";
 
 /***/ }),
 
@@ -1175,7 +1214,7 @@ module.exports = "<ion-app>\r\n  <ion-router-outlet></ion-router-outlet>\r\n</io
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<ion-header>\r\n  <ion-toolbar color = \"primary\">\r\n    <ion-title>\r\n      Ping Tracking\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n  <ion-tabs>\r\n    <ion-tab-bar slot=\"bottom\">\r\n\r\n      <ion-tab-button tab=\"trusted-lists\">\r\n        <ion-icon name=\"people-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      <ion-tab-button tab=\"history\">\r\n        <ion-icon name=\"list-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      <ion-tab-button tab=\"main\">\r\n        <ion-icon name=\"radio-button-off-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      <ion-tab-button tab=\"settings\">\r\n        <ion-icon name=\"settings-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      <div #map id=\"map\" [hidden]=\"!user\"></div>\r\n\r\n      <div *ngIf=\"user\">\r\n    \r\n        <ion-item>\r\n          <ion-label>User ID: {{ user.uid }}</ion-label>\r\n        </ion-item>\r\n    \r\n        <ion-button expand=\"block\" (click)=\"startTracking()\" *ngIf=\"!isTracking\">\r\n          <ion-icon name=\"locate\" slot=\"start\"></ion-icon>\r\n          Start Tracking\r\n        </ion-button>\r\n    \r\n        <ion-button expand=\"block\" (click)=\"stopTracking()\" *ngIf=\"isTracking\">\r\n          <ion-icon name=\"hand\" slot=\"start\"></ion-icon>\r\n          Stop Tracking\r\n        </ion-button>\r\n    \r\n        <ion-list>\r\n          <ion-item-sliding *ngFor=\"let pos of locations | async\">\r\n            <ion-item>\r\n              <ion-label text-wrap>\r\n                Lat: {{ pos.lat }}\r\n                Lng: {{ pos.lng }}\r\n                <p>\r\n                  {{ pos.timestamp | date:'short' }}\r\n                </p>\r\n              </ion-label>\r\n            </ion-item>\r\n    \r\n            <ion-item-options side=\"start\">\r\n              <ion-item-option color=\"danger\" (click)=\"deleteLocation(pos)\">\r\n                <ion-icon name=\"trash\" slot=\"icon-only\"></ion-icon>\r\n              </ion-item-option>\r\n            </ion-item-options>\r\n    \r\n          </ion-item-sliding>\r\n        </ion-list>\r\n    \r\n      </div>\r\n\r\n    </ion-tab-bar>\r\n  </ion-tabs>\r\n</ion-content>";
+module.exports = "<ion-header>\r\n  <ion-toolbar color = \"primary\">\r\n    <ion-title>\r\n      Ping Tracking\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n  <div #map id=\"map\" [hidden]=\"!user\"></div>\r\n\r\n  <div *ngIf=\"user\">\r\n\r\n    <ion-item>\r\n      <ion-label>User ID: {{ user.uid }}</ion-label>\r\n    </ion-item>\r\n\r\n    <ion-button expand=\"block\" (click)=\"startTracking()\" *ngIf=\"!isTracking\">\r\n      <ion-icon name=\"locate\" slot=\"start\"></ion-icon>\r\n      Start Tracking\r\n    </ion-button>\r\n\r\n    <ion-button expand=\"block\" (click)=\"stopTracking()\" *ngIf=\"isTracking\">\r\n      <ion-icon name=\"hand\" slot=\"start\"></ion-icon>\r\n      Stop Tracking\r\n    </ion-button>\r\n\r\n    <ion-list>\r\n      <ion-item-sliding *ngFor=\"let pos of locations | async\">\r\n        <ion-item>\r\n          <ion-label text-wrap>\r\n            Lat: {{ pos.lat }}\r\n            Lng: {{ pos.lng }}\r\n            <p>\r\n              {{ pos.timestamp | date:'short' }}\r\n            </p>\r\n          </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item-options side=\"start\">\r\n          <ion-item-option color=\"danger\" (click)=\"deleteLocation(pos)\">\r\n            <ion-icon name=\"trash\" slot=\"icon-only\"></ion-icon>\r\n          </ion-item-option>\r\n        </ion-item-options>\r\n\r\n      </ion-item-sliding>\r\n    </ion-list>\r\n\r\n  </div>\r\n \r\n</ion-content>\r\n\r\n<ion-content>\r\n  <ion-tabs>\r\n    <ion-tab-bar slot=\"bottom\">\r\n\r\n      <ion-tab-button tab=\"trusted-lists\">\r\n        <ion-icon name=\"people-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      <ion-tab-button tab=\"history\">\r\n        <ion-icon name=\"list-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      <ion-tab-button tab=\"main\">\r\n        <ion-icon name=\"radio-button-off-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      <ion-tab-button tab=\"settings\">\r\n        <ion-icon name=\"settings-outline\"></ion-icon>\r\n      </ion-tab-button>\r\n\r\n      \r\n    </ion-tab-bar>\r\n  </ion-tabs>\r\n</ion-content>\r\n\r\n";
 
 /***/ })
 

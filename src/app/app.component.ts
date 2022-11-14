@@ -24,14 +24,6 @@ export class AppComponent {
   async initializeApp() {
     this.platform.ready().then(async () => {
       this.fcmService.initPush();
-      const loading = await this.loadingCtrl.create();
-      await loading.present();
-      this.databaseService.init();
-      this.databaseService.dbReady.subscribe(isReady => {
-        if (isReady) {
-          loading.dismiss();
-        }
-      });
     });
   }
 }

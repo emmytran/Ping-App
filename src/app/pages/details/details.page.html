@@ -25,3 +25,31 @@
     </ion-content>
   </ion-card>
 </ion-content>
+
+<ion-content>
+  <ion-list lines="full">
+    <form [formGroup]="editForm" (ngSubmit)="saveForm()">
+      <ion-item>
+        <ion-label position="floating">New Contacts name</ion-label>
+        <ion-input formControlName="person_name" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">New Phone number</ion-label>
+        <ion-input formControlName="phone_num" type="text" required>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">New Email adress</ion-label>
+        <ion-input formControlName="email" type="text" required>
+        </ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" shape="full" expand="block">
+            Update
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+</ion-content>

@@ -1,122 +1,104 @@
 import { Injectable } from '@angular/core';
-import { Plugins } from '@capacitor/core';
-import '@capacitor-community/sqlite';
-import { AlertController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, from, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
-import { JsonSQLite } from '@capacitor-community/sqlite';
+import { Platform } from '@ionic/angular';
 import { Contacts } from './contacts';
-const { CapacitorSQLite, Device, Storage } = Plugins;
-
-const DB_SETUP_KEY = 'first_db_setup';
-const DB_NAME_KEY = 'db_name';
-
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
+  private storage: SQLiteObject;
+  contactsList = new BehaviorSubject([]);
+  private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  dbReady = new BehaviorSubject(false);
-  dbName = '';
-
-  constructor(private http: HttpClient, private alertCtrl: AlertController)
-  {}
-    async init(): Promise<void> {
-      const info = await Device.getInfo();
-      
-      if (info.platform === 'android') {
-        try {
-          const sqlite = CapacitorSQLite as any;
-          await sqlite.requestPermissions();
-          this.setupDatabase();
-        } catch (e) {
-          const alert = await this.alertCtrl.create({
-            header: 'No DB access',
-            message: 'This app cant work without Database access.',
-            buttons: ['OK']
-          });
-          await alert.present();
-        }
-      } else {
-        this.setupDatabase();
-      }
+  constructor(
+    private platform: Platform,
+    private sqlite: SQLite,
+    private httpClient: HttpClient,
+    private sqlPorter: SQLitePorter,
+  ){
+    this.platform.ready().then(() => {
+      this.sqlite.create({
+        name: 'ping_db.db',
+        location: 'default'
+      })
+      .then((db: SQLiteObject) => {
+          this.storage = db;
+          this.getFakeData();
+      });
+    });
+  }
+  dbState() {
+    return this.isDbReady.asObservable();
+  }
+  fetchData(): Observable<Contacts[]> {
+    return this.contactsList.asObservable();
+  }
+    //Render Dummy data
+    getFakeData() {
+      this.httpClient.get(
+        'assets/dump.sql', 
+        {responseType: 'text'}
+      ).subscribe(data => {
+        this.sqlPorter.importSqlToDb(this.storage, data)
+          .then(_ => {
+            this.getContacts();
+            this.isDbReady.next(true);
+          })
+          .catch(error => console.error(error));
+      });
     }
-  
-    private async setupDatabase() {
-      const dbSetupDone = await Storage.get({ key: DB_SETUP_KEY });
-  
-      if (!dbSetupDone.value) {
-        this.downloadDatabase();
-      } else {
-        this.dbName = (await Storage.get({ key: DB_NAME_KEY })).value;
-        await CapacitorSQLite.open({ database: this.dbName });
-        this.dbReady.next(true);
-      }
-    }
-    // Potentially build this out to an update logic:
-  // Sync your data on every app start and update the device DB
-    private downloadDatabase(update = false) {
-      this.http.get('file:///C:/Users/Elvis/Desktop/CSCI%20150%20Text%20Book/database.html').subscribe(async (jsonExport: JsonSQLite) => {
-        const jsonstring = JSON.stringify(jsonExport);
-        const isValid = await CapacitorSQLite.isJsonValid({ jsonstring });
-  
-        if (isValid.result) {
-          this.dbName = jsonExport.database;
-          await Storage.set({ key: DB_NAME_KEY, value: this.dbName });
-          await CapacitorSQLite.importFromJson({ jsonstring });
-          await Storage.set({ key: DB_SETUP_KEY, value: '1' });
-  
-          // Your potential logic to detect offline changes later
-          if (!update) {
-            await CapacitorSQLite.createSyncTable();
-          } else {
-            await CapacitorSQLite.setSyncDate({ syncdate: '' + new Date().getTime() })
+    getContacts(){
+      return this.storage.executeSql('SELECT * FROM contactData', []).then(res => {
+        let items: Contacts[] =[];
+        if(res.rows.length > 0) {
+          for(var i =0; i < res.rows.length; i++){
+            items.push({
+              id: res.rows.item(i).id,
+              person_name: res.ros.item(i).person_name,
+              phone_num: res.row.item(i).phone_num,
+              email: res.row.item(i).email
+            });
           }
-          this.dbReady.next(true);
+        }
+        this.contactsList.next(items);
+      });
+    }
+    //Add
+    addContact(person_name, phone_num, email){
+      let data = [person_name, phone_num, email];
+      return this.storage.executeSql('INSERT INTO contactData (person_name, phone_num, email) VALUES (?,?)', data)
+      .then(res => {
+        this.getContacts
+      })
+    }
+    //Grabing on contact 
+    getContact(id): Promise<Contacts> {
+      return this.storage.executeSql('SELECT * FROM contactData WHERE id = ?', [id]).then(res => { 
+        return {
+          id: res.rows.item(0).id,
+          person_name: res.rows.item(0).person_name,  
+          phone_num: res.rows.item(0).phone_num,
+          email: res.rows.item(0).email
         }
       });
     }
+    //Update
+    updateContacts(id,contact: Contacts){
+      let data = [contact.person_name,contact.phone_num, contact.email];
+      return this.storage.executeSql('UPDATE contactData SET person_name = ?, phone_num = ?, email = ? WHERE id = ${id}', data)
+      .then(data =>{
+        this.getContacts();
+      })
+    }
+    //Delete 
+    deleteContacts(id){
+      return this.storage.executeSql('DELETE FORM contactData WHERE id = ?',[id])
+      .then(_=>{
+        this.getContacts();
+      })
+    }
 
-    getContactsList() {
-      return this.dbReady.pipe(
-        switchMap(isReady => {
-          if (!isReady) {
-            return of({ values: [] });
-          } else {
-            const statement = 'SELECT * FROM products;';
-            return from(CapacitorSQLite.query({ statement, values: [] }));
-          }
-        })
-      )
-    }
-    
-    async getContactsById(id) {
-      const statement = `SELECT * FROM products LEFT JOIN vendors ON vendors.id=products.vendorid WHERE products.id=${id} ;`;
-      return (await CapacitorSQLite.query({ statement, values: [] })).values[0];
-    }
-    
-    getDatabaseExport(mode) {
-      return CapacitorSQLite.exportToJson({ jsonexportmode: mode });
-    }
-    
-    addDummyContacts(name) {
-      const randomValue = Math.floor(Math.random() * 100) + 1;
-      const randomVendor = Math.floor(Math.random() * 3) + 1
-      const statement = `INSERT INTO products (name, currency, value, vendorid) VALUES ('${name}','EUR', ${randomValue}, ${randomVendor});`;
-      return CapacitorSQLite.execute({ statements: statement });
-    }
-    
-    deleteContacts(productId) {
-      const statement = `DELETE FROM products WHERE id = ${productId};`;
-      return CapacitorSQLite.execute({ statements: statement });
-    }
-    
-    // For testing only..
-    async deleteDatabase() {
-      const dbName = await Storage.get({ key: DB_NAME_KEY });
-      await Storage.set({ key: DB_SETUP_KEY, value: null });
-      return CapacitorSQLite.deleteDatabase({ database: dbName.value });
-    }
-  }
+}
