@@ -78,7 +78,7 @@ export class HomePage implements OnInit{
 
   constructor(private databaseService: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) {
   //Database setup  
-    this.loadContacts();
+    //this.loadContacts();
     //Geolocation setup
   this.anonLogin();
   }

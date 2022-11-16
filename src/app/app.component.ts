@@ -14,7 +14,8 @@ export class AppComponent {
     private databaseService: DatabaseService,
     private loadingCtrl: LoadingController,
     private fcmService: FcmService
-  ) {this.initializeApp();}
+  ) {//this.initializeApp();
+  }
 
   async initializeApp() {
     this.platform.ready().then(() => {
