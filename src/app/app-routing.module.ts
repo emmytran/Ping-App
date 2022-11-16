@@ -12,6 +12,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'home/:id',
+    loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsPageModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
@@ -59,6 +63,16 @@ const routes: Routes = [
     path: 'map',
     loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
   },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'details',
+    loadChildren: () => import('./pages/details/details.module').then( m => m.DetailsPageModule)
+  },
+
 
 ];
 @NgModule({

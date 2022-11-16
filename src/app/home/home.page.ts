@@ -1,351 +1,204 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from "@angular/forms";
-import { Database } from './../services/db.service'
-import { ToastController } from '@ionic/angular';
-import { Router } from "@angular/router";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Platform, AlertController, NavController } from '@ionic/angular'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, ElementRef, NgProbeToken, OnInit, ViewChild } from '@angular/core';
+import { DatabaseService } from '../services/database.service';
+//Push Notification
+import{
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
+//Geolocation
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore, 
+         AngularFirestoreCollection
+} from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
+import { Plugins } from '@capacitor/core';
+const { Geolocation } = Plugins;
+
+declare var google;
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.page.html'
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-   /**
-    * @name hasData
-    * @type {Boolean}
-    * @public
-    * @description     Flag used in the template to control display of database records
-    */
-   public hasData : boolean 		= false;
-   /**
-    * @name technologies
-    * @type {object}
-    * @public
-    * @description     Stores all of the retrieved database table records
-    */
-   public technologies : any;
-   /**
-    * @name dataImported
-    * @type {Boolean}
-    * @public
-    * @description     Flag used to determine whether data has been imported into the SQLite database
-    */
-   public dataImported : boolean 	= false;
-   /**
-    * @name _SQL_NAME
-    * @type {String}
-    * @private
-    * @description     Name of the SQL file
-    */
-   private _SQL_NAME : string 		= 'technologies.sql';
-   /**
-    * @name _SQL_URI
-    * @type {String}
-    * @private
-    * @description     Location of the SQL file
-    */
-    private _SQL_URI : string 		= encodeURI("http://REMOTE-URI-HERE/technologies.sql");
-  /**
-    * @name _JSON_NAME
-    * @type {String}
-    * @private
-    * @description     Name of the JSON file
-    */
-   private _JSON_NAME : string 		= 'technologies.json';
-/**
-    * @name _JSON_URI
-    * @type {String}
-    * @private
-    * @description     Location of the JSON file
-    */
- private _JSON_URI : string 		= encodeURI("http://REMOTE-URI-HERE/technologies.json");
- /**
-  * @name _REMOTE_URI
-  * @type {String}
-  * @private
-  * @description     The address of the remote PHP script
-  */
- private _REMOTE_URI : string		= "http://REMOTE-URI-HERE/parse-data.php";
- constructor(
-  public navCtl : NavController,
-  private _ALERT   : AlertController,
-  private _HTTP: HttpClient,
-  private _DB    	: Database,
-  private _PLAT    : Platform) 
-{ }
 
-/**
-* @public
-* @method ionViewDidLoad
-* @description         Check whether data exists on template view load
-* @return {none}
-*/
-ionViewDidLoad() : void
-{
-  this._PLAT
-  .ready()
-  .then(() => 
-  {
-    setTimeout(() => 
-    {
-      this._DB
-      .dataExistsCheck('technologies')
-      .then((data) => 
-      {
-        this.loadRecords();
-      })
-      .catch((error) =>
-      {
-        console.dir(error);
-      });
-    }, 1500);
-  });
-}
+export class HomePage implements OnInit{
+  contacts = [];
+  export = null;
+  newContacts = 'New Contacts';
+  
+  //Firebase data
+  locations: Observable<any>
+  locationsCollection: AngularFirestoreCollection<any>;
+  //Map related
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
+  marker = [];
+  //Misc
+  isTracking = false;
+  watch: string;
+  user = null;
 
-/**
-* @public
-* @method loadRecords
-* @description         Retrieve records from database and, on success, set hasData flag to true
-* @return {none}
-*/
-loadRecords(): void
-{
-  this._DB
-  .retrieveAllRecords()
-  .then((data) => 
-  {
-    this.hasData = true;
-    this.technologies = data;
-  })
-  .catch((error: any) => 
-  {
-    console.dir(error);
-  });
-}
-/**
- * @public
- * @method import
- * @description   //Retrive records from database and, on success, set hadData flag to true
- * @return {none}
- */
-import():void
-{
-  this._DB
-  .dataExistsCheck('technologies')
-  .then((data : any ) =>
-  {
-    //if we have existing data then wipe teh database
-    if(data > 0)
-    {
-      this._DB
-      .clear()
-      .then((data) => 
-      {
-        //If data successfully wiped off tables/data call eth importAlert method
-        this.hasData = false;
-        this.importAlert();
-      })
-      .catch((error) =>
-      {
-        console.dir(error);
-      });
-    }
-    //If we don't have existing data just call teh importAlert method
-    else
-    {
-      this.importAlert();
-    }
-  })
-  .catch((error) => 
-  {
-    this.importAlert();
-  });
-}
-/**
- * @public
- * @method retrieveSQLfile
- * @description   Retrieve remote SQL file using Angular HTTPClient get method
- * @return {none}
- */
-retrieveSQLFile(): void
-{
-  this._HTTP
-  .get(this._SQL_URI, {responseType: 'text'})
-  .subscribe((data) => 
-  {
-    this.importSQL(data);
-  },
-  (error) => 
-  {
-    console.dir(error);
-  });
-}
+  ngOnInit() {
+    console.log('Initializing HomePage');
 
-/**
- * @public
- * @method retrieveJSONFile
- * @descriotion   Retrieve remote JSON file using Angular HttpClient get method
- * @return {none}
- */
-retrieveJSONFile(): void
-{
-  this._HTTP
-  .get(this._JSON_URI)
-  .subscribe((data) =>
-  {
-    this.importJSON(data);
-  },
-  (error) => 
-  {
-    console.dir(error);
-  });
-}
-
-/**
- * @public
- * @method importSQL
- * @param sqlFile   {any} The SQL file data to be imported
- * @description   Import SQL File
- * @return {none}
- */
-importSQL(sqlFile: any) : void
-{
-  this._DB
-  .importSQL(sqlFile)
-  .then((res) => 
-  {
-   this.dataImported = true;
-   this.loadRecords(); 
-  })
-  .catch((error) => 
-  {
-    console.dir(error);
-  });
-}
-
-/**
- * @public
- * @method importJSON
- * @param jsonFile {any}  The JSON file data to be imported
- * @return {none}
- */
-importJSON(jsonFile: any) : void
-{
-  this._DB
-  .importJSON(jsonFile)
-  .then((res) =>
-  {
-    this.dataImported = true;
-    this.loadRecords();
-  })
-  .catch((error) => 
-  {
-    console.dir(error);
-  });
-}
-
-/**
- * @public
- * @method importAlert
- * @description       Display an Alert Window allowing the user to select their data import type: SQL or JSON
- * @return {none}
- */
-importAlert() : void
-{
-  let alert : any = this._ALERT.create({
-    header : 'Import data',
-    subHeader : 'Please select which import option you prefer',
-    message : "This is an alert!",
-    buttons : [
-      {
-        text : 'JSON',
-        handler : () =>
-        {
-          this.retrieveJSONFile();
-        }
+    //Request permission to use push notifications
+    //Ios will prompt user and return if they are granted permisson or not
+    //Android will just grant permisson without prompting
+    PushNotifications.requestPermissions().then(result => {
+      if(result.receive === 'granted') {
+        //Register with Apple / Google to recieve push via APNS/FCM
+        PushNotifications.register();
+      }else {
+        //Show some error
+      }
+    });
+    PushNotifications.addListener('registration', (token: Token) => {
+      alert('Push registration success, token: ' + token.value);
+    });
+    PushNotifications.addListener('registrationError', (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    });
+    PushNotifications.addListener(
+      'pushNotificationReceived',
+      (notification: PushNotificationSchema) => {
+        alert('Push  receive: ' + JSON.stringify(notification));
       },
-    {
-      text : 'SQL',
-      handler : () =>
-      {
-        this.retrieveSQLFile();
-      }
+    );
+    PushNotifications.addListener(
+      'pushNotificationActionPerformed',
+      (notification: ActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      },
+    );
+  }
+
+  constructor(private databaseService: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  //Database setup  
+    this.loadContacts();
+    //Geolocation setup
+  this.anonLogin();
+  }
+  loadContacts(){
+    this.databaseService.getContactsList().subscribe(res => {
+      this.contacts = res.value;
+    });
+  }
+
+  async createExport(mode) {
+    const dataExport = await this.databaseService.getDatabaseExport(mode);
+    this.export = dataExport.export;
+  }
+
+  async addContacts() {
+    await this.databaseService.addNewContacts(this.newContacts);
+    this.newContacts = '';
+    this.loadContacts();
+  }
+  
+  async deleteContacts(contacts){
+    await this.databaseService.deleteContacts(contacts.id);
+    this.contacts = this.contacts.filter(c => c != contacts)
+  }
+  //Geolocation main setup
+  ionViewWillEnter() {
+    this.loadMap();
+  }
+  //Makesure an anonymous login and load data
+  anonLogin(){
+    this.afAuth.signInAnonymously().then(res => {
+      this.user = res.user;
+
+      this.locationsCollection = this.afs.collection(
+        'locations/${this.user.uid}/track',
+        ref => ref.orderBy('timestamp')
+      );
+      
+      //Make sure we also get the Firebase item ID!
+      this.locations = this.locationsCollection.snapshotChanges().pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+      //Update Map maker on every change
+      this.locations.subscribe(locations => {
+        this.updateMap(locations);
+      });
+    });
+  }
+  //Initialize a blank map
+  loadMap() {
+    let latlng = new google.maps.LatLng(51.9036442, 7.6683267);
+
+    let mapOptions = {
+      center: latlng,
+      zoom: 5,
+      mapTypdId: google.maps.MapTypeId.ROADMAP
+    };
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+  }
+  // Use Capacitor to track our geolocation
+startTracking() {
+  this.isTracking = true;
+  this.watch = Geolocation.watchPosition({}, (position, err) => {
+    if (position) {
+      this.addNewLocation(
+        position.coords.latitude,
+        position.coords.longitude,
+        position.timestamp
+      );
     }
-  ]
-  });
-  alert.present();
-}
-
-/**
- * @public
- * @method exportAlert
- * @description     Display an Alert Window allowing the user to select their data export type: currently only SQL
- * @return {none}
- */
-exportAlert() : void
-{
-  let alert : any = this._ALERT.create({
-    header : 'Export data',
-    subHeader : 'Please select which export option you prefer',
-    message : "This is an alert!",
-    buttons : [
-      {
-        text : 'SQL',
-        handler : () =>
-        {
-          this.exportToSQL();
-        }
-      }
-    ]
-  });
-  alert.present();
-}
-/**
- * @pulic
- * @method exportToSQL
- * @description     Handles the export of SQL data using the DatabaseProvider service
- * @return {none}
- */
-exportToSQL() : void
-{
-  this._DB
-  .exportAsSQL()
-  .then((res) =>
-  {
-    let filename : any = Date.now() + '.sql';
-    this.parseAndUploadSQL(filename, res)
-  })
-  .catch((error) => 
-  {
-    console.dir(error);
-  });
-}
-/**
- * @public
- * @method parseAndUploadSQL
- * @param filename {String}   The file name for the exported SQL data
- * @param filename {string}   The exported SQL data
- * @description   Post the exported SQL data to the remote PHP script using Angular's HTTPClient module
- * @return {none}
- */
-parseAndUploadSQL(fileName : string, sqlData : any)
-{
-  let headers : any = new HttpHeaders({ 'Content-Type': 'application/octet-stream'}),
-  options : any = {"name" : fileName, "data" : sqlData};
-  this._HTTP
-  .post(this._REMOTE_URI, JSON.stringify(options), headers)
-  .subscribe((res) => 
-  {
-    console.dir(res);
-  },
-  (error : any) =>
-  {
-    console.dir(error);
   });
 }
 
+// Unsubscribe from the geolocation watch using the initial ID
+stopTracking() {
+  Geolocation.clearWatch({ id: this.watch }).then(() => {
+    this.isTracking = false;
+  });
+}
 
+// Save a new location to Firebase and center the map
+addNewLocation(lat, lng, timestamp) {
+  this.locationsCollection.add({
+    lat,
+    lng,
+    timestamp
+  });
 
+  let position = new google.maps.LatLng(lat, lng);
+  this.map.setCenter(position);
+  this.map.setZoom(5);
+}
+
+// Delete a location from Firebase
+deleteLocation(pos) {
+  this.locationsCollection.doc(pos.id).delete();
+}
+
+// Redraw all markers on the map
+updateMap(locations) {
+  // Remove all current marker
+  this.marker.map(marker => marker.setMap(null));
+  this.marker = [];
+
+  for (let loc of locations) {
+    let latLng = new google.maps.LatLng(loc.lat, loc.lng);
+
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng
+    });
+    this.marker.push(marker);
+  }
+}
 }

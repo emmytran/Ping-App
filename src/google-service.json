@@ -1,0 +1,39 @@
+{
+    "project_info": {
+      "project_number": "576852490775",
+      "project_id": "ping-app-d043d",
+      "storage_bucket": "ping-app-d043d.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:576852490775:android:8ea6a436cc82dd13eb3a52",
+          "android_client_info": {
+            "package_name": "com.Ping.app"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "576852490775-p15kdrp1ml2a8jujanhlvdbm9nt8u3mm.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyDe9ldCbRoX4mECuI8w4g9XIM9EL73v3WM"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "576852490775-p15kdrp1ml2a8jujanhlvdbm9nt8u3mm.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
