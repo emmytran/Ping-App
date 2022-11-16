@@ -1,0 +1,41 @@
+<input multiple="false" (change)="changeImage($event)" #assetInput type="file" accept="image/*" id="asset-img-input"
+  class="hidden-file-input" />
+
+<div class="popup-container">
+  <span class="title-text">Crop image and upload</span>
+  <div class="crop-container">
+    <img id="image" src="{{imgSrc}}">
+  </div>
+
+  <div class="controls-container">
+    <div class="left-button">
+      <button class="control-button cropper-button" title="Change image" (click)="assetInput.click()">Change Image...</button>
+    </div>
+
+    <div class="center-buttons button-group">
+      <button class="cropper-button" title="Move" (click)="cropper.setDragMode('move')">
+        <ion-icon name="move-outline"></ion-icon>
+      </button>
+      <button class="cropper-button" title="Crop" (click)="cropper.setDragMode('crop')">
+        <ion-icon name="crop-outline"></ion-icon>
+      </button>
+      <button class="cropper-button" title="Reset" (click)="cropper.reset()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="zoom-buttons button-group">
+      <button class="cropper-button" title="Zoom in" (click)="cropper.zoom(0.1)">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </button>
+      <button class="cropper-button" title="Zoom out" (click)="cropper.zoom(-0.1)">
+        <ion-icon name="remove-circle-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="right-buttons">
+      <button class="control-button cancel-button" title="Cancel" (click)="cancel()">Cancel</button>
+      <button class="control-button done-button" title="Done" (click)="done()">Done</button>
+    </div>
+  </div>
+</div>
