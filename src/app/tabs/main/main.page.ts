@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-main',
@@ -7,7 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPage implements OnInit {
 
-  constructor() { }
+  progress = 0;
+  constructor(private alertCtrl: AlertController) {}
+
+  async holdButton(e) { //hold button progress bar
+    this.progress = e / 10;
+    if (this.progress > 100) {
+      const alert = await this.alertCtrl.create({
+        header: 'Alert',
+        message: 'Location sent to trusted list',
+      });
+      alert.present();
+    }
+  }
+
+
 
   ngOnInit() {
   }

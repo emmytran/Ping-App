@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MainPageRoutingModule } from './main-routing.module';
 
 import { MainPage } from './main.page';
+import { HoldableDirective } from './holdable.directive';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { MainPage } from './main.page';
     IonicModule,
     MainPageRoutingModule
   ],
-  declarations: [MainPage]
+  declarations: [MainPage, HoldableDirective]
 })
 export class MainPageModule {}

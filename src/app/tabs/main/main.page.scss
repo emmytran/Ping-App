@@ -2,20 +2,53 @@ ion-content {
     --background: white;
     position: relative;
   
-    .card {
-      height: 81%;
-      width: 100%;
-      background: #f0f6f6;
-      position: absolute;
-      bottom: 0;
-      border-radius: 30px 30px 0 0;
-    }
-  
     h1 {
       font-size: 30px;
       font-weight: bold;
-      color: #5B8783;
+      color: #D1833A;;
       padding-left: 33px;
       transform: translateY(65px);
     }
+
+  div {
+    display: flex;
+    justify-content: center;
+    display: grid;
+    padding-top: 281px;
+
+    button {
+      height: 230px;
+      width: 230px;
+      border-radius: 50%;
+      background-color: #FFDEC0;
+      box-shadow: 0px 4px 4px #B7906E;
+      font-size: 30px;
+      font-weight: bold;
+      color: #D1833A;
+    }
+    button:active{
+      transform: translateY(4px);
+    }
+    progress{
+      height: 24px;
+      width: 200px;
+
+      -webkit-appearance: none;
+      transform: translate(19px, 30px);
+    }
+    ::-webkit-progress-bar{
+      transition: 0.1 all ease;
+      background-color: #f6f6f6;
+      border-radius: 30px;
+    
+    }
+    ::-webkit-progress-value {
+      background-color: #D1833A;
+      border-radius: 30px;
+
+    }
+
+  }
+
+
   }

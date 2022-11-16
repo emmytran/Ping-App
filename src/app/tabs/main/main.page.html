@@ -1,6 +1,11 @@
 <ion-content>
-  <h1>Hello</h1>
-  <div class="card">
 
+  <h1>Ping Button</h1>
+
+  <div>
+    <button class="button" appHoldable (holdTime)="holdButton($event)">Hold</button>
+    <progress [value]="progress" max="100"></progress>
   </div>
+
+
 </ion-content>
