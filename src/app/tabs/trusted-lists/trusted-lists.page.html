@@ -33,9 +33,11 @@
       </ion-button>
       <ion-button (click)="checkSMSPermission()">
         Send SMS 
-      </ion-button><ion-button (click)="getSMSPermission()">
+      </ion-button>
+      <ion-button (click)="getSMSPermission()">
         Get SMS Permission
       </ion-button>
+  
     </div>
 
     <ion-item *ngFor="let contact of contacts | async" >

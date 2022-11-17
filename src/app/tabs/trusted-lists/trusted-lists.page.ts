@@ -7,10 +7,6 @@ import {Contact, Contacts, ContactType, EmailAddress, NewContact, PhoneNumber} f
 import { SMS } from '@awesome-cordova-plugins/sms/ngx';
 import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // Notice the '/' at the end
 
-/**
- npm i cordova-plugin-android-permissions
- npm install @ionic-native/android-permissions
- */
 @Component({
   selector: 'app-trusted-lists',
   templateUrl: './trusted-lists.page.html',
@@ -33,24 +29,19 @@ export class TrustedListsPage implements OnInit {
     console.log('button clicked');
     Contacts.getPermissions();
   }
-
+  //Grab phone contacts
   async getContacts(): Promise<void> {
-    // console.log('tesbutton clicked');
-    //this.getPermissions();
      Contacts.getContacts().then(result => {
         console.log('result is:' , result);
         const phoneContacts: Contact[] = result.contacts;
-      // this.logContact(phoneContacts);
-     // this.myContact = phoneContacts;
         //Sort phone contacts by display name
         phoneContacts.sort((a, b) => a.displayName.localeCompare(b.displayName))
         this.contacts = of(phoneContacts);
      });
    }
 
-   
+  //Checks SMS permisions for app
   checkContactsPermission() {
-    //Checks SMS permisions for app
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_CONTACTS).then(
       result => {
                   //Send messages if SMS permissions are enabled
@@ -60,8 +51,8 @@ export class TrustedListsPage implements OnInit {
                   }
                   //Request for SMS permissions if disabled
                   else {
-                    //this.sms.send('5594305550','Hello World');
                     console.log("Does Not have Contact permissions...")
+                    this.contactAlert();
                     this.getContactPermissions();
                  }
                 },
@@ -76,8 +67,6 @@ export class TrustedListsPage implements OnInit {
       next: (myContactList: Contact[]) => {
         for (var myContact of myContactList) {
           //Name of contacts
-         // console.log(typeof myContact)
-        // myContactList.push(this.newContact)
          console.log("Obrsever Subscribe: " + myContact.displayName)
           for (var myNumber of myContact.phoneNumbers){
             //Mobile phone numbers
@@ -121,8 +110,6 @@ export class TrustedListsPage implements OnInit {
     const insert = {
       //Grabs trusted list
       next: (myContactList: Contact[]) => {
-       // console.log("Inserting: " + newContact.displayName)
-       // console.log("Inserting: " + newContact.phoneNumbers[0].label + ": " + newContact.phoneNumbers[0].number)
         //Inserts new contact into trusted list
         myContactList.push(newContact)
         //Sort Contact list by display name
@@ -144,10 +131,6 @@ export class TrustedListsPage implements OnInit {
     const remove = {
       next: (myContactList: Contact[]) => {
         for (var myContact of myContactList) {
-          //Name of contacts
-         // console.log(typeof myContact)
-        // myContactList.push(this.newContact)
-
         //Looks for a matching name in trusted list
          if (myContact.displayName == targetName){
           console.log(myContact.displayName + " found at index: " + index)
@@ -171,61 +154,45 @@ export class TrustedListsPage implements OnInit {
     this.contacts.subscribe(remove);
   }
 
-  //Send SMS message
+  //Send SMS message to trusted list
    async sendSMS() {
-    //Arrays don't work, use for loop instead
-    var test = ["5555", "5556" ]
-    var targetNumber = "5594305550"
     var message = "Danger"
-       // this.sms.send(targetNumber,message)
     var trustedNumbers = [];
    //Send to multiple numbers
-   //Need delay between each send to process sent messages
-    const sleep = (ms) => new Promise(r => setTimeout(r, ms)); //delay bewteen messages
-
-    /*
-    var success = function () { alert('Message sent successfully'); };
-    var error = function (e) { alert('Message Failed:' + e); };
-    var options = {
-      replaceLineBreaks: false, // true to replace \n by a new line, false by default
-      android: {
-          intent: 'INTENT'  // send SMS with the native android SMS messaging
-          //intent: '' // send SMS without opening any other app, require : android.permission.SEND_SMS and android.permission.READ_PHONE_STATE
-      }
-  };*/
-  const grabTrustedList = {
-    //Grabs trusted list
-    next: (myContactList: Contact[]) => {
-      for (var myContact of myContactList) {
-        //Name of contact
-       console.log("Obrsever Subscribe: " + myContact.displayName)
-        for (var myNumber of myContact.phoneNumbers){
-          // Grab mobile phone numbers
-          if (myNumber.label == "mobile"){
-            console.log("Observer Subscribe: ", myNumber.number);
-            trustedNumbers.push(myNumber.number)
-          }
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms)); //Need delay between each send to process sent messages
+    const grabTrustedList = {
+     //Grabs trusted list
+     next: (myContactList: Contact[]) => {
+       for (var myContact of myContactList) {
+         //Name of contact
+         console.log("Obrsever Subscribe: " + myContact.displayName)
+         for (var myNumber of myContact.phoneNumbers){
+            // Grab mobile phone numbers
+            if (myNumber.label == "mobile"){
+              console.log("Observer Subscribe: ", myNumber.number);
+              trustedNumbers.push(myNumber.number)
+            }
+         }
         }
-      }
     },
     error: (err: Error) => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
-  this.contacts.subscribe(grabTrustedList);
-  //Contact each trusted user's
-      for(var i = 0; i < trustedNumbers.length; i++) {
-       this.sms.send(trustedNumbers[i],message)
-       await sleep(2000);
-      }
-     console.log("Completed SMS messaging")
-  }
+   this.contacts.subscribe(grabTrustedList);
+    //Contact each trusted user's
+       for(var i = 0; i < trustedNumbers.length; i++) {
+        //Arrays don't work, iterate through for loop and send 1 message at a time
+        //this.sms.send(trustedNumbers,message)
+        this.sms.send(trustedNumbers[i],message)
+        await sleep(2000); //delay each message
+       }
+      console.log("Completed SMS messaging")
+   }
   
-  // Request for SMS permissions
+  //Request for SMS permissions
    async getSMSPermission(): Promise<void> {
-   // this.sms.requestPermission();   
-   console.log("Requesting SMS permissions...")
-   this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS) 
-    //return SMSperm
+     console.log("Requesting SMS permissions...")
+     this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS) 
   }
 
   checkSMSPermission() {
@@ -239,13 +206,34 @@ export class TrustedListsPage implements OnInit {
                   }
                   //Request for SMS permissions if disabled
                   else {
-                    //this.sms.send('5594305550','Hello World');
                     console.log("Does Not have SMS permissions...")
+                    this.SMSAlert();
                     this.getSMSPermission();
                  }
                 },
       err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS)
     );
   }
-  
+
+  async SMSAlert() {
+    const alert = await this.alertController.create({
+      header: 'Ping Denied',
+      subHeader: 'App Permission Missing: SMS Access',
+      message: 'Try again after enabling',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+    async contactAlert() {
+    const alert = await this.alertController.create({
+      header: 'Contact Syncing Denied',
+      subHeader: 'App Permission Missing: Contact Access',
+      message: 'Try again after enabling',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
 }
