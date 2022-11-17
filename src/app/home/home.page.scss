@@ -6,16 +6,14 @@ ion-content{
     position: relative;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    //background-color: #fff;
     --background: #fff;
     --color: #aeaeae;
     --border: none;
 
 
-    ion-tab-button {
+    ion-tab-button:active {
       font-size: 1.7rem;
-      --color-selected: #5b8783;
-
+      color: #5b8783;
     }
   }
 
