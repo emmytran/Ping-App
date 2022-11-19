@@ -10,6 +10,8 @@ import { TrustedListsPage } from './trusted-lists.page';
 
 import { SMS } from '@awesome-cordova-plugins/sms/ngx';
 import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // Notice the '/' at the end
+import { mySMS } from '../../sms.service';
+import { syncContacts } from 'src/app/contacts.service';
 
 
 @NgModule({
@@ -20,6 +22,6 @@ import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // No
     TrustedListsPageRoutingModule
   ],
   declarations: [TrustedListsPage],
-providers: [SMS , AndroidPermissions ]
+providers: [SMS , AndroidPermissions, mySMS, syncContacts  ]
 })
 export class TrustedListsPageModule {}

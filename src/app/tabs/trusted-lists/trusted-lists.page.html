@@ -16,31 +16,16 @@
 <!--
   <ion-list>
     <div class="ion-text-start">
-      <ion-button (click)="getContactPermissions()" >
-        Get Permission
-      </ion-button>
-      <ion-button (click)="checkContactsPermission()">
+      <ion-button (click)="mycheckContactsPermission()">
         Sync Contacts
       </ion-button>
-      <ion-button (click)="addTrustList()">
-        Add Contact
-      </ion-button>
-      <ion-button (click)="removeTrustList()">
-        Remove Contact
-      </ion-button>
-      <ion-button (click)="logTrustList()">
-        Log Contact List 
-      </ion-button>
-      <ion-button (click)="checkSMSPermission()">
+
+      <ion-button (click)="mycheckSMSPermission()">
         Send SMS 
       </ion-button>
-      <ion-button (click)="getSMSPermission()">
-        Get SMS Permission
-      </ion-button>
-  
     </div>
 
-    <ion-item *ngFor="let contact of contacts | async" >
+    <ion-item *ngFor="let contact of this.syncContacts.contacts | async" >
       <ion-icon *ngIf="!contact.photoThumbnail" color="primary" slot="start" name="person"></ion-icon>
       <ion-avatar *ngIf="contact.photoThumbnail"  slot="start">
         <ion-img [src]="contact.photoThumbnail"></ion-img>
