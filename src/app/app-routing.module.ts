@@ -6,13 +6,14 @@ import { LoginPageModule } from './pages/login/login.module';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 const redirectLoggedInToHome = ()  => redirectLoggedInTo(['home']);
+const redirectLoggedInToMain = () => redirectLoggedInTo(['main']);
 
 const routes: Routes = [
- /* {
+ {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then((m) => LoginPageModule),
     ...canActivate(redirectUnauthorizedToLogin)
-  },*/
+  },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
@@ -24,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'home/:id',
-    loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsPageModule),
+    loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsPageModule), 
     ...canActivate(redirectLoggedInToHome)
   },
   {
@@ -42,7 +43,8 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    loadChildren: () => import('./tabs/main/main.module').then( m => m.MainPageModule)
+    loadChildren: () => import('./tabs/main/main.module').then( m => m.MainPageModule),
+    ...canActivate(redirectLoggedInToMain)
   },
   {
     path: 'settings',
@@ -89,7 +91,7 @@ const routes: Routes = [
     path: 'developers/:id',
     loadChildren: () => import('./pages/developers/developers.module').then( m => m.DevelopersPageModule)
   },
-    
+
   
 ];
 @NgModule({

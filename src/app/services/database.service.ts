@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,10 +25,6 @@ export class DatabaseService {
         name: 'ping_db.db',
         location: 'default'
       })
-      .then((db: SQLiteObject) => {
-          this.storage = db;
-          this.getFakeData();
-      });
     });
   }
   dbState() {

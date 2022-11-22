@@ -21,17 +21,22 @@ export class DetailsPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(param => {
+      this.id = param.get('id');
+    });
     this.editForm = this.formBuilder.group({
       person_name: [''],
       phone_num: [''],
       email: ['']
-    })
+    });
   }
+
+
   saveForm(){
     this.databaseService.updateContacts(this.id, this.editForm.value)
     .then( (res) => {
       console.log(res)
-      this.router.navigate(['/home'])
+      this.router.navigate(['/main'])
     })
   }
 

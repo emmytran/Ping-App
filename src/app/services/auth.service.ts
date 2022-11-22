@@ -11,8 +11,7 @@ import {
   providedIn: 'root'
 })
 export class AuthService {
-  [x: string]: any;
-
+  
   constructor(private auth: Auth) { }
 
   async register({email, password})
@@ -25,6 +24,15 @@ export class AuthService {
       return null;
     }
   }
+
+  async login({ email, password }) {
+		try {
+			const user = await signInWithEmailAndPassword(this.auth, email, password);
+			return user;
+		} catch (e) {
+			return null;
+		}
+	}
 
   logout() {
     return signOut(this.auth);

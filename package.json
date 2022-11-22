@@ -42,6 +42,7 @@
     "cordova-support-google-services": "^1.4.1",
     "firebase": "^9.13.0",
     "ionicons": "^6.0.3",
+    "jetifier": "^2.0.0",
     "plugin": "^0.0.15",
     "rm": "^0.1.8",
     "rxjs": "~6.6.0",

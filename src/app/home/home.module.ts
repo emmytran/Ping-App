@@ -8,6 +8,13 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root' // just before your class
+})
+export class AccessProviders {}
+
 @NgModule({
   imports: [
     CommonModule,

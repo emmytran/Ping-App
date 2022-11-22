@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -14,10 +15,10 @@ import { DatabaseService } from './services/database.service';
 import { HomePageModule } from './home/home.module';
 
 //Firbase Plugin
-/*import { AngularFireModule} from '@angular/fire/compat';
+/*import { AngularFireModule} from '@angular/fire/compat';*/
 import { AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule} from '@angular/fire/compat/auth';
-import { AngularFireStorageModule} from '@angular/fire/compat/storage';*/
+import { AngularFireStorageModule} from '@angular/fire/compat/storage';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
@@ -29,6 +30,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -38,10 +40,10 @@ import { environment } from '../environments/environment';
     AppRoutingModule, 
     HttpClientModule,
     HomePageModule,
-    /*AngularFireModule.initializeApp(environment.firebase),
+    /*AngularFireModule.initializeApp(environment.firebase),*/
     AngularFirestoreModule, //Only require for database features
     AngularFireStorageModule, //Require for storage features
-    AngularFireAuthModule, //Require for auth features*/
+    AngularFireAuthModule, //Require for auth features
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
       if (Capacitor.isNativePlatform()) {
