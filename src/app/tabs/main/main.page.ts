@@ -13,19 +13,16 @@ export class MainPage implements OnInit {
 
   async holdButton(e) { //hold button progress bar
     this.progress = e / 10;
-    
+
     const alert = await this.alertCtrl.create({
       header: 'Alert',
       message: 'Location sent to trusted list',
     });
 
-    if (this.progress > 100) {
-     
+    if (this.progress > 100) { //after the bar is reached-> alert message and send location
       alert.present();
     }
   }
-
-
 
   ngOnInit() {
   }
