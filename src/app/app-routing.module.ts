@@ -63,6 +63,14 @@ const routes: Routes = [
     path: 'edit',
     loadChildren: () => import('./pages/edit/edit.module').then( m => m.EditPageModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'allow-location',
+    loadChildren: () => import('./pages/allow-location/allow-location.module').then( m => m.AllowLocationPageModule)
+  },
 ];
 @NgModule({
   imports: [
