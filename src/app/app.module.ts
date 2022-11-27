@@ -29,6 +29,7 @@ import { getApp } from 'firebase/app';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 
 @NgModule({
@@ -63,7 +64,11 @@ import { environment } from '../environments/environment';
     SQLitePorter,
     { 
       provide: RouteReuseStrategy, 
-      useClass: IonicRouteStrategy 
+      useClass: IonicRouteStrategy
+    },
+    {
+      provide: FIREBASE_OPTIONS, 
+      useValue: environment.firebase 
     },
     DatabaseService
   ],

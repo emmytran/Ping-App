@@ -1,24 +1,12 @@
-import { Component, ElementRef, NgProbeToken, OnInit, ViewChild } from '@angular/core';
-import { DatabaseService} from '../services/database.service';
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { ToastController } from '@ionic/angular';
-import { Router } from "@angular/router";
-//Push Notification
-import{
-  ActionPerformed,
-  PushNotificationSchema,
-  PushNotifications,
-  Token,
-} from '@capacitor/push-notifications';
-//Geolocation
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, 
-         AngularFirestoreCollection
-} from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs/internal/Observable';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
+import { Plugins } from '@capacitor/core';
 const { Geolocation } = Plugins;
 
 declare var google;
@@ -26,59 +14,42 @@ declare var google;
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: ['home.page.scss']
 })
-
-export class HomePage implements OnInit{
-  contacts = [];
-  names: Observable<any[]>;
-  contact = {};
-  name = {};
-  selectedView = 'devs';
-  export = null;
-  newContacts = 'New Contacts';
-  mainForm: FormGroup;
-  Data: any[] = []
-
-  //Firebase data
-  locations: Observable<any>
+export class HomePage {
+  // Firebase Data
+  locations: Observable<any>;
   locationsCollection: AngularFirestoreCollection<any>;
-  //Map related
+
+  // Map related
   @ViewChild('map') mapElement: ElementRef;
   map: any;
-  marker = [];
-  //Misc
+  markers = [];
+
+  // Misc
   isTracking = false;
   watch: string;
   user = null;
 
-  constructor(
-    private databaseService: DatabaseService, 
-    private afAuth: AngularFireAuth, 
-    private afs: AngularFirestore,
-    private formsBuilder: FormBuilder,
-    private toast: ToastController,
-    private router: Router
-    ) 
-  {
-    //Geolocation setup
+  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private authservice: AuthService, private router: Router) {
     this.anonLogin();
   }
-   //Geolocation main setup
+
   ionViewWillEnter() {
     this.loadMap();
   }
-  //Makesure an anonymous login and load data
-  anonLogin(){
+
+  // Perform an anonymous login and load data
+  anonLogin() {
     this.afAuth.signInAnonymously().then(res => {
       this.user = res.user;
 
       this.locationsCollection = this.afs.collection(
-        'locations/${this.user.uid}/track',
+        `locations/${this.user.uid}/track`,
         ref => ref.orderBy('timestamp')
       );
-      
-      //Make sure we also get the Firebase item ID!
+
+      // Make sure we also get the Firebase item ID!
       this.locations = this.locationsCollection.snapshotChanges().pipe(
         map(actions =>
           actions.map(a => {
@@ -88,25 +59,28 @@ export class HomePage implements OnInit{
           })
         )
       );
-      //Update Map maker on every change
+
+      // Update Map marker on every change
       this.locations.subscribe(locations => {
         this.updateMap(locations);
       });
     });
   }
-  //Initialize a blank map
+
+  // Initialize a blank map
   loadMap() {
-    let latlng = new google.maps.LatLng(36.8040606,-119.7509865);
+    let latLng = new google.maps.LatLng(36.8721665,-119.7947849);
 
     let mapOptions = {
-      center: latlng,
-      zoom: 5,
-      mapTypdId: google.maps.MapTypeId.ROADMAP
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
-  // Use Capacitor to track our geolocation
+
+// Use Capacitor to track our geolocation
 startTracking() {
   this.isTracking = true;
   this.watch = Geolocation.watchPosition({}, (position, err) => {
@@ -145,89 +119,29 @@ deleteLocation(pos) {
   this.locationsCollection.doc(pos.id).delete();
 }
 
-// Redraw all markers on the map
-updateMap(locations) {
-  // Remove all current marker
-  this.marker.map(marker => marker.setMap(null));
-  this.marker = [];
+  // Redraw all markers on the map
+  updateMap(locations) {
+    // Remove all current marker
+    this.markers.map(marker => marker.setMap(null));
+    this.markers = [];
 
-  for (let loc of locations) {
-    let latLng = new google.maps.LatLng(loc.lat, loc.lng);
+    for (let loc of locations) {
+      let latLng = new google.maps.LatLng(loc.lat, loc.lng);
 
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: latLng
-    });
-    this.marker.push(marker);
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: latLng
+      });
+      this.markers.push(marker);
+    }
   }
-}
 
-//This is for push notiification
-ngOnInit() {
-  console.log('Initializing HomePage');
-
-  //Request permission to use push notifications
-  //Ios will prompt user and return if they are granted permisson or not
-  //Android will just grant permisson without prompting
-  PushNotifications.requestPermissions().then(result => {
-    if(result.receive === 'granted') {
-      //Register with Apple / Google to recieve push via APNS/FCM
-      PushNotifications.register();
-    }else {
-      //Show some error
-    }
-  });
-  PushNotifications.addListener('registration', (token: Token) => {
-    alert('Push registration success, token: ' + token.value);
-  });
-  PushNotifications.addListener('registrationError', (error: any) => {
-    alert('Error on registration: ' + JSON.stringify(error));
-  });
-  PushNotifications.addListener(
-    'pushNotificationReceived',
-    (notification: PushNotificationSchema) => {
-      alert('Push  receive: ' + JSON.stringify(notification));
-    },
-  );
-  PushNotifications.addListener(
-    'pushNotificationActionPerformed',
-    (notification: ActionPerformed) => {
-      alert('Push action performed: ' + JSON.stringify(notification));
-    },
-  );
-
-  this.databaseService.dbState().subscribe((res) => {
-    if(res){
-      this.databaseService.fetchData().subscribe(item => {
-        this.Data = item
-      })
-    }
-  });
-  this.mainForm = this.formsBuilder.group({
-    person: [''],
-    phone: [''],
-    email: ['']
-  })
-}
-storeData() {
-this.databaseService.addContact(
-  this.mainForm.value.person,
-  this.mainForm.value.phone,
-  this.mainForm.value.email
-).then((res) => {
-  this.mainForm.reset();
-})
-}
-deleteContacts(id){
-this.databaseService.deleteContacts(id).then(async(res) => {
-  let toast = await this.toast.create({
-    message: 'Contact deleted',
-    duration: 2500
-  });
-  toast.present();
-})
-}
-}
+  async logout() {
+		await this.authservice.logout();
+		this.router.navigateByUrl('/', { replaceUrl: true });
+	}
 
 
+
+}
