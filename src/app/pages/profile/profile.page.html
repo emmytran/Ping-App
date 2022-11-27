@@ -1,0 +1,27 @@
+
+<ion-content>
+  <ion-icon name="chevron-back-outline" [routerLink]="['/register']" ></ion-icon>
+  <h1>Create Profile</h1>
+  <div class="card">
+
+    <img src="assets/images/person.png" />
+
+    <form>
+      <input type="text" name="first" placeholder="First Name" required/>
+      <br><br>
+      <input type="text" name="last" placeholder="Last Name" required/>
+      <br><br>
+      <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number" required/>
+      <br><br>
+    </form>
+
+    <div class="btn">
+      <ion-button [routerLink]="['/allow-location']">
+        CONTINUE
+      </ion-button>
+     </div>
+     <span class="last">
+      <a href="#" [routerLink]="['/allow-location']">Skip</a>
+     </span>
+  </div>
+</ion-content>

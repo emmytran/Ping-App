@@ -1,21 +1,67 @@
 ion-content {
-    --background: white;
+    --background: #fff;
     position: relative;
-  
-    .card {
-      height: 81%;
-      width: 100%;
-      background: #f0f6f6;
-      position: absolute;
-      bottom: 0;
-      border-radius: 30px 30px 0 0;
-    }
   
     h1 {
       font-size: 30px;
       font-weight: bold;
-      color: #5B8783;
+      color: #D1833A;
       padding-left: 33px;
       transform: translateY(65px);
     }
+
+  div {
+    //display: flex;
+    justify-content: center;
+    display: grid;
+    padding-top: 281px;
+  
+
+    button {
+      height: 230px;
+      width: 230px;
+      border-radius: 50%;
+      background-color: #FFDEC0;
+      box-shadow: 0px 8px 8px #B7906E;
+      font-size: 30px;
+      font-weight: bold;
+      color: #D1833A;
+    
+    }
+    button:active{
+      transform: translateY(4px);
+    }
+    progress{
+      padding-top: 12px;
+      height: 40px;
+      width: 230px;
+
+      -webkit-appearance: none;
+      transform: translate(2px, 35px);
+    }
+    ::-webkit-progress-bar{
+      transition: 0.1 all ease;
+      background-color: #fff;
+      background-image: linear-gradient(to right, rgba(255, 255, 0, 0.529), rgba(255, 0, 0, 0.771));
+      box-shadow: 0px 4px 4px #c28753;
+      border-radius: 30px;
+    
+    }
+    ::-webkit-progress-value {
+      background-color: #d3935882;
+      //background: linear-gradient(to right, #e5405e 0%, #ffdb3a 45%, #3fffa2 100%);
+      border-radius: 30px;
+
+    }
+    
+
+  }
+
+  }
+
+  p{
+    text-align: center;
+    color: #aeaeae;
+    width: 200px;
+    font-weight: 600;
   }

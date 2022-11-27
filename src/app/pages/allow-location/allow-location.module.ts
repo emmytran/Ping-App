@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MainPageRoutingModule } from './main-routing.module';
+import { AllowLocationPageRoutingModule } from './allow-location-routing.module';
 
-import { MainPage } from './main.page';
-import { HoldableDirective } from './holdable.directive';
+import { AllowLocationPage } from './allow-location.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MainPageRoutingModule
+    AllowLocationPageRoutingModule
   ],
-  declarations: [MainPage, HoldableDirective]
+  declarations: [AllowLocationPage]
 })
-export class MainPageModule {}
+export class AllowLocationPageModule {}

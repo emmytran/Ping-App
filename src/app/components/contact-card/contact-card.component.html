@@ -1,0 +1,39 @@
+
+<div class="card" [id]="item.id">
+  
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [src]="item.image"/>
+        </ion-avatar>
+        <ion-label>{{item.firstName}} {{item.lastName}}</ion-label>
+      </ion-item>
+  
+  
+  
+  
+    <ion-modal #modal trigger="{{ item.id }}">
+      <ng-template>
+        <ion-icon class="close" name="close-outline" (click)="modal.dismiss()"></ion-icon>
+  
+        <ion-content>
+  
+          <ion-avatar class="profile">
+            <img [src]="item.image">
+          </ion-avatar>
+  
+          <form>
+           <input type="text" name="first" value="{{ item.firstName }}" required/>
+           <br><br>
+           <input type="text" name="last" value="{{ item.lastName }}" required/>
+           <br><br>
+           <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{ item.phone }} " required/>
+           <div class="btm">
+            <span>Save</span>
+           </div>
+          </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  
+  </div>
+  

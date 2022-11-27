@@ -1,0 +1,105 @@
+
+  .card {
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px #94bbbc;
+    height: 93px;
+    background: white;
+    padding-bottom: 20px;
+    ion-item{
+      height: 93px;
+      display: table-cell;
+      vertical-align: middle;
+      --background: transparent;
+
+      ion-avatar{
+        width: 60px;
+        height: 60px;
+      }
+
+      ion-label{
+        font-size: 18px;
+        font-weight: 550;
+        color: #5B8783;
+
+      }
+    }
+  }
+
+ 
+
+//modal-------------------------------------
+ion-modal {
+  -webkit-appearance: none;
+  --height: 57%;
+  --width: 93%;
+  --border-radius: 30px;
+  --box-shadow: 0 4px 4px #94bbbc;
+  margin-top: -48px;
+}
+
+ion-modal::part(backdrop) {
+
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+
+  ion-icon{
+    font-size: 30px;
+    color: #5B8783;
+
+}
+
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 32px;
+
+  input {
+    -webkit-appearance: none;
+    background-color: #fbfbfb;
+    border:none;
+    outline:none;
+    width: 300px;
+    height: 49px;
+    color: #7AA7AD;
+    border-radius: 30px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: inset -1px 4px 4px #94BBBC, 0 -1px 1px #FFF, 0 1px 0 #FFF;
+  }
+
+  ::placeholder {
+    color:#7AA7AD;
+  }
+}
+
+.close {
+  padding-left: 25px;
+  padding-top: 25px;
+}
+
+
+.btm{
+  padding-top: 20px;
+
+  span{
+    color: #5B8783;
+    font-size: 15px;
+    font-weight: normal;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.profile {
+  margin: auto;
+  width: 119px;
+  height: 119px;
+  box-shadow: 0px 4px 4px #b9b9b9;
+}

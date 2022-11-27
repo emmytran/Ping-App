@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MainPageRoutingModule } from './main-routing.module';
+import { ProfilePageRoutingModule } from './profile-routing.module';
 
-import { MainPage } from './main.page';
-import { HoldableDirective } from './holdable.directive';
+import { ProfilePage } from './profile.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MainPageRoutingModule
+    ProfilePageRoutingModule
   ],
-  declarations: [MainPage, HoldableDirective]
+  declarations: [ProfilePage]
 })
-export class MainPageModule {}
+export class ProfilePageModule {}
