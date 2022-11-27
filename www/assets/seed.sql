@@ -1,10 +1,12 @@
-CREATE TABLE IF NOT EXISTS Contacts(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,          
-    person_name TEXT,
-    phone_num INTEGER
-);
-INSERT or IGNORE INTO Contacts(id, person_name, phone_num) VALUE(1, 'John Doe', 5591234567);
-INSERT or IGNORE INTO Contacts(id, person_name, phone_num) VALUE(2, 'Jane Andrew', 5596781234);
-INSERT or IGNORE INTO Contacts(id, person_name, phone_num) VALUE(3, 'Bart Smith', 5595671236);
-INSERT or IGNORE INTO Contacts(id, person_name, phone_num) VALUE(4, 'Jane Brady', 5597891467);
-INSERT or IGNORE INTO Contacts(id, person_name, phone_num) VALUE(5, 'Tom Johnson', 5593457891;
+CREATE TABLE Contacts
+    (`id` int, `Name` varchar(12), `Email` varchar(23), `PhoneNum` varchar(15) )
+;
+    
+INSERT INTO Table1
+    (`id`, `Name`, `Email`, `PhoneNum`)
+VALUES
+    (1, 'Kyle Kilcrease', 'kylekilcrease@gmail.com', 5591234567),
+    (5, 'Brandon Huynh', 'brandon_huynh@gmail.com', 5593457891),
+    (3, 'Shee Her', ' shee_her@yahoo.com', 5595671236),
+    (2, 'My Tran', 'my_tran@yahoo.com', 5596781234),
+    (4, 'Elvis Lor', 'elvis_lor@gmail.com', 5597891467)

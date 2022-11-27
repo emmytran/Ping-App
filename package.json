@@ -1,5 +1,5 @@
 {
-  "name": "PingApp",
+  "name": "pingapp",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -9,7 +9,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ionic:build": "npm run build",
+    "ionic:serve": "npm run start"
   },
   "private": true,
   "dependencies": {
@@ -20,19 +22,29 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
-    "@capacitor-community/sqlite": "^4.1.1",
-    "@capacitor/android": "^4.3.0",
-    "@capacitor/core": "^4.3.0",
+    "@capacitor-community/sqlite": "^4.2.2",
+    "@capacitor/android": "^4.4.0",
+    "@capacitor/core": "4.4.0",
+    "@capacitor/device": "^4.0.1",
     "@capacitor/geolocation": "^4.0.1",
-    "@capacitor/push-notifications": "^4.1.0",
+    "@capacitor/push-notifications": "^4.1.1",
+    "@capacitor/splash-screen": "^4.1.1",
+    "@capacitor/status-bar": "^4.0.1",
     "@ionic-native/core": "^5.36.0",
     "@ionic-native/fcm": "^5.36.0",
+    "@ionic-native/splash-screen": "^5.36.0",
     "@ionic-native/sqlite": "^5.36.0",
     "@ionic-native/sqlite-porter": "^5.36.0",
+    "@ionic-native/status-bar": "^5.36.0",
     "@ionic/angular": "^6.1.9",
-    "cropperjs": "^1.5.12",
-    "firebase": "^9.12.1",
+    "cordova": "^5.3.3",
+    "cordova-plugin-firebase-messaging": "^7.0.3",
+    "cordova-support-google-services": "^1.4.1",
+    "firebase": "^9.13.0",
     "ionicons": "^6.0.3",
+    "jetifier": "^2.0.0",
+    "plugin": "^0.0.15",
+    "rm": "^0.1.8",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -47,7 +59,7 @@
     "@angular/compiler": "^14.0.0",
     "@angular/compiler-cli": "^14.0.0",
     "@angular/language-service": "^14.0.0",
-    "@capacitor/cli": "^4.3.0",
+    "@capacitor/cli": "4.4.0",
     "@ionic/angular-toolkit": "^6.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
@@ -70,5 +82,19 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.7.3"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmytran/Ping-App.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmytran/Ping-App/issues"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android"
+  ]
 }

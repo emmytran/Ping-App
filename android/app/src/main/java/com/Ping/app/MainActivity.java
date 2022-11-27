@@ -1,10 +1,10 @@
 package com.Ping.app;
-import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
 
 import android.os.Bundle;
 
-import com.getcapacitor.Plugin;
 import com.getcapacitor.BridgeActivity;
+import com.getcapacitor.Plugin;
+import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
 
 import java.util.ArrayList;
 
@@ -23,5 +23,11 @@ public class MainActivity extends BridgeActivity
       private void add(Class<CapacitorSQLite> capacitorSQLiteClass) {
       }
     });
+  }
+
+  private void init(Bundle savedInstanceState, ArrayList<Class<? extends Plugin>> classes) {
+  }
+
+  private void add(Class<CapacitorSQLite> capacitorSQLiteClass) {
   }
 }
