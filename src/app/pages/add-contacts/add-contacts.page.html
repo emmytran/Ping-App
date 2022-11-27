@@ -1,14 +1,21 @@
 
+
+
 <ion-content>
   <header>
     <ion-icon name="close-outline" [routerLink]="['/home/trusted-lists']" ></ion-icon>
     <h1>Add Contacts</h1>
   </header>
   <div class="card">
-  <img src="assets/images/person.png" />
+ <!-- <img src="assets/images/person.png" /> -->
 
 
     <form>
+      <input class="hidden-file-input" multiple="false" (change)="setPicture($event)" 
+        #pictureInput type="file" accept="image/*">
+      <img id="profilePic" src="assets/images/person.png" (click)='pictureInput.click()'/>
+      <br><br>
+
       <input type="text" name="first" placeholder="First Name" required/>
       <br><br>
       <input type="text" name="last" placeholder="Last Name" required/>
