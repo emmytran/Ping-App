@@ -137,7 +137,7 @@ addNewLocation(lat, lng, timestamp) {
 
   let position = new google.maps.LatLng(lat, lng);
   this.map.setCenter(position);
-  this.map.setZoom(5);
+  this.map.setZoom(15);
 }
 
 // Delete a location from Firebase
