@@ -10,7 +10,7 @@ import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // No
 
 @Injectable()
 export class mySMS {
-  contacts: Observable<Contact[]>;
+//  contacts: Observable<Contact[]>;
   public message: any = "I'm new here";
   constructor(private toastController: ToastController, private alertController: AlertController, private sms: SMS , private androidPermissions: AndroidPermissions) {
   }
@@ -19,8 +19,13 @@ export class mySMS {
   }
 
   //Send SMS message to trusted list
-   async sendSMS() {
-    var message = "Danger"
+   async sendSMS(list:Observable<Contact[]>) {
+    //var message = "Danger"
+    var latitude = "34.0522"
+    var longitude = "-118.2437"
+    var link = "https://www.google.com/maps/search/?api=1&query=" + latitude + "%2C"+ longitude //Google map url + lat + comman + long
+  //  var message = "Hello \n" + "https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393"
+    var message = "Current Location \n" + link
     var trustedNumbers = [];
    //Send to multiple numbers
     const sleep = (ms) => new Promise(r => setTimeout(r, ms)); //Need delay between each send to process sent messages
@@ -42,7 +47,9 @@ export class mySMS {
     error: (err: Error) => console.error('Observer got an error: ' + err),
     complete: () => console.log('Observer got a complete notification'),
   };
-   this.contacts.subscribe(grabTrustedList);
+   //this.contacts.subscribe(grabTrustedList);
+   list.subscribe(grabTrustedList);
+
     //Contact each trusted user's
        for(var i = 0; i < trustedNumbers.length; i++) {
         //Arrays don't work, iterate through for loop and send 1 message at a time
@@ -58,15 +65,15 @@ export class mySMS {
      console.log("Requesting SMS permissions...")
      this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS) 
   }
-
-  checkSMSPermission() {
-    //Checks SMS permissions for app
+  //Checks SMS permissions for app
+  checkSMSPermission(list) {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.SEND_SMS).then(
       result => {
                   //Send messages if SMS permissions are enabled
                   if (result.hasPermission == true) {
                     console.log("Has SMS permissions... sending sms")
-                    this.sendSMS();
+                    //Sends SMS to trusted list
+                    this.sendSMS(list);
                   }
                   //Request for SMS permissions if disabled
                   else {

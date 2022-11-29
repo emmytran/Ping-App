@@ -28,15 +28,15 @@ export class TrustedListsPage implements OnInit {
   }
 
   
-  //Checks SMS permisions for app
+  //Checks Contact permisions for app
   mycheckContactsPermission() {
    this.syncContacts.checkContactsPermission();
   }
    
 
-
+  //Checks SMS permissions for app
   mycheckSMSPermission() {
-    //Checks SMS permissions for app
-    this.mySMS.checkSMSPermission()
+    //Passes the trusted contact list as parameter
+    this.mySMS.checkSMSPermission(this.syncContacts.contacts)
   }
 }

@@ -16,7 +16,7 @@ export class syncContacts {
   setMessage(message) {
     this.message = message;
   }
-
+  //Invokes android permissions for Contacts
   async getContactPermissions(): Promise<void> {
     console.log('button clicked');
     Contacts.getPermissions();
@@ -75,11 +75,13 @@ export class syncContacts {
   }
 
   //Add a contact to trusted list
-  async addTrustList() {
+  async addTrustList(name:string,number:string) {
     //Creates a new Contact
-    var addedName = "Adam Added"
+    //var addedName = "Adam Added"
+    var addedName = name
     var numberType = "mobile"
-    var addedNumber = "5599876543"
+    //var addedNumber = "5599876543"
+    var addedNumber = number
     
     const newPhonenumber: PhoneNumber = {
       label: numberType,
