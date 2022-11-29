@@ -30,4 +30,7 @@ public class MainActivity extends BridgeActivity
 
   private void add(Class<CapacitorSQLite> capacitorSQLiteClass) {
   }
+
+
+
 }
