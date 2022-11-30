@@ -100,7 +100,7 @@ export class HomePage implements OnInit{
 
     let mapOptions = {
       center: latlng,
-      zoom: 5,
+      zoom: 15,
       mapTypdId: google.maps.MapTypeId.ROADMAP
     };
 
