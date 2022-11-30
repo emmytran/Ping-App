@@ -15,7 +15,7 @@ export class AppComponent {
     private loadingCtrl: LoadingController,
     private fcmService: FcmService
   ) {//this.initializeApp();
-  }
+  } 
 
   async initializeApp() {
     this.platform.ready().then(() => {
