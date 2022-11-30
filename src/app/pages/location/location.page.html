@@ -2,13 +2,20 @@
 
   <ion-icon class="arrow" name="chevron-back-outline" [routerLink]="['/home/history']" ></ion-icon>
 
-  <div class="card">
-    <div class="item">
-      <span class="user"><ion-icon name="person-outline"></ion-icon>  Your location</span>
-      <hr>
-       <span class="locate"><ion-icon name="location-outline"></ion-icon>  Person's location</span>
-    </div>
-  </div>
-
+  <ion-button (click)="getCurrentLocation()" expand="block">Get Location</ion-button>  
+  <ion-list>  
+    <ion-list-header>  
+      <ion-label>Location Information</ion-label>  
+    </ion-list-header>  
+    <ion-item>  
+      <ion-label>Latitue</ion-label>  
+      <ion-badge slot="end">{{lati}}</ion-badge>  
+    </ion-item>  
+    <ion-item>  
+      <ion-label>longitude</ion-label>  
+      <ion-badge slot="end">{{longi}}</ion-badge>  
+    </ion-item>  
+  </ion-list>  
 
 </ion-content>
+

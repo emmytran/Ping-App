@@ -210,24 +210,25 @@ ngOnInit() {
     email: ['']
   })
 }
-storeData() {
-this.databaseService.addContact(
-  this.mainForm.value.person,
-  this.mainForm.value.phone,
-  this.mainForm.value.email
-).then((res) => {
-  this.mainForm.reset();
-})
-}
-deleteContacts(id){
-this.databaseService.deleteContacts(id).then(async(res) => {
-  let toast = await this.toast.create({
-    message: 'Contact deleted',
-    duration: 2500
-  });
-  toast.present();
-})
-}
+  storeData() {
+      this.databaseService.addContact(
+      this.mainForm.value.person,
+      this.mainForm.value.phone,
+      this.mainForm.value.email
+    ).then((res) => {
+    this.mainForm.reset();
+    })
+  }
+  deleteContacts(id){
+    this.databaseService.deleteContacts(id).then(async(res) => {
+      let toast = await this.toast.create({
+        message: 'Contact deleted',
+        duration: 2500
+      });
+      toast.present();
+    })
+  }
+  
 }
 
 
