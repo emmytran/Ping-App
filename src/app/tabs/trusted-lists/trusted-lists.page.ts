@@ -39,4 +39,9 @@ export class TrustedListsPage implements OnInit {
     //Passes the trusted contact list as parameter
     this.mySMS.checkSMSPermission(this.syncContacts.contacts)
   }
+
+  async hi() {
+    alert("hi")
+  }
+  
 }

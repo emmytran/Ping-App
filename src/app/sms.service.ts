@@ -12,6 +12,7 @@ import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // No
 export class mySMS {
 //  contacts: Observable<Contact[]>;
   public message: any = "I'm new here";
+
   constructor(private toastController: ToastController, private alertController: AlertController, private sms: SMS , private androidPermissions: AndroidPermissions) {
   }
   setMessage(message) {
@@ -23,7 +24,7 @@ export class mySMS {
     //var message = "Danger"
     var latitude = "34.0522"
     var longitude = "-118.2437"
-    var link = "https://www.google.com/maps/search/?api=1&query=" + latitude + "%2C"+ longitude //Google map url + lat + comman + long
+    var link = "https://www.google.com/maps/search/?api=1&query=" + latitude + "%2C"+ longitude //Google map url + lat + comma   + long
   //  var message = "Hello \n" + "https://www.google.com/maps/search/?api=1&query=47.5951518%2C-122.3316393"
     var message = "Current Location \n" + link
     var trustedNumbers = [];

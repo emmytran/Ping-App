@@ -117,9 +117,9 @@ export class syncContacts {
   }
 
   //Remove a contact
-  async removeTrustList() {
-    var targetName = "Adam Added"
-    var targetNumber = "5599876543"
+  async removeTrustList(targetName:string,targetNumber:string) {
+  //  var targetName = "Adam Added"
+    //var targetNumber = "5599876543"
     var index = 0;
     //Looks for target in trusted list and removes them
     const remove = {
