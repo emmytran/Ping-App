@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
+import '@codetrix-studio/capacitor-google-auth';
+import { Plugins } from '@capacitor/core';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginPage implements OnInit {
   credentials: FormGroup;
+  userInfo = null;
 
   constructor(
     private formbuilder: FormBuilder,
@@ -34,6 +37,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  Login()
+  {
+	this.authservice.Login();
+  }
   async register() {
 		const loading = await this.loadingcontroller.create();
 		await loading.present();
@@ -70,5 +77,11 @@ export class LoginPage implements OnInit {
 		});
 		await alert.present();
 	}
+
+	async googleSignup() {
+		const googleUser = await Plugins.GoogleAuth.signIn(null) as any;
+		console.log('my user: ', googleUser);
+		this.userInfo = googleUser;
+	  }
 
 }

@@ -6,6 +6,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { IonicStorageModule } from '@ionic/storage-angular'
 
 //Plugin
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
@@ -39,6 +40,7 @@ import { FirebaseApp, FIREBASE_OPTIONS } from '@angular/fire/compat';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
+    IonicStorageModule.forRoot(),
     HttpClientModule,
     HomePageModule,
     /*AngularFireModule.initializeApp(environment.firebase),*/

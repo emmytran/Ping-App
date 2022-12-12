@@ -4,12 +4,12 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 import { ToastController } from '@ionic/angular';
 import { Router } from "@angular/router";
 //Push Notification
-/*import{
+import{
   ActionPerformed,
   PushNotificationSchema,
   PushNotifications,
   Token,
-} from '@capacitor/push-notifications';*/
+} from '@capacitor/push-notifications';
 //Geolocation
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, 
@@ -170,7 +170,7 @@ ngOnInit() {
   //Request permission to use push notifications
   //Ios will prompt user and return if they are granted permisson or not
   //Android will just grant permisson without prompting
-  /*PushNotifications.requestPermissions().then(result => {
+  PushNotifications.requestPermissions().then(result => {
     if(result.receive === 'granted') {
       //Register with Apple / Google to recieve push via APNS/FCM
       PushNotifications.register();
@@ -195,7 +195,7 @@ ngOnInit() {
     (notification: ActionPerformed) => {
       alert('Push action performed: ' + JSON.stringify(notification));
     },
-  );*/
+  );
 
   this.databaseService.dbState().subscribe((res) => {
     if(res){

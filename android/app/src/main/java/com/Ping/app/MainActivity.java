@@ -4,7 +4,8 @@ import android.os.Bundle;
 
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
-import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
+//import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
+import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
 
 import java.util.ArrayList;
 
@@ -17,10 +18,11 @@ public class MainActivity extends BridgeActivity
     // Initializes the Bridge
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
       // Additional plugins you've installed go here
-      add(CapacitorSQLite.class);
+      add();
+      add(GoogleAuth.class);
     }
 
-      private void add(Class<CapacitorSQLite> capacitorSQLiteClass) {
+      private void add() {
       }
     });
   }

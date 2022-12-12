@@ -5,6 +5,10 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { FcmService } from './services/fcm.service';
 import { registerWebPlugin } from '@capacitor/core';
 import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
+import { Auth } from '@angular/fire/auth';
+
 
 const { PushNotifications } = Plugins;
 
@@ -18,13 +22,26 @@ export class AppComponent {
     private platform: Platform,
     private databaseService: DatabaseService,
     private loadingCtrl: LoadingController,
-    private fcmService: FcmService
-  ) {//this.initializeApp();
+    private fcmService: FcmService,
+    private authenticationservice: AuthService,
+    private router: Router
+  ) 
+  {
+    this.initializeApp();
   }
 
   initializeApp() {
-    this.platform.ready().then(async () => {
+    this.platform.ready().then(() => {
       this.fcmService.initPush();
+
+      this.authenticationservice.authenticationstate.subscribe(state => {
+        if(state)
+        {
+          this.router.navigate(['profile', 'home']);
+        }else{
+          this.router.navigate(['login']);
+        }
+      })
     });
   }
 }

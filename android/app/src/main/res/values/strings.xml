@@ -4,4 +4,5 @@
     <string name="title_activity_main">PingApp</string>
     <string name="package_name">com.Ping.app</string>
     <string name="custom_url_scheme">com.Ping.app</string>
+    <string name="server_client_id">576852490775-p15kdrp1ml2a8jujanhlvdbm9nt8u3mm.apps.googleusercontent.com.apps.googleusercontent.com</string>
 </resources>

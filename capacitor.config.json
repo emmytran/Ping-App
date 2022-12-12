@@ -13,6 +13,14 @@
       ]
     }
   },
+  "GoogleAuth": {
+    "scopes": [
+      "profile",
+      "email"
+    ],
+    "serverClientId": "576852490775-p15kdrp1ml2a8jujanhlvdbm9nt8u3mm.apps.googleusercontent.com.apps.googleusercontent.com",
+    "forceCodeForRefreshToken": true
+  },
   "cordova": {
     "preferences": {
       "ScrollEnabled": "false",
