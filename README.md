@@ -1,6 +1,13 @@
 # Ping-App
 CSCI 150/Ping App
 
+Contributor
+Emmy Tran - Project Manager
+Kyle Kilcrease - Developer
+Shee Her - Front End / UX / UI
+Brandon Huynh - Back End / Developer
+ELvis Lor - Back End / Developer / Software Tester
+
 DESCRIPTION
 Hello and welcome to our Csci 150 project, the Ping App. 
 The purpose of the app is to as serve as a safty app the send a SOS message.
@@ -47,3 +54,5 @@ If there are error that is still popping up use these command
 
 You can run these in the terminal in the Vs Code IDE.
 
+Here is a link to a presentation of our App.
+https://youtu.be/HFY3pONiHZw
