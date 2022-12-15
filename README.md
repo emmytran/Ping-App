@@ -3,9 +3,13 @@ CSCI 150/Ping App
 
 Contributor
 Emmy Tran - Project Manager
+
 Kyle Kilcrease - Developer
+
 Shee Her - Front End / UX / UI
+
 Brandon Huynh - Back End / Developer
+
 ELvis Lor - Back End / Developer / Software Tester
 
 DESCRIPTION
