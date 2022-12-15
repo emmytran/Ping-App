@@ -46,3 +46,4 @@ If there are error that is still popping up use these command
 --> use npm upgrade then use npm clean cache
 
 You can run these in the terminal in the Vs Code IDE.
+
