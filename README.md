@@ -38,6 +38,8 @@ Push Notification: npm install @capacitor/push-notifications npm install @ionic-
 
 SQL Database: npm install @capacitor-community/sqlite npm install @ionic-native/sqlite @ionic-native/sqlite-porter ionic cordova plugin add cordova-sqlite-storage
 
+cropperjs: npm i cropperjs
+
 If there are error that is still popping up use these command
 --> use force after the above command if there are any error.
       This well solve most or all of the issues.
