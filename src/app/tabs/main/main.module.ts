@@ -9,6 +9,11 @@ import { MainPageRoutingModule } from './main-routing.module';
 import { MainPage } from './main.page';
 import { HoldableDirective } from './holdable.directive';
 
+import { SMS } from '@awesome-cordova-plugins/sms/ngx';
+import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // Notice the '/' at the end
+import { mySMS } from '../../sms.service';
+import { syncContacts } from 'src/app/contacts.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +21,7 @@ import { HoldableDirective } from './holdable.directive';
     IonicModule,
     MainPageRoutingModule
   ],
-  declarations: [MainPage, HoldableDirective]
+  declarations: [MainPage, HoldableDirective],
+  providers: [SMS , AndroidPermissions, mySMS, syncContacts  ]
 })
 export class MainPageModule {}

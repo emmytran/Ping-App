@@ -16,7 +16,7 @@ export class FcmService {
 
   initPush() {
     if (Capacitor.platform !== 'web') {
-      this.registerPush();
+    //  this.registerPush();
     }
   }
 

@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { AddContactsPageRoutingModule } from './add-contacts-routing.module';
 
 import { AddContactsPage } from './add-contacts.page';
+import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // Notice the '/' at the end
+import { syncContacts } from 'src/app/contacts.service';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { AddContactsPage } from './add-contacts.page';
     IonicModule,
     AddContactsPageRoutingModule
   ],
-  declarations: [AddContactsPage]
+  declarations: [AddContactsPage],
+  providers: [AndroidPermissions, syncContacts  ]
 })
 export class AddContactsPageModule {}

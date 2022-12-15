@@ -66,6 +66,8 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+  --ion-tab-bar-color-selected: #5b8783;
+  --ion-tab-bar-color: #aeaeae;
 }
 @media (prefers-color-scheme: light) {
   /*
@@ -1337,6 +1339,16 @@ sub {
 }
 .ion-align-items-baseline {
   align-items: baseline !important;
+}
+.popover-container {
+  --height: auto;
+  --width: auto;
+}
+.hidden-file-input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  display: none;
 }
 
 /*# sourceMappingURL=styles.css.map*/

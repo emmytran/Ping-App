@@ -9,14 +9,15 @@ import { FcmService } from './services/fcm.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(
+  //constructor(
+    /*
     private platform: Platform,
     private databaseService: DatabaseService,
     private loadingCtrl: LoadingController,
     private fcmService: FcmService
-  ) {//this.initializeApp();
+  ) {//this.initializeApp();*/
   } 
-
+/*
   async initializeApp() {
     this.platform.ready().then(() => {
       this.fcmService.initPush();
@@ -24,7 +25,7 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       const loading = await this.loadingCtrl.create();
       await loading.present();
-      this.databaseService.init();
+     // this.databaseService.init();
       this.databaseService.dbReady.subscribe(isReady => {
         if(isReady) {
           loading.dismiss();
@@ -32,4 +33,4 @@ export class AppComponent {
       });
     });
   }
-}
+}*/

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Contact } from '../models/contact.model';
+import { myContact } from '../models/contact.model';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IonItem } from '@ionic/angular';
@@ -8,12 +8,12 @@ import { IonItem } from '@ionic/angular';
   providedIn: 'root'
 })
 export class ContactService {
-  private contactItems$ = new BehaviorSubject<Contact[]>([
+  private contactItems$ = new BehaviorSubject<myContact[]>([
       {
         id: 1,
         firstName: 'First',
         lastName: 'Last',
-        phone: 1234567987,
+        phone: "1234567987",
         image: 'assets/images/person.png',
       },
     ]);

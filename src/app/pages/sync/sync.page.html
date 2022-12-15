@@ -4,7 +4,7 @@
     <h1>Add Contacts to Trusted List</h1>
     <img src="assets/images/people.png">
 
-  <ion-button>SYNC CONTACTS</ion-button>
+  <ion-button (click)="syncContacts.getContactPermissions()">SYNC CONTACTS</ion-button>
  <span>OR</span>
  <ion-button class="other" [routerLink]="['/add-now']">MANUALLY INPUT</ion-button>
  <a href="#" [routerLink]="['/home']">Skip</a>

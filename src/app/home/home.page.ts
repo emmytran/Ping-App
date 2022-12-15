@@ -1,5 +1,5 @@
 import { Component, ElementRef, NgProbeToken, OnInit, ViewChild } from '@angular/core';
-import { DatabaseService } from '../services/database.service';
+//import { DatabaseService } from '../services/database.service';
 //Push Notification
 import{
   ActionPerformed,
@@ -7,6 +7,7 @@ import{
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
+/*
 //Geolocation
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, 
@@ -18,7 +19,7 @@ import { Plugins } from '@capacitor/core';
 const { Geolocation } = Plugins;
 
 declare var google;
-
+*/
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -29,7 +30,10 @@ export class HomePage implements OnInit{
   contacts = [];
   export = null;
   newContacts = 'New Contacts';
-  
+  getdata() {
+    console.log("hi")
+  }
+ /* 
   //Firebase data
   locations: Observable<any>
   locationsCollection: AngularFirestoreCollection<any>;
@@ -41,13 +45,14 @@ export class HomePage implements OnInit{
   isTracking = false;
   watch: string;
   user = null;
-
+*/
   ngOnInit() {
     console.log('Initializing HomePage');
 
     //Request permission to use push notifications
     //Ios will prompt user and return if they are granted permisson or not
     //Android will just grant permisson without prompting
+    /*
     PushNotifications.requestPermissions().then(result => {
       if(result.receive === 'granted') {
         //Register with Apple / Google to recieve push via APNS/FCM
@@ -73,15 +78,16 @@ export class HomePage implements OnInit{
       (notification: ActionPerformed) => {
         alert('Push action performed: ' + JSON.stringify(notification));
       },
-    );
+    );*/
   }
 
-  constructor(private databaseService: DatabaseService, private afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(/*private databaseService: DatabaseService,*/ /*private afAuth: AngularFireAuth, private afs: AngularFirestore*/) {
   //Database setup  
     //this.loadContacts();
     //Geolocation setup
-  this.anonLogin();
+ // this.anonLogin();
   }
+  /*
   loadContacts(){
     this.databaseService.getContactsList().subscribe(res => {
       this.contacts = res.value;
@@ -105,7 +111,7 @@ export class HomePage implements OnInit{
   }
   //Geolocation main setup
   ionViewWillEnter() {
-    this.loadMap();
+   // this.loadMap();
   }
   //Makesure an anonymous login and load data
   anonLogin(){
@@ -143,7 +149,7 @@ export class HomePage implements OnInit{
       mapTypdId: google.maps.MapTypeId.ROADMAP
     };
 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+   // this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
   // Use Capacitor to track our geolocation
 startTracking() {
@@ -200,5 +206,5 @@ updateMap(locations) {
     });
     this.marker.push(marker);
   }
-}
+}*/
 }

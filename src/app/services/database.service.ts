@@ -27,15 +27,15 @@ export class DatabaseService {
   getContactsList: any;
   
   constructor(private http: HttpClient, private alertCrtl: AlertController) { }
-  
+  /*
   async  init() : Promise<void> {
    const infor= await Device.info();
    
    if (infor.platform === "android") {
     try {
       const sqlite = CapacitorSQLite as any;
-      await sqlite.requestPermissons();
-      this.setupDatabase();
+    //  await sqlite.requestPermissons();
+     // this.setupDatabase();
     }catch (e) {
       const alert = await this.alertCrtl.create({
         header: 'No DB access',
@@ -45,10 +45,10 @@ export class DatabaseService {
       await alert.present();
     }
    }else {
-    this.setupDatabase();
+   // this.setupDatabase();
    }
   }
-
+*//*
   private async setupDatabase() {
     const dbSetupDone = await Storage.get({key: DB_SETUP_KEY});
 
@@ -72,5 +72,5 @@ export class DatabaseService {
       }
       this.dbReady.next(true);
     });
-  }
+  }*/
 }

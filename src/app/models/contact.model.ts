@@ -1,10 +1,10 @@
 
 //can be deleted later
-export interface Contact {
+export interface myContact {
     id: number;
     firstName: string;
     lastName: string;
-    phone: number;
+    phone: string;
     image?: string;
   }
   

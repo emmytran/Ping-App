@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { syncContacts } from 'src/app/contacts.service';
 @Component({
   selector: 'app-sync',
   templateUrl: './sync.page.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SyncPage implements OnInit {
 
-  constructor() { }
+  constructor( private syncContacts: syncContacts) { }
 
   ngOnInit() {
   }

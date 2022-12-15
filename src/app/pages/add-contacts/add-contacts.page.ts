@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageCropperComponent } from 'src/app/components/image-cropper/image-cropper.component';
 import { PopoverController } from '@ionic/angular';
+import { syncContacts } from 'src/app/contacts.service';
 
 @Component({
   selector: 'app-add-contacts',
@@ -11,7 +12,7 @@ export class AddContactsPage implements OnInit {
 
   currentPopover: any;
 
-  constructor(private popoverController: PopoverController) { }
+  constructor(private popoverController: PopoverController, private syncContacts: syncContacts) { }
 
   ngOnInit() {
 
@@ -38,5 +39,9 @@ export class AddContactsPage implements OnInit {
         elem.setAttribute('src', data.previewImage.toDataURL());
       })
     }
+  }
+
+  async getSyncContacts() {
+    this.syncContacts.checkContactsPermission();
   }
 }

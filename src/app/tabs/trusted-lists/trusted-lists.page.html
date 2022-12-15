@@ -1,4 +1,6 @@
-<ion-content>
+
+<ion-content >
+  
   <h1>Trusted List</h1>
   <div class="card">
 
@@ -15,16 +17,18 @@
   </ion-item-options>
 </ion-item-sliding>
 </ion-list>
-
-
   </div>
 
-
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/add-contacts']">
+    <ion-fab-button (click)="copyList()">
       <ion-ripple-effect></ion-ripple-effect>
       <ion-icon name="person-add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button [routerLink]="['/add-contacts']">
+      <ion-ripple-effect></ion-ripple-effect>
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

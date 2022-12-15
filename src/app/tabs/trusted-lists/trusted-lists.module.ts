@@ -8,6 +8,8 @@ import { TrustedListsPageRoutingModule } from './trusted-lists-routing.module';
 
 import { TrustedListsPage } from './trusted-lists.page';
 import { ContactCardModule } from 'src/app/components/contact-card/contact-card.module';
+import {AndroidPermissions} from '@ionic-native/android-permissions/ngx/'; // Notice the '/' at the end
+import { syncContacts } from 'src/app/contacts.service';
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import { ContactCardModule } from 'src/app/components/contact-card/contact-card.
     TrustedListsPageRoutingModule,
     ContactCardModule,
   ],
-  declarations: [TrustedListsPage]
+  declarations: [TrustedListsPage],
+  providers: [AndroidPermissions,syncContacts]
 })
 export class TrustedListsPageModule {}
