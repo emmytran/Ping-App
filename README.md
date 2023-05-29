@@ -10,7 +10,7 @@ Shee Her - Front End / UX / UI
 
 Brandon Huynh - Back End / Developer
 
-ELvis Lor - Back End / Developer / Software Tester
+ELvis Lor - Back End / Software Tester
 
 DESCRIPTION
 Hello and welcome to our Csci 150 project, the Ping App. 
