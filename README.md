@@ -8,7 +8,7 @@ Kyle Kilcrease - Developer
 
 Shee Her - Front End / UX / UI
 
-Brandon Huynh - Back End / Developer
+Brandon Huynh - Front End / Developer
 
 ELvis Lor - Back End / Software Tester
 
